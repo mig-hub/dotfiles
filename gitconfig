@@ -1,0 +1,26 @@
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[alias]
+  a = add
+  b = branch -v
+  r = remote -v
+  c = commit -m
+  ca = commit -am
+  ch = checkout
+  chb = checkout -b
+  nb = checkout -b
+  d = diff
+  dc = diff --cached
+  ps = push
+  pl = pull
+  s = status
+  st = status
+  stat = status
+  l = log --graph --date=short
+  short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+  changelog = log --pretty=format:\" * %s\"
+[core]
+	excludesfile = ~/.dotfiles/gitignore

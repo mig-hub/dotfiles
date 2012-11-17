@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+install-dotfile() {
+	if [ -e ~/.$1 ]; then
+		mv ~/.$1 ~/.${1}-backup
+		echo "  --> ~/.$1 was moved to ~/.${1}-backup"
+	fi
+  ln -s ~/.dotfiles/$1 ~/.$1
+}
+
+install-zshrc() {
+  install-dotfile zshrc
+}
+
+install-gitconfig() {
+  install-dotfile gitconfig
+}
+
+install-brew() {
+  ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+}
+
+clean() {
+  echo "  --> Make sure you want to remove these backup files"
+  rm -i ~/.zshrc-backup ~/.gitconfig-backup
+}
+
+try() {
+  echo "tested"
+}
+
+$1
+
