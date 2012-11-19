@@ -16,6 +16,10 @@ fi
 # Bin locations
 export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:$PATH
 
+# opts
+bindkey -v
+setopt autocd
+
 # Completion
 autoload -U compinit && compinit
 zstyle ':completion:*' menu select
