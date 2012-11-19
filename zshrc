@@ -14,7 +14,7 @@ EOF
 fi
 
 # Bin locations
-export PATH=.:~/bin:/usr/local/bin:$PATH
+export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:$PATH
 
 # Completion
 autoload -U compinit && compinit
