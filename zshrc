@@ -31,10 +31,10 @@ PROMPT="%{$fg[cyan]%}-----%{$fg[magenta]%} %~
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 # aliases
-alias -g DN "&>/dev/null"
-alias -g DNA "&>/dev/null &"
-alias -g G "| grep"
-alias -g L "| less"
+alias -g DN="&>/dev/null"
+alias -g DNA="&>/dev/null &"
+alias -g G="| grep"
+alias -g L="| less"
 alias psg='ps aux | grep'
 alias ru='rackup'
 alias gpnm='git push nas master'
