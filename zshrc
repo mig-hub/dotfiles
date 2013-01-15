@@ -40,6 +40,7 @@ alias ru='rackup'
 alias gpnm='git push nas master'
 alias gphm='git push heroku master'
 alias gpgm='git push github master'
+alias cwp='coffeewatch public &>/dev/null &'
 
 # Helper functions
 grepdir() {
@@ -52,6 +53,15 @@ mkcd() {
     echo "\`$1' already exists"
   else
     mkdir $1 && cd $1
+  fi
+}
+coffeewatch() {
+  if [ ! -n "$1" ]; then
+    coffee --compile --watch --output js coffee
+  else
+    cd "$1"
+    coffee --compile --watch --output js coffee
+    cd -
   fi
 }
 
