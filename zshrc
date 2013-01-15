@@ -14,7 +14,7 @@ EOF
 fi
 
 # Bin locations
-export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:$PATH
+export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/share/npm/bin:$PATH
 
 # opts
 bindkey -v
