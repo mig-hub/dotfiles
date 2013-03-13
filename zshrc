@@ -17,7 +17,7 @@ fi
 export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/share/npm/bin:$PATH
 
 # opts
-bindkey -v
+bindkey -e
 setopt autocd
 
 # Completion
