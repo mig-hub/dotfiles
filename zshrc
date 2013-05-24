@@ -24,6 +24,9 @@ setopt autocd
 autoload -U compinit && compinit
 zstyle ':completion:*' menu select
 
+# zmv
+autoload zmv
+
 # Prompt
 autoload -U promptinit && promptinit
 autoload -U colors && colors
