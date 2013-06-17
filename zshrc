@@ -58,6 +58,14 @@ mkcd() {
     mkdir $1 && cd $1
   fi
 }
+reru() {
+  kill %?rackup
+  rackup DNA
+}
+rerufg() {
+  reru
+  fg
+}
 coffeewatch() {
   if [ ! -n "$1" ]; then
     coffee --compile --watch --output js coffee
