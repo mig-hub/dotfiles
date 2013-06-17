@@ -64,6 +64,7 @@ reru() {
 }
 rerufg() {
   reru
+  sleep 1
   fg
 }
 coffeewatch() {
