@@ -40,9 +40,13 @@ alias -g G="| grep"
 alias -g L="| less"
 alias psg='ps aux | grep'
 alias ru='rackup'
+alias g='git'
 alias gpnm='git push nas master'
+alias glnm='git pull nas master'
 alias gphm='git push heroku master'
+alias glhm='git pull heroku master'
 alias gpgm='git push github master'
+alias glgm='git pull github master'
 alias cwp='coffeewatch public &>/dev/null &'
 
 # Helper functions
