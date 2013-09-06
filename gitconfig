@@ -24,3 +24,7 @@
   changelog = log --pretty=format:\" * %s\"
 [core]
 	excludesfile = ~/.dotfiles/gitignore
+  mergeoptions = --no-edit
+[user]
+	name = 
+	email = 
