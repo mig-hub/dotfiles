@@ -17,8 +17,6 @@
   ps = push
   pl = pull
   s = status
-  st = status
-  stat = status
   l = log --graph --date=short
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   changelog = log --pretty=format:\" * %s\"
