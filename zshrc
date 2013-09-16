@@ -14,7 +14,7 @@ EOF
 fi
 
 # Bin locations
-export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
+export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
 
 # opts
 bindkey -e
@@ -48,6 +48,7 @@ alias glhm='git pull heroku master'
 alias gpgm='git push github master'
 alias glgm='git pull github master'
 alias cwp='coffeewatch public &>/dev/null &'
+alias dns='dscacheutil -flushcache'
 
 # Helper functions
 grepdir() {
