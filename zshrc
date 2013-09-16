@@ -30,7 +30,7 @@ autoload zmv
 # Prompt
 autoload -U promptinit && promptinit
 autoload -U colors && colors
-PROMPT="%{$fg[cyan]%}-----%{$fg[magenta]%} %~
+PROMPT="%{$fg[cyan]%}----- %n at %m%{$fg[magenta]%} %~
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 # aliases
