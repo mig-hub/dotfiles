@@ -83,7 +83,7 @@ coffeewatch() {
 }
 
 # RBENV
-if [ -e ~/.rbenv ]; then
+if which rbenv > /dev/null; then
   eval "$(rbenv init -)"
 fi
 
