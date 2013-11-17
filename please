@@ -8,10 +8,6 @@ install-dotfile() {
   ln -s ~/.dotfiles/$1 ~/.$1
 }
 
-install-zshrc() {
-  install-dotfile zshrc
-}
-
 install-gitconfig() {
   install-dotfile gitconfig
 }
@@ -22,11 +18,7 @@ install-brew() {
 
 clean() {
   echo "  --> Make sure you want to remove these backup files"
-  rm -i ~/.zshrc-backup ~/.gitconfig-backup
-}
-
-try() {
-  echo "tested"
+  rm -i ~/.gitconfig-backup
 }
 
 $1

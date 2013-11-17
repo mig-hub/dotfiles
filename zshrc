@@ -1,18 +1,3 @@
-# zshrc-before is mainly for env variables
-ZSH_BEFORE=~/.dotfiles/zshrc-before
-if [ -e $ZSH_BEFORE ]; then
-  source $ZSH_BEFORE
-else
-  cat <<EOF >$ZSH_BEFORE
-# zshrc-before is mainly for env variables
-#
-# export GIT_AUTHOR_NAME='My Name'
-# export GIT_AUTHOR_EMAIL='my@name.com'
-# export GIT_COMMITTER_NAME='My Name'
-# export GIT_COMMITTER_EMAIL='my@name.com'
-EOF
-fi
-
 # Bin locations
 export PATH=.:~/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
 
@@ -48,6 +33,7 @@ alias glhm='git pull heroku master'
 alias gpgm='git push github master'
 alias glgm='git pull github master'
 alias cwp='coffeewatch public &>/dev/null &'
+# aliases for osx
 alias dns='dscacheutil -flushcache'
 
 # Helper functions
@@ -85,13 +71,5 @@ coffeewatch() {
 # RBENV
 if which rbenv > /dev/null; then
   eval "$(rbenv init -)"
-fi
-
-# zshrc-after
-ZSH_AFTER=~/.dotfiles/zshrc-after
-if [ -e $ZSH_AFTER ]; then
-  source $ZSH_AFTER
-else
-  # Todo
 fi
 

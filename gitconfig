@@ -1,8 +1,8 @@
 [color]
-	branch = auto
-	diff = auto
-	interactive = auto
-	status = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
 [alias]
   a = add
   b = branch -v
@@ -21,8 +21,6 @@
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   changelog = log --pretty=format:\" * %s\"
 [core]
-	excludesfile = ~/.dotfiles/gitignore
+  excludesfile = ~/.dotfiles/gitignore
   mergeoptions = --no-edit
-[user]
-	name = 
-	email = 
+
