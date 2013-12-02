@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [[ ! -f ~/.todo ]]; then
+  touch ~/.todo
+fi
+
+if [[ $# -eq 0 ]]; then
+  cat ~/.todo
+elif [[ "$1" == "-h" ]]; then
+  echo "All written on ~/.todo file"
+  echo "Usage:"
+  echo "todo                  (print list of tasks)"
+  echo "todo -l               (same with line numbers)"
+  echo "todo -c               (clears list of tasks)"
+  echo "todo -r               (prompts for a task to be removed)"
+  echo "todo My task to add   (adds a task to the list)"
+elif [[ "$1" == "-l" ]]; then
+  cat -n ~/.todo
+elif [[ "$1" == "-c" ]]; then
+  echo "" > ~/.todo
+elif [[ "$1" == "-r" ]]; then
+  cat -n ~/.todo
+  echo -ne "----------------------------\nType a number to remove: "
+  read NUMBER
+  sed -ie ${NUMBER}d ~/.todo
+else
+  echo "$@" >> ~/.todo
+fi
+
