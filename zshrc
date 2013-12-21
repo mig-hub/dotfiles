@@ -23,6 +23,7 @@ alias -g DN="&>/dev/null"
 alias -g DNA="&>/dev/null &"
 alias -g G="| grep"
 alias -g L="| less"
+alias ls='ls -1GAF'
 alias psg='ps aux | grep'
 alias ru='rackup'
 alias g='git'
