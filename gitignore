@@ -1,13 +1,13 @@
 # OSX
-
 .DS_Store
 
 # Vim
-
 *.swp
 session.vim
 
 # SASS
-
 .sass-cache
+
+# Bundler
+.bundle/
 
