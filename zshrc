@@ -50,6 +50,14 @@ mkcd() {
     mkdir $1 && cd $1
   fi
 }
+dotenv() {
+  if [ ! -f .env ]; then
+    echo "File .env is missing"
+    echo "Usage: dotenv <command-with-arguments>"
+  else
+    eval "$(cat '.env' | perl -pe 's/\n$/ /') $@"
+  fi
+}
 reru() {
   kill %?rackup
   rackup DNA
