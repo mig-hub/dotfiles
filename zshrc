@@ -55,7 +55,7 @@ dotenv() {
     echo "File .env is missing"
     echo "Usage: dotenv <command-with-arguments>"
   else
-    eval "$(cat '.env' | perl -pe 's/\n$/ /') $@"
+    env $(cat .env | egrep -v "^\s*(#|$)" | xargs) "$@"
   fi
 }
 reru() {
