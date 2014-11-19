@@ -21,6 +21,6 @@
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   changelog = log --pretty=format:\" * %s\"
 [core]
-  excludesfile = gitignore
+  excludesfile = ~/.dotfiles/gitignore
   mergeoptions = --no-edit
 
