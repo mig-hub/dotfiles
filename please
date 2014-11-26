@@ -12,28 +12,21 @@ add-zshrc() {
   echo "" >> ~/.zshrc
 }
 
-add-gitvars() {
-  ensure-file ~/.zshrc
-  echo -n "What is your git name? "
-  read yourname
-  echo -n "What is your git email address? "
-  read youremail
-  echo "export GIT_AUTHOR_NAME=\"$yourname\"" >> ~/.zshrc
-  echo "export GIT_AUTHOR_EMAIL=$youremail" >> ~/.zshrc
-  echo 'export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"' >> ~/.zshrc
-  echo 'export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"' >> ~/.zshrc
-  echo "" >> ~/.zshrc
-}
-
 add-gitconfig() {
   ensure-file ~/.gitconfig
   echo "[include]" >> ~/.gitconfig
   echo "  path = ~/.dotfiles/gitconfig" >> ~/.gitconfig
+  echo "[user]" >> ~/.gitconfig
+  echo -n "What is your git name? "
+  read yourname
+  echo "  name = $yourname" >> ~/.gitconfig
+  echo -n "What is your git email address? "
+  read youremail
+  echo "  email = $youremail" >> ~/.gitconfig
   echo "" >> ~/.gitconfig
 }
 
 add-all() {
-  add-gitvars
   add-zshrc
   add-gitconfig
 }
