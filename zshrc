@@ -1,3 +1,5 @@
+export OS=$(uname)
+
 # Bin locations
 export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
 
@@ -19,11 +21,10 @@ PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 # aliases
-alias -g DN="&>/dev/null"
-alias -g DNA="&>/dev/null &"
-alias -g G="| grep"
-alias -g L="| less"
 alias ls='ls -1GAF'
+alias mkdir='mkdir -pv'
+alias du='du -sh'
+alias now='date +"%T"'
 alias psg='ps aux | grep'
 alias ru='rackup'
 alias g='git'
@@ -35,12 +36,18 @@ alias gpgm='git push github master'
 alias glgm='git pull github master'
 alias gpwm='git push web master'
 alias glwm='git pull web master'
-alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
-alias brod='brew outdated'
-alias brug='brew upgrade'
 alias cwp='coffeewatch public &>/dev/null &'
-# aliases for osx
-alias dns='dscacheutil -flushcache'
+alias -g DN="&>/dev/null"
+alias -g DNA="&>/dev/null &"
+alias -g G="| grep"
+alias -g L="| less"
+if [[ $OS == "Darwin" ]]; then
+  alias br='brew'
+  alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
+  alias brod='brew outdated'
+  alias brug='brew upgrade'
+  alias dns='dscacheutil -flushcache'
+fi
 
 # Helper functions
 grepdir() {
