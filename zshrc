@@ -21,10 +21,12 @@ PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 # aliases
-alias ls='ls -1GAF'
+alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
 alias du='du -sh'
-alias now='date +"%T"'
+alias now='date +"%H:%M"'
+alias week='date +%V'
+alias rez='source ~/.zshrc'
 alias psg='ps aux | grep'
 alias ru='rackup'
 alias g='git'
@@ -44,11 +46,18 @@ alias -g DNA="&>/dev/null &"
 alias -g G="| grep"
 alias -g L="| less"
 if [[ $OS == "Darwin" ]]; then
+  alias ls='ls -1AFG'
   alias br='brew'
   alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
   alias brod='brew outdated'
   alias brug='brew upgrade'
-  alias dns='dscacheutil -flushcache'
+  alias dns='dscacheutil -flushcache  && killall -HUP mDNSResponder'
+  alias et='osascript -e "tell application \"Finder\" to empty trash"'
+  alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+  alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+  alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+  alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+  alias softup='sudo softwareupdate -i -a'
 fi
 
 # Helper functions
