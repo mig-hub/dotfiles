@@ -51,6 +51,20 @@ coffeewatch() {
     cd -
   fi
 }
+ru() {
+  kill %?rackup &>/dev/null
+  if [[ "$1" != "-k" ]]; then
+    cmd="bundle exec rackup"
+    if [ -f .env ]; then
+      cmd="dotenv $cmd"
+    fi
+    if [[ "$1" == "-b" ]]; then
+      cmd="$cmd &>/dev/null &"
+    fi
+    eval $cmd
+    fg %?vim &>/dev/null
+  fi
+}
 
 # aliases
 alias ls='ls -1AF --color'
@@ -60,7 +74,8 @@ alias now='date +"%H:%M"'
 alias week='date +%V'
 alias src='source ~/.zshrc'
 alias psg='ps aux | grep'
-alias ru='rackup'
+alias rub='ru -b'
+alias ruk='ru -k'
 alias g='git'
 alias gpnm='git push nas master'
 alias glnm='git pull nas master'
