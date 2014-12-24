@@ -34,6 +34,10 @@ mkcd() {
     mkdir $1 && cd $1
   fi
 }
+ddg() {
+  search=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$*")
+  w3m "duckduckgo.com?q=$search"
+}
 dotenv() {
   if [ ! -f .env ]; then
     echo "File .env is missing"
