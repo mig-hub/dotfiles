@@ -1,0 +1,116 @@
+#!/usr/bin/env ruby
+# Fast Mail or Fuck Mail?
+# Depends on the mood
+
+require 'optparse'
+
+o = {
+  config: File.expand_path('~/.fmail'),
+  account: 'main',
+  subject: '',
+  cc: [],
+  bcc: [],
+  markdown: false,
+  input: STDIN
+}
+
+OptionParser.new do |opts|
+  opts.banner = 'Usage: fmail recipent1 recipient2 ... [options] < stdin'
+  opts.on('-C','--config FILE','File to use instead of ~/.fmail') do |config|
+    o[:config] = config
+  end
+  opts.on('-a','--account NAME','Account to use instead of main') do |account|
+    o[:account] = account
+  end
+  opts.on('-s','--subject STRING','Subject of the email') do |subject|
+    o[:subject] = subject
+  end
+  opts.on('-c','--cc RECIPIENT','Address to CC') do |cc|
+    o[:cc] << cc
+  end
+  opts.on('-b','--bcc RECIPIENT','Address to BCC') do |bcc|
+    o[:bcc] << bcc
+  end
+  opts.on('-i','--input FILE','File to read message from instead of stdin') do |input|
+    o[:input] = File.new(input)
+  end
+  opts.on('-m','--markdown','Send a HTML email generated from a markdown message') do
+    o[:markdown] = true
+  end
+  opts.on_tail('-h','--help','Show this message') do
+    puts opts
+    exit
+  end
+end.parse!
+
+def show_config_example
+  puts "main:"
+  puts "  address: smtp.example.com"
+  puts "  port: 587"
+  puts "  user_name: me@example.com"
+  puts "  password: 1234"
+  puts "  from: Me <me@example.com>"
+  puts "work:"
+  puts "  address: smtp.example.com"
+  puts "  port: 587"
+  puts "  user_name: me@example.com"
+  puts "  password: 1234"
+  puts "  from: Me <me@example.com>"
+end
+
+unless File.exist?(o[:config])
+  puts "Missing configuration file: #{o[:config]}"
+  puts "It should be a YAML file with the following format."
+  puts "Settings for each server are Mail gem settings plus extras like :from."
+  puts
+  show_config_example
+  puts
+  exit(false) 
+end
+
+require 'yaml'
+config = YAML.load_file o[:config]
+smtp = config[o[:account]].inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+from = smtp.delete(:from)
+
+require 'mail'
+
+Mail.defaults do
+  delivery_method :smtp, smtp
+end
+
+
+mail = Mail.new
+mail.from from
+mail.to ARGV
+mail.cc(o[:cc]) unless o[:cc].empty?
+mail.bcc(o[:bcc]) unless o[:bcc].empty?
+mail.subject o[:subject]
+
+raw_body = o[:input].read
+
+if o[:markdown]
+
+  require 'redcarpet'
+
+  MD = Redcarpet::Markdown.new(
+    Redcarpet::Render::HTML.new(:hard_wrap => true),
+    :autolink => true,
+    :no_intra_emphasis=>true,
+    :space_after_headers => true
+  )
+
+  mail.text_part do
+    body raw_body
+  end
+  mail.html_part do
+    html_body = "<html><body>#{MD.render(raw_body)}</body></html>"
+    body html_body
+  end
+
+else
+  mail.body raw_body
+end
+
+mail.deliver!
+
