@@ -36,7 +36,7 @@ mkcd() {
 }
 ddg() {
   search=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$*")
-  w3m "duckduckgo.com?q=$search"
+  w3m "https://duckduckgo.com?q=$search"
 }
 dotenv() {
   if [ ! -f .env ]; then
@@ -57,6 +57,7 @@ coffeewatch() {
 }
 ru() {
   kill %?rackup &>/dev/null
+  wait
   if [[ "$1" != "-k" ]]; then
     cmd="bundle exec rackup"
     if [ -f .env ]; then
