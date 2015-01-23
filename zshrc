@@ -73,7 +73,8 @@ ru() {
 
 slurp() {
   if [[ $# == 2 ]]; then
-    mydirname="~/slurped/${1:t}"
+    cd ~
+    mydirname="slurped/${1:t}"
     mkdir -p "$mydirname"
     cd "$mydirname"
     curl -s "$1" | egrep -oi "href=.[^'\"]+" | egrep -o "[^'\"]+\.$2" | while read line; do curl -O "${1}${line}"; done
