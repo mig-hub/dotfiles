@@ -67,7 +67,9 @@ ru() {
       cmd="$cmd &>/dev/null &"
     fi
     eval $cmd
-    fg %?vim &>/dev/null
+    if [[ "$1" == "-b" ]]; then
+      fg %?vim &>/dev/null
+    fi
   fi
 }
 
