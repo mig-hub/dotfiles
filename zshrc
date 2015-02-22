@@ -34,8 +34,26 @@ mkcd() {
     mkdir $1 && cd $1
   fi
 }
+up() {
+  # shamelessly stolen from @chneukirchen
+  local op=print
+  [[ -t 1 ]] && op=cd
+  case "$1" in
+    '') up 1;;
+    -*|+*) $op ~$1;;
+    <->) $op $(printf '../%.0s' {1..$1});;
+    *) local -a seg; seg=(${(s:/:)PWD%/*})
+       local n=${(j:/:)seg[1,(I)$1*]}
+       if [[ -n $n ]]; then
+         $op /$n
+       else
+         print -u2 up: could not find prefix $1 in $PWD
+         return 1
+       fi
+  esac
+}
 ddg() {
-  search=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$*")
+  local search=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$*")
   w3m "https://duckduckgo.com?q=$search"
 }
 dotenv() {
@@ -59,7 +77,7 @@ ru() {
   kill %?rackup &>/dev/null
   wait
   if [[ "$1" != "-k" ]]; then
-    cmd="bundle exec rackup"
+    local cmd="bundle exec rackup"
     if [ -f .env ]; then
       cmd="dotenv $cmd"
     fi
@@ -76,7 +94,7 @@ ru() {
 slurp() {
   if [[ $# == 2 ]]; then
     cd ~
-    mydirname="slurped/${1:t}"
+    local mydirname="slurped/${1:t}"
     mkdir -p "$mydirname"
     cd "$mydirname"
     curl -s "$1" | egrep -oi "href=.[^'\"]+" | egrep -o "[^'\"]+\.$2" | while read line; do curl -O "${1}${line}"; done
