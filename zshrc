@@ -136,6 +136,7 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias brod='brew outdated'
   alias brug='brew upgrade'
   alias dns='dscacheutil -flushcache  && killall -HUP mDNSResponder'
+  alias whisper='say -v "Whisper"'
   alias et='osascript -e "tell application \"Finder\" to empty trash"'
   alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
   alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
