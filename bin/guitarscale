@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+major = "@ - @ - @ @ - @ - @ - @ "
+penta = "@ - @ - @ - - @ - @ - - "
+grid = penta
+length = 4
+strings = 4
+offset = 5
+
+strings.times do
+  length.times do
+    print grid
+  end
+  grid = grid.slice(offset*2..-1)+grid.slice(0...offset*2)
+  print "\n"
+end
+
