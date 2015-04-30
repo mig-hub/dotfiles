@@ -137,6 +137,7 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
   alias brod='brew outdated'
   alias brug='brew upgrade'
+  alias brugall='brew upgrade --all'
   alias dns='dscacheutil -flushcache  && killall -HUP mDNSResponder'
   alias whisper='say -v "Whisper"'
   alias et='osascript -e "tell application \"Finder\" to empty trash"'
