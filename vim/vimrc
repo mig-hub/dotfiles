@@ -1,0 +1,132 @@
+" Indentation
+set autoindent
+set smartindent
+set shiftwidth=2
+set tabstop=2
+set expandtab
+augroup TabExceptions
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+augroup END
+let g:rust_recommended_style = 0
+
+" Search options
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" No backup or swap files
+set nobackup
+set noswapfile
+
+" Misc
+set number
+set relativenumber
+set ruler
+set colorcolumn=81
+set guifont=Monaco:h24
+set backspace=indent,eol,start
+set nofoldenable
+let g:vim_markdown_folding_disabled=1
+
+" Mappings
+
+" Autoclosings
+inoremap '' ''<Left>
+inoremap "" ""<Left>
+inoremap [] []<Left>
+inoremap [<CR> [<CR>]<Esc>O
+inoremap [' ['']<Left><Left>
+inoremap [: [:]<Left>
+inoremap {} {}<Left>
+inoremap {<CR> {<CR>}<Esc>O
+inoremap () ()<Left>
+inoremap (<CR> (<CR>)<Esc>O
+inoremap <> <><Left>
+inoremap </ </><Left>
+inoremap `` ``<Left>
+inoremap ``` ```
+inoremap ```<CR> ```<CR>```<Esc>O
+inoremap // //<Left>
+inoremap //<Space> //<Space>
+inoremap /* /**/<Left><Left>
+inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
+inoremap /*<CR> /*<CR>*/<Esc>O
+" Quick save
+noremap <C-[><C-[> :w<CR>
+inoremap <C-[><C-[> <Esc>:w<CR>
+" Quickly edit vimrc
+nnoremap <leader>ev :tabe $MYVIMRC<CR>
+" Quick escape and save
+inoremap jk <Esc>:w<CR>
+" Easier start/end of line
+nnoremap gh ^
+nnoremap gl $
+" Visual up/down
+nnoremap j gj
+nnoremap k gk
+" Indenting
+vnoremap < <gv
+vnoremap > >gv
+vnoremap <C-h> <gv
+vnoremap <C-l> >gv
+nnoremap <C-h><C-h> <<
+nnoremap <C-l><C-l> >>
+" Move up/down faster
+nnoremap <C-j> 5jzz
+nnoremap <C-k> 5kzz
+" Select all
+nnoremap <leader>a ggVG
+" Quick colon
+nnoremap <Space> :
+vnoremap <Space> :
+" Add empty lines
+nnoremap <Leader><CR> o<Esc>k
+" Break line
+nnoremap <CR> i<CR><Esc>k$
+nnoremap s ^f{%i<CR><Esc>k^f{wi<CR><Esc>^
+" Use paste board
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+" Previous tab
+nnoremap gr gT
+" RSpec
+map <Leader>rr :call RunCurrentSpecFile()<CR>
+map <Leader>rc :call RunNearestSpec()<CR>
+map <Leader>rn :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
+map <Leader>ra :call RunAllSpecs()<CR>
+
+let g:rspec_command = "!clear && echo bundle exec rspec {spec} && bundle exec rspec {spec}"
+
+" load matchit
+runtime macros/matchit.vim
+
+" Filetypes
+filetype plugin indent on
+augroup RecognizeFiles
+  autocmd!
+  autocmd BufRead,BufNewFile *.ru set filetype=ruby
+  autocmd BufRead,BufNewFile Gemfile set filetype=ruby
+  autocmd BufRead,BufNewFile *.json set filetype=javascript
+augroup END
+
+augroup Misc
+  autocmd!
+  " automatically reload vimrc when it's saved
+  autocmd BufWritePost .vimrc so %
+augroup END
+
+" Init Pathogen for plugins
+call pathogen#infect()
+
+" Syntax color
+syntax on
+set background=dark
+colorscheme solarized
+
+" Change cursor on insert mode for iTerm
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+

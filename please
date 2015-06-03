@@ -7,12 +7,14 @@ ensure-file() {
 }
 
 add-zshrc() {
+  echo "Sourcing zshrc in ~/.zshrc ..."
   ensure-file ~/.zshrc
   echo "source ~/.dotfiles/zshrc" >> ~/.zshrc
   echo "" >> ~/.zshrc
 }
 
 add-gitconfig() {
+  echo "Including gitconfig in ~/.gitconfig ..."
   ensure-file ~/.gitconfig
   echo "[include]" >> ~/.gitconfig
   echo "  path = ~/.dotfiles/gitconfig" >> ~/.gitconfig
@@ -26,9 +28,19 @@ add-gitconfig() {
   echo "" >> ~/.gitconfig
 }
 
+add-vimrc() {
+  echo "Symlinking vim directory to ~/.vim ..."
+  if [[ ! -d ~/.vim ]]; then
+    ln -s ~/.dotfiles/vim ~/.vim
+  else
+    echo "/!\\  ~/.vim already exists"
+  fi
+}
+
 add-all() {
   add-zshrc
   add-gitconfig
+  add-vimrc
 }
 
 install-brew() {
