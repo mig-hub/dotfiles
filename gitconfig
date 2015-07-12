@@ -17,6 +17,7 @@
   ps = push
   pl = pull
   s = status
+  sm = submodule
   l = log --graph --date=short
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   changelog = log --pretty=format:\" * %s\"
