@@ -105,6 +105,25 @@ slurp() {
   fi
 }
 
+# Git / delete local or remote branch
+gbd() {
+  if [[ $# == 0 ]] || [[ $1 == '-h' ]]; then
+    echo 'Git branch delete'
+    echo 'Usage local:  gbd <LOCAL_BRANCH>'
+    echo 'Usage remote: gbd <REMOTE/$BRANCH>'
+    return 0
+  fi
+  local remote=${1:h}
+  local branch=${1:t}
+  if [[ $remote == '.' ]]; then
+    echo "git branch -d $branch"
+    git branch -d "$branch"
+  else
+    echo "git push $remote :$branch"
+    git push "$remote" ":$branch"
+  fi
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
@@ -134,6 +153,8 @@ alias gpgm='git push github master'
 alias glgm='git pull github master'
 alias gpwm='git push web master'
 alias glwm='git pull web master'
+alias gpom='git push origin master'
+alias glom='git pull origin master'
 alias cwp='coffeewatch public &>/dev/null &'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ipconfig getifaddr'
