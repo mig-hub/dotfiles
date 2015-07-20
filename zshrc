@@ -139,7 +139,6 @@ alias bun='bundle'
 alias bi='bundle install'
 alias be='bundle exec'
 alias hk='heroku'
-alias vimit='vim !$'
 alias g='git'
 alias gst='git status' # gs is ghostscript
 alias gsm='git submodule'
