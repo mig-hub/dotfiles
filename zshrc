@@ -124,6 +124,11 @@ gbd() {
   fi
 }
 
+# Run minitest
+mt() {
+  eval "ruby -Ilib -Ispec spec/${1:=*}_spec.rb"
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
