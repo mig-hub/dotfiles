@@ -126,7 +126,11 @@ gbd() {
 
 # Run minitest
 mt() {
-  eval "ruby -Ilib -Ispec spec/${1:=*}_spec.rb"
+  local testdir='test'
+  if [ -d './spec' ]; then
+    testdir='spec'
+  fi
+  eval "ruby -Ilib -I${testdir} ${testdir}/${1:=*}_${testdir}.rb --pride"
 }
 
 # aliases
