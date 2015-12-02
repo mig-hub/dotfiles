@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
+
 scales = {
-  major:         "@ - @ - @ @ - @ - @ - @ ",
+  major:         "1 - 2 - 3 4 - 5 - 6 - 7 ",
   minor:         "@ - @ @ - @ - @ @ - @ - ",
   dorian:        "@ - @ @ - @ - @ - @ @ - ",
   penta:         "@ - - @ - @ - @ - - @ - ",
@@ -8,12 +9,14 @@ scales = {
   pentaminor:    "@ - - @ - @ - @ - - @ - ",
   pentadorian:   "@ - @ - - @ - @ - - @ - ",
 }
+
 defaults = {
   grid: :penta,
-  length: 4,
+  length: 3,
   strings: 4,
-  offset: 5,
+  offset: 7, # basically tuning (7th fret means tuned in 5th)
 }
+
 o = defaults.merge(
   Hash[
     ARGV.map do |a| 
@@ -30,13 +33,13 @@ o = defaults.merge(
   ]
 )
 
-grid = scales[o[:grid].to_sym]
+grid = scales[o[:grid].to_sym] * o[:length]
 
-o[:strings].times do
-  o[:length].times do
-    print grid
-  end
-  grid = grid.slice(o[:offset]*2..-1)+grid.slice(0...o[:offset]*2)
-  print "\n"
+top_to_bottom = (0...o[:strings]).inject([]) do |strings,n|
+  char_offset = (n * o[:offset] * 2) % 24
+  string = grid.slice(char_offset..-1)+grid.slice(0...char_offset)
+  strings + [string]
 end
+
+puts top_to_bottom.reverse.join("\n")
 
