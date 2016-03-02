@@ -14,4 +14,5 @@ session.vim
 
 # Misc
 .env
+.private
 
