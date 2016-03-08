@@ -1,4 +1,6 @@
 export EDITOR=vim
+export VISUAL=vim
+export PAGER=less
 
 # Bin locations
 export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
