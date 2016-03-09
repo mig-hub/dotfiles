@@ -135,6 +135,54 @@ mt() {
   eval "ruby -Ilib -I${testdir} ${testdir}/${1:=*}_${testdir}.rb --pride"
 }
 
+nav() {
+  local finished='n'
+  local listing
+  local let index=1
+  while [[ "$finished" == 'n' ]]; do
+    clear
+    listing=(*)
+    if [[ $index -lt 1 ]]; then
+      index=1
+    fi
+    if [[ $index -gt $#listing ]]; then
+      index=$#listing
+    fi
+    for line in ${listing:$index-1:$LINES}; do
+      if [[ $line == $listing[$index] ]]; then
+        printf "$bg[black]"
+      fi
+      if [[ -d $line ]]; then
+        printf "$fg[blue]"
+      fi
+      echo "$line$reset_color"
+    done
+    read -sk1 k
+    case "$k" in
+      h)
+        cd ..
+        index=1
+        ;;
+      j)
+        let "index++"
+        ;;
+      k)
+        let "index--"
+        ;;
+      q)
+        finished='y'
+        ;;
+      l)
+        cd $listing[$index]
+        index=1
+        ;;
+      *)
+        echo '?'
+        ;;
+    esac
+  done
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
