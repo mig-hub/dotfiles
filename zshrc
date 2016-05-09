@@ -23,12 +23,15 @@ PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 # Helper functions
+
 isbin() {
   which "$1" > /dev/null
 }
+
 grepdir() {
   grep "$1" * --color -rni
 }
+
 mkcd() {
   if [ ! -n "$1" ]; then
     echo "Enter a directory name"
@@ -38,6 +41,7 @@ mkcd() {
     mkdir $1 && cd $1
   fi
 }
+
 up() {
   # shamelessly stolen from @chneukirchen
   local op=print
@@ -56,10 +60,12 @@ up() {
        fi
   esac
 }
+
 ddg() {
   local search=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$*")
   w3m "https://duckduckgo.com?q=$search"
 }
+
 dotenv() {
   if [ ! -f .env ]; then
     echo "File .env is missing"
@@ -68,6 +74,7 @@ dotenv() {
     env $(cat .env | grep "^[^#]*=.*" | xargs) "$@"
   fi
 }
+
 coffeewatch() {
   if [ ! -n "$1" ]; then
     coffee --compile --watch --output js coffee
@@ -77,6 +84,7 @@ coffeewatch() {
     cd -
   fi
 }
+
 ru() {
   kill %?rackup &>/dev/null
   wait
