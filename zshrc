@@ -75,6 +75,10 @@ dotenv() {
   fi
 }
 
+serve-here() {
+  python -m SimpleHTTPServer $@
+}
+
 coffeewatch() {
   if [ ! -n "$1" ]; then
     coffee --compile --watch --output js coffee
