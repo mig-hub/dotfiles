@@ -19,7 +19,10 @@ autoload zmv
 # Prompt
 autoload -U promptinit && promptinit
 autoload -U colors && colors
-PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~%(1j. %{$fg[red]%}%j.)
+parse_git_branch() {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~ $(parse_git_branch)%(1j. %{$fg[red]%}%j.)
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 # Helper functions
