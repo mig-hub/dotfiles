@@ -19,11 +19,13 @@ autoload zmv
 # Prompt
 autoload -U promptinit && promptinit
 autoload -U colors && colors
-parse_git_branch() {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~ $(parse_git_branch)%(1j. %{$fg[red]%}%j.)
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~ ${vcs_info_msg_0_}%(1j. %{$fg[red]%}%j.)
 %{$fg[cyan]%}\\ %{$reset_color%}"
+zstyle ':vcs_info:git:*' formats '%b'
 
 # Helper functions
 
