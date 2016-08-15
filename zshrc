@@ -27,6 +27,11 @@ PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %
 %{$fg[cyan]%}\\ %{$reset_color%}"
 zstyle ':vcs_info:git:*' formats '%b'
 
+precmd() {
+  # sets the tab title to current dir
+  echo -ne "\e]1;${PWD##*/}\a"
+}
+
 # Helper functions
 
 isbin() {
