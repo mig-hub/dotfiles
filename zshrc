@@ -19,17 +19,15 @@ autoload zmv
 # Prompt
 autoload -U promptinit && promptinit
 autoload -U colors && colors
+autoload -U add-zsh-hook
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~ ${vcs_info_msg_0_}%(1j. %{$fg[red]%}%j.)
-%{$fg[cyan]%}\\ %{$reset_color%}"
 zstyle ':vcs_info:git:*' formats '%b'
-
 precmd() {
-  # sets the tab title to current dir
-  echo -ne "\e]1;${PWD##*/}\a"
+  echo -ne "\e]1;${PWD##*/}\a" # sets the tab title to current dir
+  vcs_info # Sets vcs info for git branch in a var
+  setopt PROMPT_SUBST
+  PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~ %{$fg[cyan]%}${vcs_info_msg_0_}%(1j. %{$fg[red]%}%j.)
+%{$fg[cyan]%}\\ %{$reset_color%}"
 }
 
 # Helper functions
