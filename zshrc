@@ -71,8 +71,12 @@ up() {
   esac
 }
 
+uri-escape() {
+  ruby -e 'require "uri"; print URI.encode_www_form_component(ARGV[0])' "$*"
+}
+
 ddg() {
-  local search=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$*")
+  local search=$(uri-escape "$*")
   w3m "https://duckduckgo.com?q=$search"
 }
 
