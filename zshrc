@@ -155,6 +155,14 @@ mt() {
   eval "bundle exec ruby -Ilib:test -e \"ARGV.reject{|f| f.match(/^-/)}.each{|f| require f.sub('test/','').sub('.rb','')}\" test/test_${1:=*}.rb --pride"
 }
 
+# Quick zip
+z() {
+  zip -r -X "$1.zip" "$1"
+}
+bz() {
+  tar -jcvf "$1.tar.bz2" "$1"
+}
+
 nav() {
   local finished='n'
   local listing
