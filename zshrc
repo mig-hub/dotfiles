@@ -152,11 +152,7 @@ gbd() {
 
 # Run minitest
 mt() {
-  local testdir='test'
-  if [ -d './spec' ]; then
-    testdir='spec'
-  fi
-  eval "ruby -Ilib -I${testdir} ${testdir}/${1:=*}_${testdir}.rb --pride"
+  eval "bundle exec ruby -Ilib:test -e \"ARGV.reject{|f| f.match(/^-/)}.each{|f| require f.sub('test/','').sub('.rb','')}\" test/test_${1:=*}.rb --pride"
 }
 
 nav() {
