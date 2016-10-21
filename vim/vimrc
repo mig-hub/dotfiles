@@ -15,6 +15,8 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
+set path+=**
+set wildmenu
 
 " No backup or swap files
 set nobackup
@@ -53,16 +55,13 @@ inoremap //<Space> //<Space>
 inoremap /* /**/<Left><Left>
 inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
 inoremap /*<CR> /*<CR>*/<Esc>O
-" Quick save
+" " Quick save
 noremap <C-[><C-[> :w<CR>
 inoremap <C-[><C-[> <Esc>:w<CR>
 " Quickly edit vimrc
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
 " Quick escape and save
 inoremap jk <Esc>:w<CR>
-" Easier start/end of line
-nnoremap gh ^
-nnoremap gl $
 " Visual up/down
 nnoremap j gj
 nnoremap k gk
@@ -91,14 +90,6 @@ nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
 " Previous tab
 nnoremap gr gT
-" RSpec
-map <Leader>rr :call RunCurrentSpecFile()<CR>
-map <Leader>rc :call RunNearestSpec()<CR>
-map <Leader>rn :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
-map <Leader>ra :call RunAllSpecs()<CR>
-
-let g:rspec_command = "!clear && echo bundle exec rspec {spec} && bundle exec rspec {spec}"
 
 " Netrw
 let g:netrw_sort_options="i"
