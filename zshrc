@@ -37,7 +37,12 @@ isbin() {
 }
 
 grepdir() {
-  grep "$1" * --color -rni
+  if [[ $# == 0 ]]; then
+    echo "Usage: grepdir <query>"
+    echo "Usage: grepdir <query> .<ext>"
+  else
+    grep "$1" **/*${2} --color -rni
+  fi
 }
 
 mkcd() {
