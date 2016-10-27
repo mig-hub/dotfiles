@@ -16,7 +16,7 @@
   dc = diff --cached
   ps = push
   pl = pull
-  s = status
+  s = status -sb
   sm = submodule
   l = log --graph --date=short
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
