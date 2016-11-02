@@ -41,7 +41,7 @@ grepdir() {
     echo "Usage: grepdir <query>"
     echo "Usage: grepdir <query> .<ext>"
   else
-    grep "$1" **/*${2} --color -rni
+    grep "$1" **/*${2}(.) --color -rni
   fi
 }
 
