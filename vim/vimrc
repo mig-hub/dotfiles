@@ -30,6 +30,8 @@ set colorcolumn=81
 set guifont=Monaco:h24
 set backspace=indent,eol,start
 set nofoldenable
+set laststatus=2
+set statusline=%.30F\ %y%=%l/%L
 let g:vim_markdown_folding_disabled=1
 
 " Mappings
