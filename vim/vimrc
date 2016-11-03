@@ -24,7 +24,6 @@ set noswapfile
 
 " Misc
 set number
-set relativenumber
 set ruler
 set colorcolumn=81
 set guifont=Monaco:h24
