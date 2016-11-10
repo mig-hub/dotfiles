@@ -57,9 +57,11 @@ inoremap /* /**/<Left><Left>
 inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
 inoremap /*<CR> /*<CR>*/<Esc>O
 inoremap <C-l> <Right>
-" Quick save
-noremap <C-[><C-[> :w<CR>
-inoremap <C-[><C-[> <Esc>:w<CR>
+" Save automatically
+nnoremap <Esc> :w<CR>
+inoremap <Esc> <Esc>:w<CR>
+vnoremap <Esc> <Esc>:w<CR>
+set timeoutlen=1000 ttimeoutlen=0
 " Quickly edit vimrc
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
 " Quick escape and save
@@ -92,6 +94,8 @@ nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
 " Previous tab
 nnoremap gr gT
+" Search with magic on
+nnoremap / /\v
 
 " Netrw
 let g:netrw_sort_options="i"
