@@ -51,21 +51,16 @@ inoremap </ </><Left>
 inoremap `` ``<Left>
 inoremap ``` ```
 inoremap ```<CR> ```<CR>```<Esc>O
-inoremap // //<Left>
-inoremap //<Space> //<Space>
 inoremap /* /**/<Left><Left>
 inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
 inoremap /*<CR> /*<CR>*/<Esc>O
 inoremap <C-l> <Right>
-" Save automatically
-nnoremap <Esc> :w<CR>
-inoremap <Esc> <Esc>:w<CR>
-vnoremap <Esc> <Esc>:w<CR>
+" Save
+nnoremap ss :w<CR>
+inoremap jk <Esc>:w<CR>
 set timeoutlen=1000 ttimeoutlen=0
 " Quickly edit vimrc
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
-" Quick escape and save
-inoremap jk <Esc>:w<CR>
 " Visual up/down
 nnoremap j gj
 nnoremap k gk
@@ -96,6 +91,8 @@ nnoremap <Leader>P "+P
 nnoremap gr gT
 " Search with magic on
 nnoremap / /\v
+" Center when searching
+nnoremap n nzz
 
 " Netrw
 let g:netrw_sort_options="i"
