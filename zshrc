@@ -244,6 +244,7 @@ alias md='redcarpet --parse autolink --parse tables --parse space_after_headers 
 alias cwp='coffeewatch public &>/dev/null &'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ipconfig getifaddr'
+alias speed='speedtest-cli'
 alias -g DN="&>/dev/null"
 alias -g DNA="&>/dev/null &"
 alias -g G="| grep"
