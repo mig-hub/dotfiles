@@ -61,3 +61,6 @@
 [submodule "vim/bundle/vim-elixir"]
 	path = vim/bundle/vim-elixir
 	url = https://github.com/elixir-lang/vim-elixir.git
+[submodule "vim/bundle/vim-crystal"]
+	path = vim/bundle/vim-crystal
+	url = https://github.com/rhysd/vim-crystal.git
