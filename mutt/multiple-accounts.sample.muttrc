@@ -1,0 +1,11 @@
+# Folder hooks
+folder-hook 'account.com.gmail.foo' 'source ~/.mutt/com.gmail.foo.muttrc'
+folder-hook 'account.com.gmail.bar' 'source ~/.mutt/com.gmail.bar.muttrc'
+
+# Default account
+source ~/.mutt/com.gmail.foo.muttrc         
+
+# Macros for switching accounts
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.foo.muttrc<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/com.gmail.bar.muttrc<enter><change-folder>!<enter>'
+

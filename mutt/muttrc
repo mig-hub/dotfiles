@@ -1,0 +1,3 @@
+# Fetch mail shortcut
+bind index G imap-fetch-mail
+
