@@ -168,6 +168,16 @@ bz() {
   tar -jcvf "$1.tar.bz2" "$1"
 }
 
+# Web images
+webconvert() {
+  if [[ $# != 4 ]]; then
+    echo "Usage: webconvert <original-image> <size> <max-filesize> <final-image>"
+    echo "Usage: webconvert big.jpg 500x 300kb web.jpg"
+  else
+    convert "$1" -colorspace RGB -resize "$2" -define jpeg:extent=$3 "$4" 
+  fi
+}
+
 nav() {
   local finished='n'
   local listing
