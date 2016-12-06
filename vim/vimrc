@@ -33,6 +33,10 @@ set laststatus=2
 set statusline=%.30F\ %y%=%l/%L
 let g:vim_markdown_folding_disabled=1
 
+" Digraph
+set digraph
+inoremap <C-k><C-k> <Esc>:help digraph-table<CR>
+
 " Mappings
 
 " Autoclosings
@@ -57,13 +61,16 @@ inoremap /*<CR> /*<CR>*/<Esc>O
 inoremap <C-l> <Right>
 " Save
 nnoremap ss :w<CR>
+vnoremap ss <Esc>:w<CR>
 inoremap jk <Esc>:w<CR>
 set timeoutlen=1000 ttimeoutlen=0
 " Quickly edit vimrc
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
 " Visual up/down
-nnoremap j gj
-nnoremap k gk
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
 " Indenting
 vnoremap < <gv
 vnoremap > >gv
@@ -71,6 +78,8 @@ vnoremap <C-h> <gv
 vnoremap <C-l> >gv
 nnoremap <C-h><C-h> <<
 nnoremap <C-l><C-l> >>
+" Select line without indentation
+nnoremap vv ^vg_
 " Move up/down faster
 nnoremap <C-j> 5jzz
 nnoremap <C-k> 5kzz
@@ -93,6 +102,10 @@ nnoremap gr gT
 nnoremap / /\v
 " Center when searching
 nnoremap n nzz
+" Change dashes to underscores on current word
+inoremap <C-t> <esc>viW:s/-/_/g<CR>gv<esc>a
+" Make current word uppercase (for constants)
+inoremap <C-u> <esc>gUiwEa
 
 " Netrw
 let g:netrw_sort_options="i"
