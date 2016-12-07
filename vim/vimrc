@@ -23,7 +23,7 @@ set nobackup
 set noswapfile
 
 " Misc
-set number
+set relativenumber
 set ruler
 set colorcolumn=81
 set guifont=Monaco:h24
@@ -107,6 +107,8 @@ nnoremap n nzz
 inoremap <C-t> <esc>viW:s/-/_/g<CR>gv<esc>a
 " Make current word uppercase (for constants)
 inoremap <C-u> <esc>gUiwEa
+" Switch absolute/relative line number
+nnoremap <C-n> :set relativenumber!<CR>
 
 " Netrw
 let g:netrw_sort_options="i"
