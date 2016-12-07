@@ -93,9 +93,10 @@ nnoremap <Leader><CR> o<Esc>k
 " Break line
 nnoremap <CR> i<CR><Esc>k$
 nnoremap s ^f{%i<CR><Esc>k^f{wi<CR><Esc>^
-" Use paste board
-nnoremap <Leader>p "+p
-nnoremap <Leader>P "+P
+" Synchronize clipboard
+set clipboard^=unnamed
+" nnoremap <Leader>p "+p
+" nnoremap <Leader>P "+P
 " Previous tab
 nnoremap gr gT
 " Search with magic on
