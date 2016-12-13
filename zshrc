@@ -250,6 +250,7 @@ for r in nas heroku github web origin admin; do
   alias "gp${r:0:1}m"="git push ${r} master"
   alias "gl${r:0:1}m"="git pull ${r} master"
 done
+alias tmux="TERM=screen-256color-bce tmux"
 alias md='redcarpet --parse autolink --parse tables --parse space_after_headers --parse no_intra_emphasis --parse fenced_code_blocks --render hard_wrap'
 alias cwp='coffeewatch public &>/dev/null &'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
