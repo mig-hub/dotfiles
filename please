@@ -37,10 +37,18 @@ add-vimrc() {
   fi
 }
 
+add-tmux-conf() {
+  echo "Sourcing tmux conf in ~/.tmux.conf"
+  ensure-file ~/.tmux.conf
+  echo "source-file ~/.dotfiles/.tmux.conf" >> ~/.tmux.conf
+  echo "" >> ~/.tmux.conf
+}
+
 add-all() {
   add-zshrc
   add-gitconfig
   add-vimrc
+  add-tmux-conf
 }
 
 install-brew() {
