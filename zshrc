@@ -26,8 +26,9 @@ precmd() {
   echo -ne "\e]1;${PWD##*/}\a" # sets the tab title to current dir
   vcs_info # Sets vcs info for git branch in a var
   setopt PROMPT_SUBST
-  PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~ %{$fg[cyan]%}${vcs_info_msg_0_}%(1j. %{$fg[red]%}%j.)
-%{$fg[cyan]%}\\ %{$reset_color%}"
+  PROMPT="
+%{$fg[cyan]%}| %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %5~ %{$fg[cyan]%}${vcs_info_msg_0_}%(1j. %{$fg[red]%}%j.)
+%{$fg[cyan]%}| %{$reset_color%}"
 }
 
 # Helper functions
