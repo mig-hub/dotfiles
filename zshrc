@@ -227,6 +227,18 @@ nav() {
   done
 }
 
+# Puts instascript in pasteboard
+gram() {
+  local script="!function(t,e,r){var s=t.createElement(e),n=t.getElementsByTagName(e)[0];s.async=1,s.src=r,n.parentNode.insertBefore(s,n)}(document,'script','https://cdn.rawgit.com/jtsternberg/instascript/master/instascript.js');"
+  if isbin pbcopy; then
+    echo $script | pbcopy
+    echo "The instascript is now in your pasteboard."
+  else
+    echo "Here is instascript:"
+    echo $script
+  fi
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
