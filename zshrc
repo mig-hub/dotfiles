@@ -137,6 +137,14 @@ slurp() {
   fi
 }
 
+cp-website() {
+  if [[ $# == 2 ]]; then
+    wget -P "$2" -mpck --user-agent="" -e robots=off --wait 1 -E "$1"
+  else
+    echo "Usage: cp-website <url> <directory>"
+  fi
+}
+
 # Git / delete local or remote branch
 gbd() {
   if [[ $# == 0 ]] || [[ $1 == '-h' ]]; then
