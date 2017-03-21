@@ -93,6 +93,22 @@ dotenv() {
   fi
 }
 
+survivor() {(
+  if [[ $# == 0 ]]; then
+    echo "Survivor makes a command restart after a SIGINT (^C)."
+    echo "SIGINT twice (^C^C) to stop completely."
+    echo "Usage: survivor <command>"
+  else
+    echo "Survivor process. (^C to restart, ^C^C to stop)"
+    TRAPINT(){}
+    while sleep .5
+    do
+      echo Running: \"$@\"
+      eval $@
+    done   
+  fi
+)}
+
 serve-here() {
   python -m SimpleHTTPServer $@
 }
