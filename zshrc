@@ -93,6 +93,22 @@ dotenv() {
   fi
 }
 
+survivor() {(
+  if [[ $# == 0 ]]; then
+    echo "Survivor makes a command restart after a SIGINT (^C)."
+    echo "SIGINT twice (^C^C) to stop completely."
+    echo "Usage: survivor <command>"
+  else
+    echo "Survivor process. (^C to restart, ^C^C to stop)"
+    TRAPINT(){}
+    while sleep .5
+    do
+      echo Running: \"$@\"
+      eval $@
+    done   
+  fi
+)}
+
 serve-here() {
   python -m SimpleHTTPServer $@
 }
@@ -134,6 +150,14 @@ slurp() {
     curl -s "$1" | egrep -oi "href=.[^'\"]+" | egrep -o "[^'\"]+\.$2" | while read line; do curl -O "${1}${line}"; done
   else
     echo "Usage: slurp <directory-url> <ext>"
+  fi
+}
+
+cp-website() {
+  if [[ $# == 2 ]]; then
+    wget -P "$2" -mpck --user-agent="" -e robots=off --wait 1 -E "$1"
+  else
+    echo "Usage: cp-website <url> <directory>"
   fi
 }
 
@@ -227,6 +251,18 @@ nav() {
   done
 }
 
+# Puts instascript in pasteboard
+gram() {
+  local script="!function(t,e,r){var s=t.createElement(e),n=t.getElementsByTagName(e)[0];s.async=1,s.src=r,n.parentNode.insertBefore(s,n)}(document,'script','https://cdn.rawgit.com/jtsternberg/instascript/master/instascript.js');"
+  if isbin pbcopy; then
+    echo $script | pbcopy
+    echo "The instascript is now in your pasteboard."
+  else
+    echo "Here is instascript:"
+    echo $script
+  fi
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
@@ -267,6 +303,8 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
   alias brod='brew outdated'
   alias brug='brew upgrade'
+  alias brcu='brew leaves | xargs brew cleanup'
+  alias brup='brew update; brew upgrade; brew leaves | xargs brew cleanup'
   alias dns='dscacheutil -flushcache  && killall -HUP mDNSResponder'
   alias whisper='say -v "Whisper"'
   alias et='osascript -e "tell application \"Finder\" to empty trash"'
