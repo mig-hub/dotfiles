@@ -33,7 +33,6 @@ set statusline=%.30F\ %y%=%l/%L
 let g:vim_markdown_folding_disabled=1
 
 " Digraph
-set digraph
 inoremap <C-k><C-k> <Esc>:help digraph-table<CR>
 
 " Mappings
