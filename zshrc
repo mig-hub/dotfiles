@@ -199,7 +199,7 @@ webconvert() {
     echo "Usage: webconvert <original-image> <size> <max-filesize> <final-image>"
     echo "Usage: webconvert big.jpg 500x 300kb web.jpg"
   else
-    convert "$1" -colorspace RGB -resize "$2" -define jpeg:extent=$3 "$4" 
+    convert "$1" -resize "$2" -define jpeg:extent=$3 "$4" 
   fi
 }
 
