@@ -8,6 +8,7 @@ scales = {
   pentamajor:    "@ - @ - @ - - @ - @ - - ",
   pentaminor:    "@ - - @ - @ - @ - - @ - ",
   pentadorian:   "@ - @ - - @ - @ - - @ - ",
+  blues:         "@ - - @ - @ @ @ - - @ - ",
 }
 
 defaults = {
