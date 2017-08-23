@@ -7,5 +7,10 @@ for k v ("${(@kv)solarcolors}"); do
   if [[ $# == 0 || $1 == $k ]]; then
     echo "$k: $v"
   fi
-done
+done | sort
+
+if [[ $# != 0 && $(uname -s) == "Darwin" ]]; then
+  echo Copied to your pasteboard !
+  printf "${solarcolors[$1]}" | pbcopy
+fi
 
