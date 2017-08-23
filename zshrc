@@ -97,16 +97,6 @@ serve-here() {
   python -m SimpleHTTPServer $@
 }
 
-coffeewatch() {
-  if [ ! -n "$1" ]; then
-    coffee --compile --watch --output js coffee
-  else
-    cd "$1"
-    coffee --compile --watch --output js coffee
-    cd -
-  fi
-}
-
 ru() {
   kill %?rackup &>/dev/null
   wait
@@ -273,7 +263,6 @@ for r in nas heroku github web origin admin staging; do
 done
 alias tmux="TERM=screen-256color-bce tmux"
 alias md='redcarpet --parse autolink --parse tables --parse space_after_headers --parse no_intra_emphasis --parse fenced_code_blocks --render hard_wrap'
-alias cwp='coffeewatch public &>/dev/null &'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ipconfig getifaddr'
 alias speed='speedtest-cli'
