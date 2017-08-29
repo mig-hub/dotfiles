@@ -1,14 +1,15 @@
 #!/usr/bin/env ruby
 
 scales = {
-  major:         "1 - 2 - 3 4 - 5 - 6 - 7 ",
-  minor:         "@ - @ @ - @ - @ @ - @ - ",
-  dorian:        "@ - @ @ - @ - @ - @ @ - ",
-  penta:         "@ - - @ - @ - @ - - @ - ",
-  pentamajor:    "@ - @ - @ - - @ - @ - - ",
-  pentaminor:    "@ - - @ - @ - @ - - @ - ",
-  pentadorian:   "@ - @ - - @ - @ - - @ - ",
-  blues:         "@ - - @ - @ @ @ - - @ - ",
+  major:                  "1 - 2 - 3 4 - 5 - 6 - 7 ",
+  minor:                  "@ - @ @ - @ - @ @ - @ - ",
+  dorian:                 "@ - @ @ - @ - @ - @ @ - ",
+  penta:                  "@ - - @ - @ - @ - - @ - ",
+  pentamajor:             "@ - @ - @ - - @ - @ - - ",
+  pentaminor:             "@ - - @ - @ - @ - - @ - ",
+  pentadorian:            "@ - @ - - @ - @ - - @ - ",
+  blues:                  "@ - - @ - @ @ @ - - @ - ",
+  double_harmonic_minor:  "@ @ - - @ @ - @ @ - - @ ",
 }
 
 defaults = {
