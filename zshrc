@@ -253,6 +253,7 @@ alias bi='bundle install'
 alias be='bundle exec'
 alias gemb="gem build *.gemspec"
 alias gemp="gem push *.gem"
+alias rsync-synchronize="rsync -avzu --delete --progress -h" # src dst
 alias hk='heroku'
 alias g='git'
 alias gst='git status -sb' # gs is ghostscript
