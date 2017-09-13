@@ -281,7 +281,7 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias brug='brew upgrade'
   alias brcu='brew leaves | xargs brew cleanup'
   alias brup='brew update; brew upgrade; brew leaves | xargs brew cleanup'
-  alias dns='dscacheutil -flushcache  && killall -HUP mDNSResponder'
+  alias dns='dscacheutil -flushcache  && sudo killall -HUP mDNSResponder'
   alias whisper='say -v "Whisper"'
   alias et='osascript -e "tell application \"Finder\" to empty trash"'
   alias showdotfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
