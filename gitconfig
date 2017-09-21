@@ -18,8 +18,8 @@
   pl = pull
   s = status -sb
   sm = submodule
-  l = log --graph --date=short
-  short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+  ll = log --graph --date=format:'%F %H:%M'
+  l = log --graph --pretty=format:'%Cblue%h%Creset %cd %Cblue%cn%Creset %s' --date=format:'%F %H:%M'
   changelog = log --pretty=format:\" * %s\"
 [core]
   excludesfile = ~/.dotfiles/gitignore
