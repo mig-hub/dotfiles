@@ -267,7 +267,7 @@ done
 alias tmux="TERM=screen-256color-bce tmux"
 alias md='redcarpet --parse autolink --parse tables --parse space_after_headers --parse no_intra_emphasis --parse fenced_code_blocks --render hard_wrap'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias localip='ipconfig getifaddr'
+alias localip='ifconfig | awk '\''$1=="inet" {print $2}'\'''
 alias speed='speedtest-cli'
 alias -g DN="&>/dev/null"
 alias -g DNA="&>/dev/null &"
