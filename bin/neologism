@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+# Script to invent words
+
+VOWELS = %w(a e i o u y)
+CONSONANTS = %w(b c d f g h j k l m n p q r s t v w x z)
+# Randomly set if the word will start with a vowel or a consonant
+SHUFFLE = [VOWELS, CONSONANTS].shuffle
+# length chosen randomly between 1 and 10
+LEN = (1..10).to_a.sample
+(0..LEN).each do |i|
+  print SHUFFLE[i%2].sample
+end
+print "\n"
+
