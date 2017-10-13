@@ -255,6 +255,7 @@ alias gemb="gem build *.gemspec"
 alias gemp="gem push *.gem"
 alias rsync-synchronize="rsync -avzu --delete --progress -h" # src dst
 alias hk='heroku'
+alias hkc='heroku apps:create --region eu --addons mongolab'
 alias g='git'
 alias gst='git status -sb' # gs is ghostscript
 alias gsm='git submodule'
