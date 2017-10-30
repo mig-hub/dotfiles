@@ -280,7 +280,7 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
   alias brod='brew outdated'
   alias brug='brew upgrade'
-  alias brcu='brew leaves | xargs brew cleanup'
+  alias brcu='brew leaves | xargs brew cleanup; rm -rf $(brew --cache)'
   alias brup='brew update; brew upgrade; brew leaves | xargs brew cleanup'
   alias dns='dscacheutil -flushcache  && sudo killall -HUP mDNSResponder'
   alias whisper='say -v "Whisper"'
