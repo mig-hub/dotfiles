@@ -1,0 +1,75 @@
+snippet get
+	get '/${1}' do
+	  ${0}
+	end
+
+snippet metatitle=
+	@meta_title = "${0} - #{@meta_title}"
+
+snippet model-ch
+	class ${1:Product}
+
+		WITH_STASH = true
+		include PopulateMe::Mongo::Plug
+		include MongoBureau
+
+		slot '${0}', required: true
+
+	end
+
+snippet model-unique-ch
+	class ${1:Details}
+
+		WITH_STASH = true
+		include PopulateMe::Mongo::Plug
+		include MongoBureau
+
+		slot '${0}'
+
+	end
+	$1.is_unique
+
+snippet mongodb
+	require 'mongo'
+
+	if ENV['MONGODB_URI']
+		MONGO = Mongo::Client.new(ENV['MONGODB_URI'])
+	elsif ENV['MONGODB_NAME']
+		MONGO = Mongo::Client.new([ '127.0.0.1:27017' ], :database => ENV['MONGODB_NAME'])
+	end
+	DB = MONGO.database
+	GRID = DB.fs if Kernel.const_defined?(:DB)
+
+snippet reqdir
+	Dir[::File.expand_path(::File.dirname(__FILE__))+'/${1:models}/**/*.rb'].each do |f|
+		require "$1/#{f.sub(/.*$1\//, '')}"
+	end
+	${0}
+
+snippet reqmodels
+	Dir[::File.expand_path(::File.dirname(__FILE__))+'/models/**/*.rb'].each do |f|
+		require "models/#{f.sub(/.*models\//, '')}"
+	end
+
+snippet source
+	source 'https://rubygems.org' do
+	end
+
+snippet unicorn
+	worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
+	timeout 20
+	preload_app true
+
+	before_fork do |server, worker|
+		Signal.trap 'TERM' do
+			puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
+			Process.kill 'QUIT', Process.pid
+		end
+	end
+
+	after_fork do |server, worker|
+		Signal.trap 'TERM' do
+			puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to send QUIT'
+		end
+	end
+
