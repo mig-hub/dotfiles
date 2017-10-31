@@ -45,24 +45,65 @@ snippet layout
 	  </body>
 	</html>
 
-snippet htmlemail
+snippet html-email
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<html>
-		<body bgcolor="#999999" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
-			<table width="100%" bgcolor="#999999" cellpadding="0" cellspacing="0">
-				<tr valign="top" align="center">
-					<td>
-						<table width="600" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
-							<tr>
-								<td>
+		<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta property="og:title" content="${1:Title}" />
+			<title>$1</title>
+			<style type="text/css">
+				/* Client-specific Styles */
+				#outlook a{padding:0;} /* Force Outlook to provide a "view in browser" button. */
+				body{width:100% !important;} 
+				.ReadMsgBody{width:100%;} 
+				.ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+				body{-webkit-text-size-adjust:none;} /* Prevent Webkit platforms from changing default text sizes. */
 
-                  ${1}
+				/* Reset Styles */
+				body{margin:0; padding:0; background-color:#${2:ffffff};color:#${3:000000};}
+				img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+				table td{border-collapse:collapse;}
+				#backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
 
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
+				a{ color:#$3; text-decoration:none; }
+				a:hover { text-decoration: underline; }
+			</style>
+		</head>
+		<body bgcolor="#$2" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+			<center>
+				<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+					<tr>
+						<td align="center" valign="top">
+							<!-- Begin Template Preheader -->
+							<table border="0" cellpadding="0" cellspacing="0" width="${4:700}" id="templatePreheader">
+								<tr>
+									<td bgcolor="#${5:f6f6f6}" valign="top" class="preheaderContent" style="padding-left: 0px; padding-right: 0px; background-color: #$5;">
+
+
+
+
+										<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+											<tr>
+												<td style="padding-top:45px;padding-bottom:45px;padding-left:0px;padding-right:0px;text-align:center;">
+													${0}
+												</td>
+											</tr>
+										</table>
+
+										<!-- Content ends -->
+
+
+
+
+
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</center>
 		</body>
 	</html>
 
