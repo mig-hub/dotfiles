@@ -6,6 +6,43 @@ snippet get
 snippet metatitle=
 	@meta_title = "${0} - #{@meta_title}"
 
+snippet model
+	require 'populate_me/mongo'
+
+	class ${1:Product} < PopulateMe::Mongo
+
+	  field :${0}, required: true
+
+	end
+
+snippet model-unique
+	require 'populate_me/mongo'
+
+	class ${1:Details} < PopulateMe::Mongo
+
+	  field :${0}
+
+	end
+
+	$1.is_unique
+
+snippet relationship
+	relationship :${1:images}
+	def $1
+	  @cached_$1 ||= ${2:Image}.admin_find query: {'${2:current_class}_id'=>self.id}
+	end
+	${0}
+
+snippet attachment
+	field :${1:image}, type: :attachment, variations: [
+	  PopulateMe::Variation.new_image_magick_job(:populate_me_thumb, :jpg, "-flatten -resize '400x225^' -gravity center -extent 400x225")
+	]
+	${0}
+
+snippet variation
+	PopulateMe::Variation.new_image_magick_job(:${1:populate_me_thumb}, :${2:jpg}, "-flatten -resize '${3:400x225}^' -gravity center -extent $3")
+	${0}
+
 snippet model-ch
 	class ${1:Product}
 
