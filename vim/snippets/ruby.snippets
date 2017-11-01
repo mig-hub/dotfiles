@@ -78,14 +78,14 @@ snippet mongodb
 	GRID = DB.fs if Kernel.const_defined?(:DB)
 
 snippet reqdir
-	Dir[::File.expand_path(::File.dirname(__FILE__))+'/${1:models}/**/*.rb'].each do |f|
-		require "$1/#{f.sub(/.*$1\//, '')}"
+	Dir[File.join(File.expand_path(__dir__),'${1:models}','**','*.rb')].each do |f|
+		require f
 	end
 	${0}
 
 snippet reqmodels
-	Dir[::File.expand_path(::File.dirname(__FILE__))+'/models/**/*.rb'].each do |f|
-		require "models/#{f.sub(/.*models\//, '')}"
+	Dir[File.join(File.expand_path(__dir__),'models','**','*.rb')].each do |f|
+		require f
 	end
 
 snippet source
