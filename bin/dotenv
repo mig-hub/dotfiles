@@ -1,0 +1,10 @@
+#! /bin/zsh
+
+# Prepend a command to add all env variables in .env
+if [ ! -f .env ]; then
+  echo "File .env is missing"
+  echo "Usage: dotenv <command-with-arguments>"
+else
+  env $(cat .env | grep "^[^#]*=.*" | xargs) "$@"
+fi
+

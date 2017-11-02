@@ -56,25 +56,6 @@ mkcd() {
   fi
 }
 
-up() {
-  # shamelessly stolen from @chneukirchen
-  local op=print
-  [[ -t 1 ]] && op=cd
-  case "$1" in
-    '') up 1;;
-    -*|+*) $op ~$1;;
-    <->) $op $(printf '../%.0s' {1..$1});;
-    *) local -a seg; seg=(${(s:/:)PWD%/*})
-       local n=${(j:/:)seg[1,(I)$1*]}
-       if [[ -n $n ]]; then
-         $op /$n
-       else
-         print -u2 up: could not find prefix $1 in $PWD
-         return 1
-       fi
-  esac
-}
-
 uri-escape() {
   ruby -e 'require "uri"; print URI.encode_www_form_component(ARGV[0])' "$*"
 }
@@ -84,79 +65,8 @@ ddg() {
   w3m "https://duckduckgo.com?q=$search"
 }
 
-dotenv() {
-  if [ ! -f .env ]; then
-    echo "File .env is missing"
-    echo "Usage: dotenv <command-with-arguments>"
-  else
-    env $(cat .env | grep "^[^#]*=.*" | xargs) "$@"
-  fi
-}
-
 serve-here() {
   python -m SimpleHTTPServer $@
-}
-
-ru() {
-  kill %?rackup &>/dev/null
-  wait
-  if [[ "$1" != "-k" ]]; then
-    local cmd="bundle exec rackup -o '' -p ${PORT:=9292}"
-    if [ -f .env ]; then
-      cmd="dotenv $cmd"
-    fi
-    if [[ "$1" == "-b" ]]; then
-      cmd="$cmd &>/dev/null &"
-    fi
-    eval $cmd
-    if [[ "$1" == "-b" ]]; then
-      fg %?vim &>/dev/null
-    fi
-  fi
-}
-
-slurp() {
-  if [[ $# == 2 ]]; then
-    cd ~
-    local mydirname="slurped/${1:t}"
-    mkdir -p "$mydirname"
-    cd "$mydirname"
-    curl -s "$1" | egrep -oi "href=.[^'\"]+" | egrep -o "[^'\"]+\.$2" | while read line; do curl -O "${1}${line}"; done
-  else
-    echo "Usage: slurp <directory-url> <ext>"
-  fi
-}
-
-cp-website() {
-  if [[ $# == 2 ]]; then
-    wget -P "$2" -mpck --user-agent="" -e robots=off --wait 1 -E "$1"
-  else
-    echo "Usage: cp-website <url> <directory>"
-  fi
-}
-
-# Git / delete local or remote branch
-gbd() {
-  if [[ $# == 0 ]] || [[ $1 == '-h' ]]; then
-    echo 'Git branch delete'
-    echo 'Usage local:  gbd <LOCAL_BRANCH>'
-    echo 'Usage remote: gbd <REMOTE/$BRANCH>'
-    return 0
-  fi
-  local remote=${1:h}
-  local branch=${1:t}
-  if [[ $remote == '.' ]]; then
-    echo "git branch -d $branch"
-    git branch -d "$branch"
-  else
-    echo "git push $remote :$branch"
-    git push "$remote" ":$branch"
-  fi
-}
-
-# Run minitest
-mt() {
-  eval "bundle exec ruby -Ilib:test -e \"ARGV.reject{|f| f.match(/^-/)}.each{|f| require f.sub('test/','').sub('.rb','')}\" test/test_${1:=*}.rb --pride"
 }
 
 # Quick zip
@@ -165,76 +75,6 @@ z() {
 }
 bz() {
   tar -jcvf "$1.tar.bz2" "$1"
-}
-
-# Web images
-webconvert() {
-  if [[ $# != 4 ]]; then
-    echo "Usage: webconvert <original-image> <size> <max-filesize> <final-image>"
-    echo "Usage: webconvert big.jpg 500x 300kb web.jpg"
-  else
-    convert "$1" -resize "$2" -define jpeg:extent=$3 "$4" 
-  fi
-}
-
-nav() {
-  local finished='n'
-  local listing
-  local let index=1
-  while [[ "$finished" == 'n' ]]; do
-    clear
-    listing=(*)
-    if [[ $index -lt 1 ]]; then
-      index=1
-    fi
-    if [[ $index -gt $#listing ]]; then
-      index=$#listing
-    fi
-    for line in ${listing:$index-1:$LINES}; do
-      if [[ $line == $listing[$index] ]]; then
-        printf "$bg[black]"
-      fi
-      if [[ -d $line ]]; then
-        printf "$fg[blue]"
-      fi
-      echo "$line$reset_color"
-    done
-    read -sk1 k
-    case "$k" in
-      h)
-        cd ..
-        index=1
-        ;;
-      j)
-        let "index++"
-        ;;
-      k)
-        let "index--"
-        ;;
-      q)
-        finished='y'
-        ;;
-      l)
-        cd $listing[$index]
-        index=1
-        ;;
-      *)
-        echo '?'
-        ;;
-    esac
-  done
-}
-
-# Puts instascript in pasteboard
-gram() {
-  local script="!function(t,e,r){var s=t.createElement(e),n=t.getElementsByTagName(e)[0];s.async=1,s.src=r,n.parentNode.insertBefore(s,n)}(document,'script','https://cdn.rawgit.com/jtsternberg/instascript/master/instascript.js');"
-  if isbin pbcopy; then
-    echo $script | pbcopy
-    echo "The instascript is now in your pasteboard."
-  else
-    echo "Here is instascript:"
-    echo $script
-  fi
 }
 
 # aliases

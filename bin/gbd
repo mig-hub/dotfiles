@@ -1,0 +1,19 @@
+#! /bin/zsh
+
+# Git / delete local or remote branch
+if [[ $# == 0 ]] || [[ $1 == '-h' ]]; then
+  echo 'Git branch delete'
+  echo 'Usage local:  gbd <LOCAL_BRANCH>'
+  echo 'Usage remote: gbd <REMOTE/$BRANCH>'
+  return 0
+fi
+local remote=${1:h}
+local branch=${1:t}
+if [[ $remote == '.' ]]; then
+  echo "git branch -d $branch"
+  git branch -d "$branch"
+else
+  echo "git push $remote :$branch"
+  git push "$remote" ":$branch"
+fi
+

@@ -1,0 +1,14 @@
+#! /bin/zsh
+
+# Start a new website from boilerplate
+local repo="${BOILERPLATE_REPO:-https://github.com/mig-hub/website-boilerplate.git}"
+local app_name=${1:-new-app}
+git clone "$repo" "$app_name"
+if [[ -d "$app_name" ]]
+then
+  cd "$app_name"
+  rm -rf .git
+else
+  echo "Something went wrong."
+fi
+

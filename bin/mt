@@ -1,0 +1,5 @@
+#! /bin/zsh
+
+# Run minitest
+eval "bundle exec ruby -Ilib:test -e \"ARGV.reject{|f| f.match(/^-/)}.each{|f| require f.sub('test/','').sub('.rb','')}\" test/test_${1:=*}.rb --pride"
+

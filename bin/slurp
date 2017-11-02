@@ -1,0 +1,13 @@
+#! /bin/zsh
+
+# Slurp every files with a particular extention linked in a webpage
+if [[ $# == 2 ]]; then
+  cd ~
+  local mydirname="slurped/${1:t}"
+  mkdir -p "$mydirname"
+  cd "$mydirname"
+  curl -s "$1" | egrep -oi "href=.[^'\"]+" | egrep -o "[^'\"]+\.$2" | while read line; do curl -O "${1}${line}"; done
+else
+  echo "Usage: slurp <directory-url> <ext>"
+fi
+

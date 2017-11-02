@@ -1,0 +1,9 @@
+#! /bin/zsh
+
+# Make a snapshot a whole website
+if [[ $# == 2 ]]; then
+  wget -P "$2" -mpck --user-agent="" -e robots=off --wait 1 -E "$1"
+else
+  echo "Usage: cp-website <url> <directory>"
+fi
+
