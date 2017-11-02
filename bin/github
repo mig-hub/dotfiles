@@ -1,0 +1,27 @@
+#! /bin/zsh
+
+help() {
+  echo "Usage:"
+  echo "github help"
+  echo "github clone owner/repo [destination]"
+}
+
+clone() {
+  if [ $# = 0 ]; then
+    help
+    exit 1
+  else
+    local cmd="git clone https://github.com/$1.git $2"
+    echo "$cmd"
+    eval "$cmd" || exit 1
+  fi
+}
+
+if [[ $1 =~ ^(help|clone)$ ]]; then
+  "$@"
+else
+  echo "Invalid subcommand $1" >&2
+  help
+  exit 1
+fi
+
