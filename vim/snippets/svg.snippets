@@ -7,15 +7,11 @@ snippet svg
 snippet line
 	<line x1="${1:10}" y1="${2:10}" x2="${3:50}" y2="${4:50}" stroke="${5:black}" stroke-width="${6:4}" stroke-linecap="${7:round}" />
 	${0}
-
 snippet circle
 	<circle cx="${1:100}" cy="${2:100}" r="${3:100}" />
 	${0}
-
 snippet animate
 	<animate attributeName="${1:x1}" values="${2:0; 100}" dur="${3:1s}" begin="${4:0s}" fill="${5:freeze}" calcMode="${6:paced}" repeatCount="${7:indefinite}" />
 	${0}
-
 snippet animate-transform
 	<animateTransform attributeName="transform" attributeType="XML" type="${1:translate}" values="${2:0 0; 100 100}" dur="${3:1s}" begin="${4:0s}" fill="${5:freeze}" calcMode="${6:paced}" repeatCount="${7:indefinite}" />
-

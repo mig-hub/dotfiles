@@ -2,10 +2,8 @@ snippet get
 	get '/${1}' do
 	  ${0}
 	end
-
 snippet metatitle=
 	@meta_title = "${0} - #{@meta_title}"
-
 snippet model
 	require 'populate_me/mongo'
 
@@ -32,17 +30,14 @@ snippet relationship
 	  @cached_$1 ||= ${2:Image}.admin_find query: {'${2:current_class}_id'=>self.id}
 	end
 	${0}
-
 snippet attachment
 	field :${1:image}, type: :attachment, variations: [
 	  PopulateMe::Variation.new_image_magick_job(:populate_me_thumb, :jpg, "-flatten -resize '400x225^' -gravity center -extent 400x225")
 	]
 	${0}
-
 snippet variation
 	PopulateMe::Variation.new_image_magick_job(:${1:populate_me_thumb}, :${2:jpg}, "-flatten -resize '${3:400x225}^' -gravity center -extent $3")
 	${0}
-
 snippet model-ch
 	class ${1:Product}
 
@@ -83,17 +78,13 @@ snippet reqdir
 	Dir[File.join(File.expand_path(__dir__),'${1:models}','**','*.rb')].each do |f|
 		require f
 	end
-	${0}
-
 snippet reqmodels
 	Dir[File.join(File.expand_path(__dir__),'models','**','*.rb')].each do |f|
 		require f
 	end
-
 snippet source
 	source 'https://rubygems.org' do
 	end
-
 snippet unicorn
 	worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 	timeout 20
