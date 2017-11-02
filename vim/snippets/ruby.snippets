@@ -69,6 +69,8 @@ snippet model-unique-ch
 snippet mongodb
 	require 'mongo'
 
+	Mongo::Logger.logger.level = Logger::ERROR
+
 	if ENV['MONGODB_URI']
 		MONGO = Mongo::Client.new(ENV['MONGODB_URI'])
 	elsif ENV['MONGODB_NAME']
