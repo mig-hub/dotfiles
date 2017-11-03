@@ -77,6 +77,33 @@ bz() {
   tar -jcvf "$1.tar.bz2" "$1"
 }
 
+ru() {
+  # Command to switch between vim and restarting rack server
+  #
+  # Leave momentarilly vim with Ctrl+Z
+  # Start/Restart rackup in the background with "rub" (then returns to vim)
+  #
+  # Also:
+  # Start/Restart rackup with "ru"
+  # Kill with "ruk"
+
+  kill %?rackup &>/dev/null
+  wait
+  if [[ "$1" != "-k" ]]; then
+    local cmd="bundle exec rackup -o '' -p ${PORT:=9292}"
+    if [ -f .env ]; then
+      cmd="dotenv $cmd"
+    fi
+    if [[ "$1" == "-b" ]]; then
+      cmd="$cmd &>/dev/null &"
+    fi
+    eval $cmd
+    if [[ "$1" == "-b" ]]; then
+      fg %?vim &>/dev/null
+    fi
+  fi
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
