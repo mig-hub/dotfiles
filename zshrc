@@ -77,6 +77,11 @@ bz() {
   tar -jcvf "$1.tar.bz2" "$1"
 }
 
+# Secure random
+securerandom() {
+  ruby -e "require 'securerandom'; puts SecureRandom.hex(${1:=64})"
+}
+
 ru() {
   # Command to switch between vim and restarting rack server
   #
