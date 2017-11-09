@@ -79,7 +79,7 @@ bz() {
 
 # Secure random
 securerandom() {
-  ruby -e "require 'securerandom'; puts SecureRandom.hex(${1:=64})"
+  openssl rand -hex ${1:=64}
 }
 
 ru() {
