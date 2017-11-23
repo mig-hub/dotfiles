@@ -107,7 +107,7 @@ inoremap <C-t> <esc>viW:s/-/_/g<CR>gv<esc>a
 inoremap <C-u> <esc>gUiwEa
 " Switch absolute/relative line number
 set number
-set relativenumber
+" set relativenumber
 nnoremap <C-n> :set relativenumber!<CR>
 
 " Netrw
