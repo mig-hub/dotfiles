@@ -65,10 +65,12 @@ set timeoutlen=1000 ttimeoutlen=0
 " Quickly edit vimrc
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
 " Visual up/down
-noremap j gj
-noremap k gk
-noremap gj j
-noremap gk k
+noremap j gjzz
+noremap k gkzz
+noremap gj jzz
+noremap gk kzz
+noremap <Down> jzz
+noremap <Up> kzz
 " Indenting
 vnoremap < <gv
 vnoremap > >gv
