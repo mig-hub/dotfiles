@@ -1,7 +1,13 @@
+isbin() {
+  which "$1" > /dev/null
+}
+
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=less
-export GOPATH=$(go env GOPATH)
+if isbin go; then
+  export GOPATH=$(go env GOPATH)
+fi
 
 # Bin locations
 export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$GOPATH/bin:/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
@@ -33,10 +39,6 @@ precmd() {
 }
 
 # Helper functions
-
-isbin() {
-  which "$1" > /dev/null
-}
 
 grepdir() {
   if [[ $# == 0 ]]; then
