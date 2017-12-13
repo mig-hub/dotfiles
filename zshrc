@@ -80,8 +80,8 @@ bz() {
   tar -jcvf "$1.tar.bz2" "$1"
 }
 
-# Secure random
-securerandom() {
+# Random hex number
+randhex() {
   openssl rand -hex ${1:=64}
 }
 
