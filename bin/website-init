@@ -1,13 +1,23 @@
 #! /bin/zsh
 
 # Start a new website from boilerplate
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: website-init <app-name>"
+  exit 1
+fi
+
 local repo="${BOILERPLATE_REPO:-https://github.com/mig-hub/website-boilerplate.git}"
-local app_name=${1:-new-app}
+local app_name=$1
+
 git clone "$repo" "$app_name"
+
 if [[ -d "$app_name" ]]
 then
   cd "$app_name"
   rm -rf .git
+  echo "MONGODB_NAME='${app_name}-dev'" >> .env
+  echo "SESSION_KEY_SECRET='${app_name}/$(randhex)'" >> .env
 else
   echo "Something went wrong."
 fi
