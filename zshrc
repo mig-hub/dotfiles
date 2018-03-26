@@ -165,6 +165,7 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias softup='sudo softwareupdate -i -a'
+  alias chrome='open -a "Google Chrome"'
 fi
 if isbin pacman; then
   alias pacug='sudo pacman -Syu'
