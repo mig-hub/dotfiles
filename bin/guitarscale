@@ -1,15 +1,15 @@
 #!/usr/bin/env ruby
 
 scales = {
-  major:                  "1 - 2 - 3 4 - 5 - 6 - 7 ",
-  minor:                  "@ - @ @ - @ - @ @ - @ - ",
-  dorian:                 "@ - @ @ - @ - @ - @ @ - ",
-  penta:                  "@ - - @ - @ - @ - - @ - ",
-  pentamajor:             "@ - @ - @ - - @ - @ - - ",
-  pentaminor:             "@ - - @ - @ - @ - - @ - ",
-  pentadorian:            "@ - @ - - @ - @ - - @ - ",
-  blues:                  "@ - - @ - @ @ @ - - @ - ",
-  double_harmonic_minor:  "@ @ - - @ @ - @ @ - - @ ",
+  major:                  "1-2-34-5-6-7",
+  minor:                  "@-@@-@-@@-@-",
+  dorian:                 "@-@@-@-@-@@-",
+  penta:                  "@--@-@-@--@-",
+  pentamajor:             "@-@-@--@-@--",
+  pentaminor:             "@--@-@-@--@-",
+  pentadorian:            "@-@--@-@--@-",
+  blues:                  "@--@-@@@--@-",
+  double_harmonic_minor:  "@@--@@-@@--@",
 }
 
 defaults = {
@@ -35,12 +35,12 @@ o = defaults.merge(
   ]
 )
 
-grid = scales[o[:grid].to_sym] * o[:length]
+grid = (scales[o[:grid].to_sym] || o[:grid]) * o[:length]
 
 top_to_bottom = (0...o[:strings]).inject([]) do |strings,n|
-  char_offset = (n * o[:offset] * 2) % 24
+  char_offset = (n * o[:offset]) % 12
   string = grid.slice(char_offset..-1)+grid.slice(0...char_offset)
-  strings + [string]
+  strings + [string.gsub(/./, '\0 ')]
 end
 
 puts top_to_bottom.reverse.join("\n")
