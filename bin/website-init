@@ -17,7 +17,7 @@ then
   cd "$app_name"
   rm -rf .git
   echo "MONGODB_NAME='${app_name}-dev'" >> .env
-  echo "SESSION_KEY_SECRET='${app_name}/$(randhex)'" >> .env
+  echo "SESSION_KEY_SECRET='${app_name}/$(openssl rand -hex 64)'" >> .env
 else
   echo "Something went wrong."
 fi
