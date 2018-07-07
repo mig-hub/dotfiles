@@ -21,6 +21,7 @@
   ll = log --graph --date=format:'%F %H:%M'
   l = log --graph --pretty=format:'%Cblue%h%Creset %cd %Cblue%cn%Creset %s' --date=format:'%F %H:%M'
   changelog = log --pretty=format:\" * %s\"
+  pushall = !git remote | xargs -L1 -I R git push R master
 [core]
   excludesfile = ~/.dotfiles/gitignore
   mergeoptions = --no-edit
