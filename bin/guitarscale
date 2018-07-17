@@ -15,7 +15,7 @@ scales = {
   pentaminor:             "@--@-@-@--@-",
   pentadorian:            "@-@--@-@--@-",
   blues:                  "@--@-@@@--@-",
-  double_harmonic_minor:  "@@--@@-@@--@",
+  double_harmonic:        "@@--@@-@@--@",
 }
 
 defaults = {
