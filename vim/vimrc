@@ -24,6 +24,10 @@ set noswapfile
 
 " Misc
 set ruler
+set linebreak
+set breakindent
+set columns=80
+set textwidth=80
 set colorcolumn=81
 set guifont=Monaco:h24
 set backspace=indent,eol,start
