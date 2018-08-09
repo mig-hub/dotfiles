@@ -112,6 +112,20 @@ ru() {
   fi
 }
 
+# Markdown helper
+
+md() {
+  if [[ $# == 0 ]]; then
+    echo "Usage: md <markdown-file>"
+    echo "Usage: md <markdown-file> <css-file>"
+  else
+    echo "<style>"
+    cat ${2:=~/.dotfiles/assets/markdown.css}
+    echo "</style>"
+    redcarpet --parse autolink --parse tables --parse space_after_headers --parse no_intra_emphasis --parse fenced_code_blocks --render hard_wrap ${1} 
+  fi
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
@@ -141,7 +155,6 @@ for r in nas heroku github web origin admin staging; do
   alias "gl${r:0:1}m"="git pull ${r} master"
 done
 alias tmux="TERM=screen-256color-bce tmux"
-alias md='redcarpet --parse autolink --parse tables --parse space_after_headers --parse no_intra_emphasis --parse fenced_code_blocks --render hard_wrap'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ifconfig | awk '\''$1=="inet" {print $2}'\'''
 alias speed='speedtest-cli'
