@@ -1,0 +1,15 @@
+aircrack-ng
+ansiweather
+hydra
+libcaca
+mosh
+mutt
+nmap
+p7zip
+portaudio
+sdl2
+speedtest-cli
+tor
+torsocks
+wireshark
+
