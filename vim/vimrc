@@ -26,9 +26,6 @@ set noswapfile
 set ruler
 set linebreak
 set breakindent
-set columns=80
-set textwidth=80
-set colorcolumn=81
 set guifont=Monaco:h24
 set backspace=indent,eol,start
 set nofoldenable
@@ -138,6 +135,7 @@ augroup Misc
   " automatically reload vimrc when it's saved
   autocmd BufWritePost ~/.dotfiles/vim/vimrc so %
   " autocmd FileType css inoremap <buffer> :<Space> :<Space>;<Left>
+  autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
 augroup END
 
 " Init Pathogen for plugins
