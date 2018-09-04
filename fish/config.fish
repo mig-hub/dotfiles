@@ -60,3 +60,23 @@ function mkcd
   end
 end
 
+function randhex
+  if test (count $argv) -gt 0
+    openssl rand -hex $argv[1]
+  else
+    openssl rand -hex 64
+  end
+end
+
+alias ls='ls -1AFG'
+alias g='git'
+alias gst='git status -sb' # gs is ghostscript
+alias gsm='git submodule'
+alias gp='git push'
+alias gl='git pull'
+for r in nas heroku github web origin admin staging
+  set -l initial (string sub --length 1 $r)
+  alias "gp"$initial"m"="git push $r master"
+  alias "gl"$initial"m"="git pull $r master"
+end
+
