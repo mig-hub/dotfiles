@@ -5,6 +5,8 @@ set -x PAGER less
 set -x PATH . ~/bin ~/.dotfiles/bin ~/.rbenv/bin /usr/local/bin /usr/local/sbin /usr/local/share/npm/bin /usr/local/heroku/bin /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources $PATH
 
 function fish_prompt
+  set_color cyan
+  printf '| '
   set_color yellow
   printf $USER
   set_color cyan
@@ -15,18 +17,28 @@ function fish_prompt
   printf ' in '
   set_color magenta
   printf $PWD
-  # set -l isgit (git rev-parse --git-dir ^ /dev/null)
-  # if test -n "$isgit"
-  #   echo hasgit
-  #   set -l hasdiff (git diff)
-  #   if test -n "$hasdiff"
-  #     set_color red
-  #   else
-  #     set_color green
-  #   end
-  #   printf " " (git branch ^ /dev/null | grep -e '\* ' | sed 's/^..\(.*\)/\1/')
-  # end
-  printf '\n'
+
+  set -l isgit (git rev-parse --git-dir ^ /dev/null)
+  if test -n "$isgit"
+    printf '('
+    set -l hasdiff (git diff)
+    if test -n "$hasdiff"
+      set_color red
+    else
+      set_color green
+    end
+    printf (git branch ^ /dev/null | grep -e '\* ' | sed 's/^..\(.*\)/\1/')
+    set_color magenta
+    printf ')'
+  end
+
+  set -l number_of_jobs (jobs | wc -l | xargs)
+  if test $number_of_jobs -ne '0'
+    set_color red
+    printf ' '(jobs | wc -l | xargs)
+  end
+  set_color cyan
+  printf '\n| '
   set_color normal
 end
 
