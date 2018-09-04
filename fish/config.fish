@@ -16,7 +16,7 @@ function fish_prompt
   set_color cyan
   printf ' in '
   set_color magenta
-  printf $PWD
+  printf (prompt_pwd)
 
   set -l isgit (git rev-parse --git-dir ^ /dev/null)
   if test -n "$isgit"
@@ -40,6 +40,14 @@ function fish_prompt
   set_color cyan
   printf '\n| '
   set_color normal
+end
+
+function fish_title
+  if [ $_ = 'fish' ]
+    echo (basename $PWD)
+  else
+    echo $_
+  end
 end
 
 function mkcd
