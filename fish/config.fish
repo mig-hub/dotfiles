@@ -1,11 +1,11 @@
-set -x EDITOR vim
-set -x VISUAL vim
-set -x PAGER less
+set -gx EDITOR vim
+set -gx VISUAL vim
+set -gx PAGER less
 if type -q go
-  set -x GOPATH (go env GOPATH)
+  set -gx GOPATH (go env GOPATH)
 end
 
-set -x PATH . ~/bin ~/.dotfiles/bin ~/.rbenv/bin /usr/local/bin /usr/local/sbin /usr/local/share/npm/bin /usr/local/heroku/bin $GOPATH"/bin" /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources $PATH
+set -gx PATH . ~/bin ~/.dotfiles/bin ~/.rbenv/bin /usr/local/bin /usr/local/sbin /usr/local/share/npm/bin /usr/local/heroku/bin $GOPATH"/bin" /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources $PATH
 
 function fish_prompt
   set_color cyan
