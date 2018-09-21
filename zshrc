@@ -68,10 +68,6 @@ ddg() {
   w3m "https://duckduckgo.com?q=$search"
 }
 
-serve-here() {
-  python -m SimpleHTTPServer $@
-}
-
 # Quick zip
 z() {
   zip -r -X "$1.zip" "$1"
