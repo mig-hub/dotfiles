@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require 'webrick'
+
+root = File.expand_path ENV['DOCUMENT_ROOT'] || '.'
+$not_found_page = ENV['NOT_FOUND_PAGE'] || '404.html'
+$single_page = ENV['SINGLE_PAGE'] || '200.html'
+
+options = {
+  :Port => ENV['PORT'] || 8080, 
+  :DocumentRoot => root
+}
+
+if File.exist?(File.join(root, $not_found_page))
+  WEBrick::HTTPResponse.class_eval do
+    def create_error_page
+      @header["Content-Type"] = "text/html; charset=UTF-8"
+      @body = IO.read(File.join(@config[:DocumentRoot], $not_found_page))
+    end
+  end
+elsif File.exist?(File.join(root, $single_page))
+  WEBrick::HTTPResponse.class_eval do
+    def create_error_page
+      self.status = 200
+      @header["Content-Type"] = "text/html; charset=UTF-8"
+      @body = IO.read(File.join(@config[:DocumentRoot], $single_page))
+    end
+  end
+  options[:DirectoryIndex] = WEBrick::Config::HTTP[:DirectoryIndex] + [$single_page]
+end
+
+server = WEBrick::HTTPServer.new options
+
+trap 'INT' do server.shutdown end
+trap 'TERM' do server.shutdown end
+
+server.start
+
