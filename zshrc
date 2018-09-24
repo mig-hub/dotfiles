@@ -184,6 +184,10 @@ if isbin pacman; then
   alias pacug='sudo pacman -Syu'
 fi
 
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 # RBENV
 if isbin rbenv; then
   eval "$(rbenv init -)"
