@@ -133,7 +133,9 @@ if test (uname -s) = "Darwin"
   abbr hidedotfiles "defaults write com.apple.finder AppleShowAllFiles -bool false; and killall Finder"
   abbr showdesktop "defaults write com.apple.finder CreateDesktop -bool true; and killall Finder"
   abbr hidedesktop "defaults write com.apple.finder CreateDesktop -bool false; and killall Finder"
-  abbr softup 'sudo softwareupdate -i -a'
+  abbr softup 'sudo softwareupdate'
+  abbr softupall 'sudo softwareupdate -i -a'
+  abbr restart 'sudo shutdown -r now'
   abbr chrome 'open -a "Google Chrome"'
 end
 

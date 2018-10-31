@@ -174,7 +174,9 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias hidedotfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-  alias softup='sudo softwareupdate -i -a'
+  alias softup='sudo softwareupdate'
+  alias softupall='sudo softwareupdate -i -a'
+  alias restart='sudo shutdown -r now'
   alias chrome='open -a "Google Chrome"'
 fi
 if isbin pacman; then
