@@ -14,6 +14,7 @@ ghostscript
 git
 gnu-sed
 gnupg
+htop
 httpie
 imagemagick
 jhead
@@ -44,4 +45,3 @@ wget
 wrk
 yasm
 zsh-syntax-highlighting
-

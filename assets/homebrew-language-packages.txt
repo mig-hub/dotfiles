@@ -2,9 +2,9 @@ crystal
 elixir
 go
 guile
+io
 lua
 node
 rust
 s-lang
-io
 
