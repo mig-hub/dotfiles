@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+if ARGV.length < 2
+  STDERR.puts "Enter 2 numbers"
+  exit 1
+end
+
+open = ARGV[0].to_f
+close = ARGV[1].to_f
+growth = close - open
+
+puts "#{100*growth/open}%" 
+
