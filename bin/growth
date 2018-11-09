@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
+# Calculates the growth rate between 2 numbers
+
 if ARGV.length < 2
-  STDERR.puts "Enter 2 numbers"
+  STDERR.puts "Usage: growth <number1> <number2>"
   exit 1
 end
 
