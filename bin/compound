@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+# Calculates the compound growth rate after n iterations
+
+if ARGV.length < 2
+  STDERR.puts "Usage: compound <growth> <iterations>"
+  STDERR.puts "e.g. : compound 5% 10 # percent sign is optional"
+  exit 1
+end
+
+growth = ARGV[0].to_f
+iterations = ARGV[1].to_i
+output = 0.0
+
+iterations.times do
+  output += (growth + (growth*output/100))
+  puts "#{output}%"
+end
+
