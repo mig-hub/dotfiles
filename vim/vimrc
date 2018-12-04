@@ -1,3 +1,5 @@
+set nocompatible
+
 " Indentation
 set autoindent
 set smartindent
@@ -26,11 +28,18 @@ set noswapfile
 set ruler
 set linebreak
 set breakindent
+set autoread
+set showmatch
+set number
+set sessionoptions-=options
 set guifont=Monaco:h24
 set backspace=indent,eol,start
 set nofoldenable
 set laststatus=2
 set statusline=%.30F\ %y%=%l/%L
+set timeoutlen=3000 ttimeoutlen=0
+set scrolloff=5
+set sidescrolloff=10
 let g:vim_markdown_folding_disabled=1
 
 " Digraph
@@ -47,57 +56,45 @@ inoremap [' ['']<Left><Left>
 inoremap [: [:]<Left>
 inoremap {<Space> {<Space><Space>}<Left><Left>
 inoremap {<CR> {<CR>}<Esc>O
+inoremap {{<Space> {{<Space><Space>}}<Left><Left><Left>
 inoremap () ()<Left>
 inoremap (<CR> (<CR>)<Esc>O
 inoremap <> <><Left>
 inoremap </ </><Left>
 inoremap `` ``<Left>
-inoremap ``` ```
-inoremap ```<CR> ```<CR>```<Esc>O
-inoremap /* /**/<Left><Left>
+inoremap ``` ```<Esc>yyPA
 inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
 inoremap /*<CR> /*<CR>*/<Esc>O
-inoremap <C-l> <Right>
 " Save
 nnoremap ss :w<CR>
 vnoremap ss <Esc>:w<CR>
-inoremap jk <Esc>:w<CR>
-set timeoutlen=1000 ttimeoutlen=0
-" Quickly edit vimrc
-nnoremap <leader>ev :tabe $MYVIMRC<CR>
+inoremap jk <Esc>:nohlsearch<CR>
 " Visual up/down
-noremap j gjzz
-noremap k gkzz
-noremap gj jzz
-noremap gk kzz
-noremap <Down> jzz
-noremap <Up> kzz
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
+noremap <Down> j
+noremap <Up> k
 " Indenting
 vnoremap < <gv
 vnoremap > >gv
 vnoremap <C-h> <gv
 vnoremap <C-l> >gv
-nnoremap <C-h><C-h> <<
-nnoremap <C-l><C-l> >>
+" C-L clears but also removes search highlight
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+" Move right in insert mode
+inoremap <C-l> <Right>
 " Select line without indentation
 nnoremap vv ^vg_
-" Move up/down faster
-nnoremap <C-j> 5jzz
-nnoremap <C-k> 5kzz
-" Select all
-nnoremap <leader>a ggVG
 " Quick colon
 nnoremap <Space> :
 vnoremap <Space> :
-" Add empty lines
-nnoremap <Leader><CR> o<Esc>k
 " Break line
 nnoremap <CR> i<CR><Esc>k$
 nnoremap s ^f{%i<CR><Esc>k^f{wi<CR><Esc>^
 " Synchronize clipboard
 set clipboard^=unnamed
-" nnoremap <Leader>p "+p
-" nnoremap <Leader>P "+P
 " Previous tab
 nnoremap gr gT
 " Search with magic on
@@ -109,9 +106,20 @@ inoremap <C-t> <esc>viW:s/-/_/g<CR>gv<esc>a
 " Make current word uppercase (for constants)
 inoremap <C-u> <esc>gUiwEa
 " Switch absolute/relative line number
-set number
-" set relativenumber
 nnoremap <C-n> :set relativenumber!<CR>
+
+" Leader
+
+" Quickly edit vimrc
+nnoremap <leader>ve :tabe $MYVIMRC<CR>
+" Reload vimrc
+nnoremap <leader>vr :so $MYVIMRC<CR>
+" Select all
+nnoremap <leader>a ggVG
+" Add empty lines
+nnoremap <leader><CR> o<Esc>k
+" Quit all
+nnoremap <leader>qq :qa<CR>
 
 " Netrw
 let g:netrw_sort_options="i"
@@ -145,6 +153,9 @@ call pathogen#infect()
 syntax on
 set background=dark
 colorscheme solarized
+" Fix IncSearch because solarized started to change the style 
+" of the first search result
+hi IncSearch term=reverse cterm=reverse ctermfg=3 guifg=Black guibg=Yellow
 
 " Change cursor on insert mode for iTerm
 if exists('$TMUX')
