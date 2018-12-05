@@ -144,6 +144,7 @@ augroup Misc
   autocmd BufWritePost ~/.dotfiles/vim/vimrc so %
   " autocmd FileType css inoremap <buffer> :<Space> :<Space>;<Left>
   autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
+  autocmd FileType slim setlocal nobreakindent
 augroup END
 
 " Init Pathogen for plugins
