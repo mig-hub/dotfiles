@@ -43,6 +43,8 @@ zle-line-init() {
 # zle -N zle-line-init
 # zle -N zle-keymap-select
 setopt PROMPT_SUBST
+bindkey "^b" backward-word 
+bindkey "^f" forward-word
 
 setopt autocd
 
