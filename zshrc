@@ -12,8 +12,38 @@ fi
 # Bin locations
 export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$GOPATH/bin:/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
 
-# opts
+# Key binding
 bindkey -e
+KEYTIMEOUT=5
+cursor-ins-mode() {
+  if [ -n "$TMUX" ]; then
+    echo -ne '\ePtmux;\e\e[5 q\e\\'
+  else
+    echo -ne '\e[5 q'
+  fi
+}
+cursor-cmd-mode() {
+  if [ -n "$TMUX" ]; then
+    echo -ne '\ePtmux;\e\e[2 q\e\\'
+  else
+    echo -ne '\e[2 q'
+  fi
+}
+zle-keymap-select() {
+  if [[ ${KEYMAP} == vicmd ]]; then
+    cursor-cmd-mode
+  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]]; then
+    cursor-ins-mode
+  fi
+  zle reset-prompt
+}
+zle-line-init() {
+  zle -K viins
+}
+# zle -N zle-line-init
+# zle -N zle-keymap-select
+setopt PROMPT_SUBST
+
 setopt autocd
 
 # Completion
