@@ -219,6 +219,8 @@ if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; 
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # RBENV
 if isbin rbenv; then
   eval "$(rbenv init -)"
