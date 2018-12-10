@@ -126,7 +126,7 @@ ru() {
   kill %?rackup &>/dev/null
   wait
   if [[ "$1" != "-k" ]]; then
-    local cmd="bundle exec rackup -o '' -p ${PORT:=9292}"
+    local cmd="bundle exec rackup -o '' -s webrick -p ${PORT:=9292}"
     if [ -f .env ]; then
       cmd="dotenv $cmd"
     fi
