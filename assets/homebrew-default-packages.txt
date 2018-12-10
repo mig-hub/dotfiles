@@ -9,6 +9,7 @@ dbus
 emacs
 ffmpeg
 fish
+fzf
 geoip
 ghostscript
 git
