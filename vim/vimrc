@@ -1,169 +1,38 @@
-set nocompatible
+" ============
+" Vim specific
+" ============
 
-" Indentation
-set autoindent
-set smartindent
-set shiftwidth=2
-set tabstop=2
-set expandtab
-augroup TabExceptions
-  autocmd!
-  autocmd FileType make setlocal noexpandtab
-augroup END
-let g:rust_recommended_style = 0
+if !has('nvim')
 
-" Search options
-set ignorecase
-set smartcase
-set incsearch
-set hlsearch
-set path+=**
-set wildmenu
+  set nocompatible
+  set ruler
+  set autoindent
+  set autoread
+  set backspace=indent,eol,start
+  set formatoptions=tcqj
+  set hlsearch
+  set incsearch
+  set wildmenu
+  set laststatus=2
+  set sessionoptions-=options
+  set ttyfast
+  syntax on
+  filetype plugin indent on
 
-" No backup or swap files
-set nobackup
-set noswapfile
+  " Change cursor on insert mode for iTerm
+  if exists('$TMUX')
+    let &t_SI = "\ePtmux;\e\e[5 q\e\\"
+    let &t_EI = "\ePtmux;\e\e[2 q\e\\"
+  else
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[2 q"
+  endif
 
-" Misc
-set ruler
-set linebreak
-set breakindent
-set autoread
-set showmatch
-set number
-set sessionoptions-=options
-set guifont=Monaco:h24
-set backspace=indent,eol,start
-set nofoldenable
-set laststatus=2
-set statusline=%.30F\ %y%=%l/%L
-set timeoutlen=1000 ttimeoutlen=0
-set scrolloff=5
-set sidescrolloff=10
-let g:vim_markdown_folding_disabled=1
+endif " if not nvim
 
-" Digraph
-inoremap <C-k><C-k> <Esc>:help digraph-table<CR>
+" ======================
+" Source the nvim config
+" ======================
 
-" Mappings
-
-" Autoclosings
-inoremap '' ''<Left>
-inoremap "" ""<Left>
-inoremap [] []<Left>
-inoremap [<CR> [<CR>]<Esc>O
-inoremap [' ['']<Left><Left>
-inoremap [: [:]<Left>
-inoremap {<Space> {<Space><Space>}<Left><Left>
-inoremap {<CR> {<CR>}<Esc>O
-inoremap {{<Space> {{<Space><Space>}}<Left><Left><Left>
-inoremap () ()<Left>
-inoremap (<CR> (<CR>)<Esc>O
-inoremap <> <><Left>
-inoremap </ </><Left>
-inoremap `` ``<Left>
-inoremap ``` ```<Esc>yyPA
-inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
-inoremap /*<CR> /*<CR>*/<Esc>O
-" Save
-nnoremap ss :w<CR>
-vnoremap ss <Esc>:w<CR>
-inoremap jk <Esc>:nohlsearch<CR>
-" Visual up/down
-noremap j gj
-noremap k gk
-noremap gj j
-noremap gk k
-noremap <Down> j
-noremap <Up> k
-" Indenting
-vnoremap < <gv
-vnoremap > >gv
-vnoremap <C-h> <gv
-vnoremap <C-l> >gv
-" C-L clears but also removes search highlight
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
-" Move right in insert mode
-inoremap <C-l> <Right>
-" Select line without indentation
-nnoremap vv ^vg_
-" Quick colon
-nnoremap <Space> :
-vnoremap <Space> :
-" Break line
-nnoremap <CR> i<CR><Esc>k$
-nnoremap s ^f{%i<CR><Esc>k^f{wi<CR><Esc>^
-" Synchronize clipboard
-set clipboard^=unnamed
-" Previous tab
-nnoremap gr gT
-" Search with magic on
-nnoremap / /\v
-" Center when searching
-nnoremap n nzz
-" Change dashes to underscores on current word
-inoremap <C-t> <esc>viW:s/-/_/g<CR>gv<esc>a
-" Make current word uppercase (for constants)
-inoremap <C-u> <esc>gUiwEa
-" Switch absolute/relative line number
-nnoremap <C-n> :set relativenumber!<CR>
-
-" Leader
-
-" Quickly edit vimrc
-nnoremap <leader>ve :tabe $MYVIMRC<CR>
-" Reload vimrc
-nnoremap <leader>vr :so $MYVIMRC<CR>
-" Select all
-nnoremap <leader>a ggVG
-" Add empty lines
-nnoremap <leader><CR> o<Esc>k
-" Quit all
-nnoremap <leader>qq :qa<CR>
-
-" Netrw
-let g:netrw_sort_options="i"
-let g:netrw_banner=0
-
-" load matchit
-runtime macros/matchit.vim
-
-" Filetypes
-filetype plugin indent on
-augroup RecognizeFiles
-  autocmd!
-  autocmd BufRead,BufNewFile *.ru set filetype=ruby
-  autocmd BufRead,BufNewFile Gemfile set filetype=ruby
-  autocmd BufRead,BufNewFile *.json set filetype=javascript
-  autocmd BufRead,BufNewFile *.muttrc set filetype=muttrc
-augroup END
-
-augroup Misc
-  autocmd!
-  " automatically reload vimrc when it's saved
-  autocmd BufWritePost ~/.dotfiles/vim/vimrc so %
-  " autocmd FileType css inoremap <buffer> :<Space> :<Space>;<Left>
-  autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
-  autocmd FileType slim setlocal nobreakindent
-augroup END
-
-" Init Pathogen for plugins
-call pathogen#infect()
-
-" Syntax color
-syntax on
-set background=dark
-colorscheme solarized
-" Fix IncSearch because solarized started to change the style 
-" of the first search result
-hi IncSearch term=reverse cterm=reverse ctermfg=3 guifg=Black guibg=Yellow
-
-" Change cursor on insert mode for iTerm
-if exists('$TMUX')
-  let &t_SI = "\ePtmux;\e\e[5 q\e\\"
-  let &t_EI = "\ePtmux;\e\e[2 q\e\\"
-else
-  let &t_SI = "\e[5 q"
-  let &t_EI = "\e[2 q"
-endif
+runtime init.vim
 

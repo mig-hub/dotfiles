@@ -35,6 +35,19 @@ add-vimrc() {
   else
     echo "/!\\  ~/.vim already exists"
   fi
+  echo "Creating folder for vim plugins: ~/.local/share/nvim/plugged"
+  mkdir -p ~/.local/share/nvim/plugged
+}
+
+add-nvim() {
+  echo "Symlinking nvim directory to ~/.config/nvim ..."
+  if [[ ! -d ~/.config/nvim ]]; then
+    ln -s ~/.dotfiles/vim ~/.config/nvim
+  else
+    echo "/!\\  ~/.config/nvim already exists"
+  fi
+  echo "Creating folder for vim plugins: ~/.local/share/nvim/plugged"
+  mkdir -p ~/.local/share/nvim/plugged
 }
 
 add-tmux-conf() {
@@ -47,6 +60,7 @@ add-tmux-conf() {
 add-all() {
   add-zshrc
   add-gitconfig
+  add-nvim
   add-vimrc
   add-tmux-conf
 }

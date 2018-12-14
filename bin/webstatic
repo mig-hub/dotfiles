@@ -1,0 +1,117 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+require 'yaml'
+require 'fileutils'
+
+puts "Webstatic:"
+
+# Read|Create config
+defaults = {
+  'port' => 8080,
+  'skip_automatic_gitignore' => false,
+  'build_folder' => 'build',
+  'scss_folder' => 'scss',
+  'views_folder' => 'views' ,
+  'css_folder_name' => 'css',
+  'not_found_page' => '404.html',
+  'single_page' => '200.html',
+}
+if File.file? 'webstatic.yml'
+  puts 'Reading configuration from webstatic.yml'
+  config = defaults.merge(YAML.load_file 'webstatic.yml')
+else
+  puts 'No configuration file detected.'
+  puts 'You can put your configuration in webstatic.yml'
+  puts 'e.g.'
+  defaults.each do |k,v|
+    puts "    #{k}: #{v}"
+  end
+  config = defaults
+end
+
+# Merge ENV in config
+ENV.each do |uppercase_k,v|
+  k = uppercase_k.downcase
+  if config.key? k
+    config[k] = case v
+    when 'true'
+      true
+    when 'false'
+      false
+    when /^\d+$/
+      v.to_i
+    else
+      v
+    end
+  end
+end
+
+# Create settings from config and defaults
+configure do
+  config.each do |k,v|
+    set k.to_sym, v
+  end
+  set :public_folder, settings.build_folder
+end
+
+# Helpers
+def public_location file_or_folder
+  File.join settings.public_folder, file_or_folder
+end
+def not_found_location
+  public_location settings.not_found_page
+end
+def single_page_location
+  public_location settings.single_page
+end
+def css_location
+  public_location settings.css_folder_name
+end
+def is_spa?
+  File.exist? single_page_location
+end
+
+# Create .gitignore if not exist
+unless settings.skip_automatic_gitignore or File.exist?('.gitignore')
+  File.open('.gitignore', 'w') do |file|
+    file.puts File.join(settings.public_folder, '')
+    file.puts '.env'
+    file.puts '.sass-cache/'
+  end
+  puts "Created .gitignore file"
+end
+
+# Create build folder if not exist
+unless File.directory? settings.public_folder
+  FileUtils.mkdir_p settings.public_folder
+  puts "Created #{settings.public_folder}"
+end
+
+# Build SCSS files if there are any
+if File.directory? settings.scss_folder
+  require 'sass/plugin/rack'
+  Sass::Plugin.options.merge!({
+    cache: false,
+    style: :compressed,
+    template_location: settings.scss_folder,
+    css_location: css_location,
+    always_check: true
+  })
+  use Sass::Plugin::Rack
+end
+
+get '/*' do
+  pass unless is_spa?
+  # call env.merge("PATH_INFO" => '/index.html')
+  send_file single_page_location
+end
+
+if File.exist? not_found_location
+  not_found do
+    send_file not_found_location
+  end
+end
+
+puts
+

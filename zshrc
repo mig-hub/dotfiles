@@ -2,8 +2,8 @@ isbin() {
   which "$1" > /dev/null
 }
 
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 export PAGER=less
 if isbin go; then
   export GOPATH=$(go env GOPATH)
