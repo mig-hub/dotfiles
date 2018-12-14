@@ -1,6 +1,9 @@
 isbin() {
   which "$1" > /dev/null
 }
+try-source() {
+  [[ -f "$1" ]] && source "$1"
+}
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -219,11 +222,8 @@ if isbin pacman; then
   alias pacug='sudo pacman -Syu'
 fi
 
-if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+try-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+try-source ~/.fzf.zsh
 
 # RBENV
 if isbin rbenv; then
