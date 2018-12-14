@@ -32,7 +32,7 @@ snippet relationship
 	${0}
 snippet attachment
 	field :${1:image}, type: :attachment, variations: [
-	  PopulateMe::Variation.new_image_magick_job(:populate_me_thumb, :jpg, "-flatten -resize '400x225^' -gravity center -extent 400x225")
+	  PopulateMe::Variation.default
 	]
 	${0}
 snippet variation
