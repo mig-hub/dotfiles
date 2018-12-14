@@ -4,6 +4,10 @@ isbin() {
 
 export EDITOR=nvim
 export VISUAL=nvim
+if isbin nvim; then
+  alias vim='nvim'
+  alias vi='nvim'
+fi
 export PAGER=less
 if isbin go; then
   export GOPATH=$(go env GOPATH)
