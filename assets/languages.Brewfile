@@ -1,0 +1,11 @@
+brew "crystal"
+brew "elixir"
+brew "go"
+brew "guile"
+brew "lua"
+brew "node"
+brew "rust"
+brew "s-lang"
+cask "factor"
+cask "red"
+

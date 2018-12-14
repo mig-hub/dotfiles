@@ -211,6 +211,8 @@ augroup RecognizeFiles
   autocmd!
   autocmd BufRead,BufNewFile *.ru setlocal filetype=ruby
   autocmd BufRead,BufNewFile Gemfile setlocal filetype=ruby
+  autocmd BufRead,BufNewFile Brewfile setlocal filetype=ruby
+  autocmd BufRead,BufNewFile *.Brewfile setlocal filetype=ruby
   autocmd BufRead,BufNewFile *.json setlocal filetype=javascript
   autocmd BufRead,BufNewFile *.muttrc setlocal filetype=muttrc
 augroup END

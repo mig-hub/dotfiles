@@ -6,15 +6,25 @@ ensure-file() {
   fi
 }
 
+section-line() {
+  echo "================================================================================"
+}
+
+section() {
+  section-line
+  echo $1
+  section-line
+}
+
 add-zshrc() {
-  echo "Sourcing zshrc in ~/.zshrc ..."
+  section "Sourcing zshrc in ~/.zshrc ..."
   ensure-file ~/.zshrc
   echo "source ~/.dotfiles/zshrc" >> ~/.zshrc
   echo "" >> ~/.zshrc
 }
 
 add-gitconfig() {
-  echo "Including gitconfig in ~/.gitconfig ..."
+  section "Including gitconfig in ~/.gitconfig ..."
   ensure-file ~/.gitconfig
   echo "[include]" >> ~/.gitconfig
   echo "  path = ~/.dotfiles/gitconfig" >> ~/.gitconfig
@@ -29,7 +39,7 @@ add-gitconfig() {
 }
 
 add-vimrc() {
-  echo "Symlinking vim directory to ~/.vim ..."
+  section "Symlinking vim directory to ~/.vim ..."
   if [[ ! -d ~/.vim ]]; then
     ln -s ~/.dotfiles/vim ~/.vim
   else
@@ -40,7 +50,7 @@ add-vimrc() {
 }
 
 add-nvim() {
-  echo "Symlinking nvim directory to ~/.config/nvim ..."
+  section "Symlinking nvim directory to ~/.config/nvim ..."
   if [[ ! -d ~/.config/nvim ]]; then
     ln -s ~/.dotfiles/vim ~/.config/nvim
   else
@@ -51,7 +61,7 @@ add-nvim() {
 }
 
 add-tmux-conf() {
-  echo "Sourcing tmux conf in ~/.tmux.conf"
+  section "Sourcing tmux conf in ~/.tmux.conf"
   ensure-file ~/.tmux.conf
   echo "source-file ~/.dotfiles/.tmux.conf" >> ~/.tmux.conf
   echo "" >> ~/.tmux.conf
@@ -66,7 +76,22 @@ add-all() {
 }
 
 install-brew() {
+  section "Installing Homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+}
+
+install-brewfile() {
+  section "Installing Brewfile: ~/.dotfiles/assets/${1:=default}.Brewfile"
+  brew tap Homebrew/bundle
+  brew bundle install --file=~/.dotfiles/assets/${1:=default}.Brewfile
+}
+
+default-install() {
+  section "Make zsh default shell"
+  chsh -s /bin/zsh
+  install-brew
+  install-brewfile
+  add-all
 }
 
 $1
