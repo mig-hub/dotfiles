@@ -52,6 +52,7 @@ add-vimrc() {
 add-nvim() {
   section "Symlinking nvim directory to ~/.config/nvim ..."
   if [[ ! -d ~/.config/nvim ]]; then
+    mkdir -p ~/.config
     ln -s ~/.dotfiles/vim ~/.config/nvim
   else
     echo "/!\\  ~/.config/nvim already exists"
