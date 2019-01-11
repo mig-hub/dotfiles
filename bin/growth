@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Calculates the growth rate between 2 numbers
+# Calculates the growth ratio between 2 numbers
 
 if ARGV.length < 2
   STDERR.puts "Usage: growth <number1> <number2>"
@@ -9,7 +9,6 @@ end
 
 open = ARGV[0].to_f
 close = ARGV[1].to_f
-growth = close - open
 
-puts "#{100*growth/open}%" 
+puts close/open
 
