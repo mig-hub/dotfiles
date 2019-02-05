@@ -108,6 +108,14 @@ ddg() {
   w3m "https://duckduckgo.com?q=$search"
 }
 
+ai2pdf() {
+  if [[ $# == 0 ]]; then
+    echo "Usage: ai2pdf <ai-file>"
+  else
+    gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=${1:r}.pdf $1
+  fi
+}
+
 # Quick zip
 z() {
   zip -r -X "$1.zip" "$1"
