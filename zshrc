@@ -116,6 +116,20 @@ ai2pdf() {
   fi
 }
 
+unpkg() {
+  if [[ $# == 1 ]]; then
+    open "https://unpkg.com/$2/"
+  elif [[ $# == 2 ]] && [[ "$1" == "-l" ]]; then
+    curl -L "https://unpkg.com/$1"
+  else
+    echo "Usage: unpkg <pkg-name-to-list-files-for>"
+    echo "e.g. : unpkg vue"
+    echo "Usage: unpkg -l <pkg-name-to-load>[/<file-path>]"
+    echo "e.g. : unpkg -l vue"
+    echo "e.g. : unpkg -l vue/dist/vue.min.js"
+  fi
+}
+
 # Quick zip
 z() {
   zip -r -X "$1.zip" "$1"
