@@ -120,7 +120,7 @@ unpkg() {
   if [[ $# == 1 ]]; then
     open "https://unpkg.com/$2/"
   elif [[ $# == 2 ]] && [[ "$1" == "-l" ]]; then
-    curl -L "https://unpkg.com/$2/$3"
+    curl -L "https://unpkg.com/$2"
   else
     echo "Usage: unpkg <pkg-name-to-list-files-for>"
     echo "e.g. : unpkg vue"
