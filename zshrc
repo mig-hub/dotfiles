@@ -118,9 +118,11 @@ ai2pdf() {
 
 unpkg() {
   if [[ $# == 1 ]]; then
-    open "https://unpkg.com/$2/"
+    open "https://unpkg.com/$1/"
   elif [[ $# == 2 ]] && [[ "$1" == "-l" ]]; then
     curl -L "https://unpkg.com/$2"
+  elif [[ $# == 3 ]] && [[ "$1" == "-l" ]]; then
+    curl -L "https://unpkg.com/$2/$3"
   else
     echo "Usage: unpkg <pkg-name-to-list-files-for>"
     echo "e.g. : unpkg vue"
