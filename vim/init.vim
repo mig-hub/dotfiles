@@ -47,6 +47,7 @@ set scrolloff=5
 set sidescrolloff=10
 set clipboard^=unnamed
 let g:netrw_sort_options="i"
+let g:netrw_sort_by="name"
 let g:netrw_banner=0
 let g:vim_markdown_folding_disabled=1
 
