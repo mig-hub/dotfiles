@@ -223,7 +223,7 @@ augroup Misc
   " automatically reload init.vim when it's saved
   autocmd BufWritePost '~/.config/nvim/init.vim' source %
   " autocmd FileType css inoremap <buffer> :<Space> :<Space>;<Left>
-  autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
+  " autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
   autocmd FileType slim setlocal nobreakindent
 augroup END
 
