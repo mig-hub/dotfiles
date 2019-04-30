@@ -1,14 +1,15 @@
 body {
   margin: 3em;
   font-size: 2vw;
-  background-color: ghostwhite;
+  color: #2c2719;
+  background-color: #f5edd8;
   font-family: sans-serif;
 }
-a { color: dodgerblue; }
+a { color: #588e9c; }
 li { list-style-type: disc; }
 code { 
   font-size: 0.75em;
-  background-color: gainsboro; 
+  background-color: #fbf9f2; 
   padding: 0.1em 0.3em; 
   border-radius: 0.1em;
 }
