@@ -22,31 +22,32 @@ export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:
 # Key binding
 bindkey -e
 KEYTIMEOUT=5
-cursor-ins-mode() {
-  if [ -n "$TMUX" ]; then
-    echo -ne '\ePtmux;\e\e[5 q\e\\'
-  else
-    echo -ne '\e[5 q'
-  fi
-}
-cursor-cmd-mode() {
-  if [ -n "$TMUX" ]; then
-    echo -ne '\ePtmux;\e\e[2 q\e\\'
-  else
-    echo -ne '\e[2 q'
-  fi
-}
-zle-keymap-select() {
-  if [[ ${KEYMAP} == vicmd ]]; then
-    cursor-cmd-mode
-  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]]; then
-    cursor-ins-mode
-  fi
-  zle reset-prompt
-}
-zle-line-init() {
-  zle -K viins
-}
+# cursor-ins-mode() {
+#   if [ -n "$TMUX" ]; then
+#     echo -ne '\ePtmux;\e\e[5 q\e\\'
+#   else
+#     echo -ne '\e[5 q'
+#   fi
+# }
+# cursor-cmd-mode() {
+#   if [ -n "$TMUX" ]; then
+#     echo -ne '\ePtmux;\e\e[2 q\e\\'
+#   else
+#     echo -ne '\e[2 q'
+#   fi
+# }
+# zle-keymap-select() {
+#   if [[ ${KEYMAP} == vicmd ]]; then
+#     cursor-cmd-mode
+#   elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]]; then
+#     cursor-ins-mode
+#   fi
+#   zle reset-prompt
+# }
+# zle-line-init() {
+#   zle -K viins
+# }
+
 # zle -N zle-line-init
 # zle -N zle-keymap-select
 setopt PROMPT_SUBST
@@ -72,7 +73,7 @@ precmd() {
   echo -ne "\e]1;${PWD##*/}\a" # sets the tab title to current dir
   vcs_info # Sets vcs info for git branch in a var
   setopt PROMPT_SUBST
-  cursor-ins-mode
+  # cursor-ins-mode
   PROMPT="
 %{$fg[cyan]%}| %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %5~ %{$fg[cyan]%}${vcs_info_msg_0_}%(1j. %{$fg[red]%}%j.)
 %{$fg[cyan]%}| %{$reset_color%}"

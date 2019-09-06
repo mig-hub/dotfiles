@@ -225,6 +225,10 @@ augroup Misc
   " autocmd FileType css inoremap <buffer> :<Space> :<Space>;<Left>
   " autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
   autocmd FileType slim setlocal nobreakindent
+  " Show insert mode without cursor change
+  " Avoids osx+tmux+nvim cursor change hell
+  autocmd InsertEnter * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=DarkBlue guifg=DarkBlue
+  autocmd InsertLeave * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=Cyan guifg=Cyan
 augroup END
 
 " ============
@@ -235,12 +239,12 @@ set background=dark
 colorscheme solarized
 " Fix IncSearch because solarized started to change the style 
 " of the first search result
-hi IncSearch term=reverse cterm=reverse ctermfg=3 guifg=Black guibg=Yellow
+hi IncSearch term=reverse cterm=reverse gui=reverse ctermfg=Yellow guifg=Yellow
 
 " ============================
 " Change cursor on insert mode
 " ============================
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
