@@ -159,7 +159,7 @@ ru() {
   kill %?rackup &>/dev/null
   wait
   if [[ "$1" != "-k" ]]; then
-    local cmd="bundle exec rackup -o '0.0.0.0' -s webrick -p ${PORT:=9292}"
+    local cmd="bundle exec rackup -o '0.0.0.0' -s webrick -p ${PORT:=8080}"
     if [ -f .env ]; then
       cmd="dotenv $cmd"
     fi
@@ -243,6 +243,7 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias softupall='sudo softwareupdate -i -a'
   alias restart='sudo shutdown -r now'
   alias chrome='open -a "Google Chrome"'
+  alias olh='open http://localhost:8080/'
 fi
 if isbin pacman; then
   alias pacug='sudo pacman -Syu'
