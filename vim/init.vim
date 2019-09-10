@@ -17,6 +17,8 @@ Plug 'rhysd/vim-crystal'
 Plug 'elixir-editors/vim-elixir'
 Plug 'dag/vim-fish'
 Plug 'lee-jon/vim-io'
+Plug 'mityu/vim-applescript'
+Plug 'elmcast/elm-vim'
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -188,7 +190,7 @@ nnoremap <leader>tb :tabe.<CR>
 nnoremap <leader>t. :tabe.<CR>
 " Plug
 nnoremap <leader>pi :PlugInstall<CR>
-nnoremap <leader>pu :PlugUpgrade <Bar> PlugUpdate<CR>
+nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>ps :PlugStatus<CR>
 nnoremap <leader>pc :PlugClean!<CR>
 
