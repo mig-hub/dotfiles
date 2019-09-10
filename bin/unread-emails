@@ -1,0 +1,21 @@
+#!/usr/bin/osascript
+
+on run
+  tell application "Mail"
+    set myOutput to ""
+    repeat with a in every account whose enabled is true
+      set accountName to name of a
+      set myMailbox to mailbox "INBOX" of account accountName
+      set myOutput to myOutput & accountName & ": "
+      set myOutput to myOutput & unread count of myMailbox
+      set myOutput to myOutput & "\n"
+      repeat with msg in every message of myMailbox whose read status is false
+        set myOutput to myOutput & "- " & sender of msg & "\n"
+        set myOutput to myOutput & "  " & subject of msg & "\n"
+      end repeat
+    end repeat
+    set myOutput to myOutput & "\nTotal: " & unread count of inbox
+    return myOutput
+  end tell
+end run
+
