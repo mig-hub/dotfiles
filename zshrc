@@ -187,6 +187,18 @@ md() {
   fi
 }
 
+# Flasher to indicate a job is finished
+# $ make; flasher
+
+flasher () { 
+  while true; do 
+    printf "\e[?5h"
+    sleep 0.2
+    printf "\e[?5l"
+    read -sk -t1 && break
+  done
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias mkdir='mkdir -pv'
