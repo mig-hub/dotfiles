@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+if ARGV.length == 0
+  STDERR.puts "Turn the time into a decimal. Add if there are many arguments."
+  STDERR.puts "Usage: decimaltime <time> [<more-time>]"
+  STDERR.puts "e.g. : decimaltime 3:46 65m 5H20M"
+  exit 1
+end
+
+def sanitize_arg arg
+  arg = arg.tr('hHmM', '::  ').strip.sub(/:$/, ':00')
+  raise "Malformed time `#{arg}` should look like `3:15`." unless arg[/^(\d+[:])?\d+$/]
+  arg
+end
+
+minutes = ARGV.reduce(0) do |sum, arg|
+  arg = sanitize_arg arg
+  hm = arg.split(':').map(&:to_i)
+  if hm.size==1
+    sum + hm[0]
+  else
+    sum + hm[0]*60 + hm[1]
+  end
+end
+
+puts "#{(minutes/60.0).round(2)} Hours (== #{minutes} Minutes)"
+
