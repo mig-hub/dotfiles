@@ -226,6 +226,7 @@ augroup Misc
   autocmd BufWritePost '~/.config/nvim/init.vim' source %
   " autocmd FileType css inoremap <buffer> :<Space> :<Space>;<Left>
   " autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
+  autocmd FileType markdown setlocal spell spelllang=en_us
   autocmd FileType slim setlocal nobreakindent
   " Show insert mode without cursor change
   " Avoids osx+tmux+nvim cursor change hell
