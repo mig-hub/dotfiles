@@ -187,6 +187,15 @@ md() {
   fi
 }
 
+# Show a script
+
+catw() {
+  cat $(which "$1")
+}
+lessw() {
+  less $(which "$1")
+}
+
 # Flasher to indicate a job is finished
 # $ make; flasher
 
