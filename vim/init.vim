@@ -188,6 +188,8 @@ nnoremap <leader>e. :e.<CR>
 nnoremap <leader>tn :tabe.<CR>
 nnoremap <leader>tb :tabe.<CR>
 nnoremap <leader>t. :tabe.<CR>
+" Minitest
+nnoremap <leader>mt :vsplit term://bundle exec ruby -Ilib:test % --pride<CR>
 " Plug
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
