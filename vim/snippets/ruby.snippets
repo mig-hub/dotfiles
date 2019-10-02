@@ -2,6 +2,24 @@ snippet get
 	get '/${1}' do
 	  ${0}
 	end
+snippet sinatra-extension
+	require 'sinatra/base'
+
+	module Sinatra
+
+		module ${1:ExtName}
+
+			def self.registered app
+				app.helpers ::Sinatra::$1::Helpers
+				${0}
+			end
+
+			module Helpers
+			end
+
+		end
+		register ::Sinatra::$1
+	end
 snippet metatitle=
 	@meta_title = "${0} - #{@meta_title}"
 snippet model
