@@ -1,10 +1,24 @@
 #! /bin/zsh
 
 # Web images
-if [[ $# != 4 ]]; then
-  echo "Usage: webconvert <original-image> <size> <max-filesize> <final-image>"
-  echo "Usage: webconvert big.jpg 500x 300kb web.jpg"
+if [[ $# < 1 ]]; then
+  echo "Usage: webconvert <original-images>"
+  echo "Usage: webconvert big.jpg"
+  echo "Usage: webconvert big.jpg another-big.jpg"
+  echo "Usage: webconvert *.tiff"
+  echo "Reampled will be created with the suffix '.web' before the extension."
+  echo
+  echo "With Env Vars."
+  echo "Any can be changed."
+  echo "Usage: FORMAT=jpeg SUFFIX=lowres QUALITY=best MAX_OPTION=resampleHeightWidthMax MAX=1600 webconvert *.jpeg"
 else
-  convert "$1" -resize "$2" -define jpeg:extent=$3 "$4" 
+  local format="${FORMAT:-jpeg}"
+  local suffix="${SUFFIX:-web}"
+  local quality="${QUALITY:-high}"
+  local max_option="${MAX_OPTION:-resampleWidth}"
+  local max="${MAX:-1600}"
+  for f in $*; do
+    sips -s format "$format" -s formatOptions "$quality" -s dpiWidth 72 -s dpiHeight 72 "--${max_option}" "$max" -m '/System/Library/ColorSync/Profiles/sRGB Profile.icc' "$f" --out "${f:r}.${suffix}.${format}"
+  done
 fi
 
