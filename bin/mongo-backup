@@ -18,7 +18,7 @@ else
 end
 puts "Backup will be saved in : #{dest}"
 
-cmd = "mongodump --uri=#{mongodb_uri} --excludeCollection=system.users -o #{dest}"
+cmd = "mongodump --uri='#{mongodb_uri}' --excludeCollection=system.users -o #{dest}"
 
 puts 'Exec :'
 puts cmd
