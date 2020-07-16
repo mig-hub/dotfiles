@@ -1,27 +1,21 @@
-#!/usr/bin/env ruby
+#!/bin/zsh
 
-mongodb_uri = ENV['MONGODB_URI_PRODUCTION']
-
-if mongodb_uri.to_s == ''
-  raise "MONGODB_URI_PRODUCTION missing. Maybe you did not use 'dotenv mongo-backup'"
+if [ -z "$MONGODB_URI_PRODUCTION" ]; then
+  echo "MONGODB_URI_PRODUCTION missing. Maybe you did not use 'dotenv mongo-backup'"
+  exit 1
 else
-  puts "Backup will be taken from : #{mongodb_uri}"
-end
+  echo "Backup will be taken from : ${MONGODB_URI_PRODUCTION}"
+fi
 
-if File.directory?('private/')
-  dest = 'private/'
-elsif File.directory?('.private/')
-  dest = '.private/'
+if [ -d 'private' ]; then
+  local dest='private/'
+elif [ -d '.private']; then
+  local dest='.private/'
 else
-  Dir.mkdir 'private/'
-  dest = 'private/'
-end
-puts "Backup will be saved in : #{dest}"
+  mkdir 'private'
+  local dest='private/'
+fi
+echo "Backup will be saved in : ${dest}"
 
-cmd = "mongodump --uri='#{mongodb_uri}' --excludeCollection=system.users -o #{dest}"
-
-puts 'Exec :'
-puts cmd
-
-system cmd
+mongodump --uri="${MONGODB_URI_PRODUCTION}" --excludeCollection=system.users -o "${dest}"
 
