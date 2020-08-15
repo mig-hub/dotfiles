@@ -48,6 +48,8 @@ set timeoutlen=1000 ttimeoutlen=0
 set scrolloff=5
 set sidescrolloff=10
 set clipboard^=unnamed
+set list
+set listchars=tab:▸\ ,trail:␠,nbsp:⎵
 let g:netrw_sort_options="i"
 let g:netrw_sort_by="name"
 let g:netrw_banner=0
@@ -63,7 +65,7 @@ set tabstop=2
 set expandtab
 augroup TabExceptions
   autocmd!
-  autocmd FileType make setlocal noexpandtab
+  autocmd FileType make setlocal noexpandtab tabstop=4
   autocmd FileType rust setlocal tabstop=4 shiftwidth=4
 augroup END
 let g:rust_recommended_style = 0
