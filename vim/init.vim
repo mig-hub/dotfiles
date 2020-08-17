@@ -65,7 +65,7 @@ set tabstop=2
 set expandtab
 augroup TabExceptions
   autocmd!
-  autocmd FileType make setlocal noexpandtab tabstop=4
+  autocmd FileType make setlocal noexpandtab tabstop=4 shiftwidth=4
   autocmd FileType rust setlocal tabstop=4 shiftwidth=4
 augroup END
 let g:rust_recommended_style = 0
