@@ -1,5 +1,5 @@
 isbin() {
-  which "$1" > /dev/null
+  type -p "$1" >/dev/null
 }
 try-source() {
   [[ -f "$1" ]] && source "$1"
@@ -272,6 +272,9 @@ if [[ $(uname -s) == "Darwin" ]]; then
 fi
 if isbin pacman; then
   alias pacug='sudo pacman -Syu'
+fi
+if isbin xlsx2csv; then
+  alias xlsx2csv=xl2csv
 fi
 
 export LESS_TERMCAP_mb=$'\e[1;35m'
