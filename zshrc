@@ -273,9 +273,6 @@ fi
 if isbin pacman; then
   alias pacug='sudo pacman -Syu'
 fi
-if isbin xlsx2csv; then
-  alias xlsx2csv=xl2csv
-fi
 
 export LESS_TERMCAP_mb=$'\e[1;35m'
 export LESS_TERMCAP_md=$'\e[1;34m'
