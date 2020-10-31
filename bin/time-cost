@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+if ARGV.length == 0
+  STDERR.puts "Turn the time into a cost. Rounded to 6min to avoid cents wit any rate."
+  STDERR.puts "Usage: time-cost <time> [<hourly-rate>]"
+  STDERR.puts "e.g. : time-cost 0:20"
+  STDERR.puts "e.g. : time-cost 0:20 70"
+  exit 1
+end
+
+def sanitize_arg arg
+  arg = arg.tr('hHmM', '::  ').strip.sub(/:$/, ':00')
+  raise "Malformed time `#{arg}` should look like `3:15`." unless arg[/^(\d+[:])?\d+$/]
+  arg
+end
+
+arg = sanitize_arg ARGV[0]
+hm = arg.split(':').map(&:to_i)
+minutes = if hm.size==1
+  hm[0]
+else
+  hm[0]*60 + hm[1]
+end
+
+rate = ARGV[1].nil? ? 70 : ARGV[1].to_i
+if rate != 60
+  # Gives round numbers with any rate, no cents
+  # Rounds to 0.1 above
+  minutes = 6 * (minutes/6.0).ceil
+end
+
+decimal_hours = (minutes/60.0).round(2)
+
+puts "Rounded to #{minutes}m"
+puts "#{decimal_hours}h x #{rate} = #{rate*decimal_hours.to_i} Euros"
+
