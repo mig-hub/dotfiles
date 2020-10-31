@@ -32,5 +32,5 @@ end
 decimal_hours = (minutes/60.0).round(2)
 
 puts "Rounded to #{minutes}m"
-puts "#{decimal_hours}h x #{rate} = #{rate*decimal_hours.to_i} Euros"
+puts "#{decimal_hours}h x #{rate} = #{(rate*decimal_hours).to_i} Euros"
 
