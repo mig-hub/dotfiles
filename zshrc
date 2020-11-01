@@ -196,6 +196,16 @@ lessw() {
   less $(which "$1")
 }
 
+weather() {
+  if [[ $# == 0 ]]; then
+    echo "Usage: weather new york"
+    echo
+    curl wttr.in
+  else
+    curl wttr.in/"$*"
+  fi
+}
+
 # Flasher to indicate a job is finished
 # $ make; flasher
 
