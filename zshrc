@@ -269,6 +269,8 @@ alias -g G="| grep"
 alias -g L="| less"
 if [[ $(uname -s) == "Darwin" ]]; then
   alias ls='ls -1AFG'
+  alias irun='arch -x86_64' # run with rosetta
+  alias ibrew='arch -x86_64 /usr/local/bin/brew'
   alias br='brew'
   alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
   alias brod='brew outdated'
