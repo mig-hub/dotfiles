@@ -104,6 +104,15 @@ uri-escape() {
   ruby -e 'require "uri"; print URI.encode_www_form_component(ARGV[0])' "$*"
 }
 
+rbenv-update() {
+  cd ~/.rbenv
+  git pull
+  cd -
+  cd ~/.rbenv/plugins/ruby-build
+  git pull
+  cd -
+}
+
 ddg() {
   local search=$(uri-escape "$*")
   w3m "https://duckduckgo.com?q=$search"
