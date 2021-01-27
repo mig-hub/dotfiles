@@ -7,7 +7,7 @@
 
 call plug#begin('~/.local/share/nvim/plugged')
 " Color schemes
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 " Filetypes
 Plug 'slim-template/vim-slim'
 Plug 'rust-lang/rust.vim'
@@ -244,7 +244,7 @@ augroup END
 " ============
 
 set background=dark
-colorscheme solarized
+" colorscheme solarized
 " Fix IncSearch because solarized started to change the style 
 " of the first search result
 hi IncSearch term=reverse cterm=reverse gui=reverse ctermfg=Yellow guifg=Yellow

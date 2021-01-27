@@ -303,6 +303,10 @@ export LESS_TERMCAP_so=$'\e[01;31m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
+export CLICOLOR=1
+export LSCOLORS="exfxbxdxcxegedabagacad"
+export LS_COLORS="di=34:ex=32:ln=35:or=31"
+
 try-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 try-source ~/.fzf.zsh
 
