@@ -2,12 +2,12 @@
 
 require 'webrick'
 
-root = File.expand_path ENV['DOCUMENT_ROOT'] || '.'
+root = File.expand_path(ARGV.length > 0 ? ARGV[0] : '.')
 $not_found_page = ENV['NOT_FOUND_PAGE'] || '404.html'
-$single_page = ENV['SINGLE_PAGE'] || '200.html'
+$single_page = ARGV.length > 1 ? ARGV[1] : 'index.html'
 
 options = {
-  :Port => ENV['PORT'] || 8080, 
+  :Port => ENV['PORT'] || 8080,
   :DocumentRoot => root
 }
 
@@ -34,5 +34,14 @@ server = WEBrick::HTTPServer.new options
 trap 'INT' do server.shutdown end
 trap 'TERM' do server.shutdown end
 
+puts "Usage: [PORT=8080] [NOT_FOUND_PAGE='404.html'] serve [document-root='.'] [single-page='index.html']"
+puts "Usage: serve"
+puts "Usage: serve build"
+puts "Usage: serve build 200.html"
+puts "Usage: PORT=3000 serve build 200.html"
+puts ""
+puts "Starting..."
+puts "Root: #{root}"
+puts "SPA: #{$single_page}"
 server.start
 
