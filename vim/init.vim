@@ -19,6 +19,8 @@ Plug 'dag/vim-fish'
 Plug 'lee-jon/vim-io'
 Plug 'mityu/vim-applescript'
 Plug 'elmcast/elm-vim'
+Plug 'leafOfTree/vim-vue-plugin'
+Plug 'digitaltoad/vim-pug'
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -54,6 +56,19 @@ let g:netrw_sort_options="i"
 let g:netrw_sort_by="name"
 let g:netrw_banner=0
 let g:vim_markdown_folding_disabled=1
+let g:vim_vue_plugin_config = { 
+      \'syntax': {
+      \   'template': ['html', 'pug'],
+      \   'script': ['javascript'],
+      \   'style': ['css', 'scss'],
+      \},
+      \'full_syntax': [],
+      \'initial_indent': [],
+      \'attribute': 0,
+      \'keyword': 0,
+      \'foldexpr': 0,
+      \'debug': 0,
+      \}
 
 " ===========
 " Indentation
@@ -184,6 +199,7 @@ nnoremap <leader><CR> o<Esc>k
 nnoremap <leader>qq :q<CR>
 nnoremap <leader>qa :qa<CR>
 " Fzf
+set rtp+=/opt/homebrew/opt/fzf
 nnoremap <leader>ff :FZF<CR>
 " File Browse
 nnoremap <leader>fb :e.<CR>
