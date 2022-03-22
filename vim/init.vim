@@ -53,9 +53,6 @@ set sidescrolloff=10
 set clipboard^=unnamed
 set list
 set listchars=tab:▸\ ,trail:␠,nbsp:⎵
-let g:netrw_sort_options="i"
-let g:netrw_sort_by="name"
-let g:netrw_banner=0
 let g:vim_markdown_folding_disabled=1
 let g:vim_vue_plugin_config = { 
       \'syntax': {
@@ -70,6 +67,33 @@ let g:vim_vue_plugin_config = {
       \'foldexpr': 0,
       \'debug': 0,
       \}
+
+" =====
+" Netrw
+" =====
+
+let g:netrw_sort_options = "i"
+let g:netrw_sort_by = "name"
+let g:netrw_sort_sequence = ""
+let g:netrw_banner = 0
+let g:netrw_keepdir = 0
+let g:netrw_localcopydircmd = 'cp -r'
+let g:netrw_list_hide= '^\.\.\=/\=$,.DS_Store'
+let g:netrw_hide = 1
+hi! link netrwMarkFile Search
+
+function! NetrwMapping() " Mappings available inside netrw
+  " Toggle hidden files
+  nmap <buffer> . gh
+  " Close preview window
+  " p/P = open/close preview
+  nmap <buffer> P <C-w>z
+endfunction
+
+augroup netrw_mapping " Activate netrw mappings
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
 
 " ===========
 " Indentation
