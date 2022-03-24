@@ -40,6 +40,11 @@ call plug#end()
 " Misc
 " ====
 
+" This nohidden avoids a bug when landing on a directory.
+" Without it, it will open a [No Name] buffer and
+" fuck up the first alternate buffer
+set nohidden
+
 set linebreak
 set breakindent
 set showmatch
