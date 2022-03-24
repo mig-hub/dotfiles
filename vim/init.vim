@@ -272,6 +272,8 @@ augroup RecognizeFiles
   autocmd BufRead,BufNewFile *.muttrc setlocal filetype=muttrc
 augroup END
 
+set cpoptions-=a
+
 augroup Misc
   autocmd!
   " automatically reload init.vim when it's saved
@@ -280,8 +282,8 @@ augroup Misc
   " autocmd FileType markdown setlocal textwidth=80 formatoptions=tacqw
   autocmd FileType markdown setlocal spell spelllang=en_us
   autocmd FileType slim setlocal nobreakindent
-  autocmd BufNewFile *.vue 0r ~/.dotfiles/skeletons/vue-pug-scss.vue
-  autocmd BufNewFile *.url 0r ~/.dotfiles/skeletons/default.url
+  autocmd BufNewFile *.vue silent! 0r ~/.dotfiles/skeletons/vue-pug-scss.vue
+  autocmd BufNewFile *.url silent! 0r ~/.dotfiles/skeletons/default.url
   " Show insert mode without cursor change
   " Avoids osx+tmux+nvim cursor change hell
   autocmd InsertEnter * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=DarkBlue guifg=DarkBlue
