@@ -159,7 +159,7 @@ inoremap /*<CR> /*<CR>*/<Esc>O
 " Save
 nnoremap ss :w<CR>
 vnoremap ss <Esc>:w<CR>
-inoremap jk <Esc>:nohlsearch<CR>
+inoremap <silent> jk <Esc>:nohlsearch<CR>
 
 " Visual up/down
 noremap j gj
