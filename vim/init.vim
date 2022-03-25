@@ -273,6 +273,8 @@ augroup RecognizeFiles
   autocmd BufRead,BufNewFile *.muttrc setlocal filetype=muttrc
 augroup END
 
+" This avoid the skeleton creation and reads in general
+" to mess up with the alternate file.
 set cpoptions-=a
 
 augroup Misc
