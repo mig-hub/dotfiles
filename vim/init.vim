@@ -113,6 +113,7 @@ augroup TabExceptions
   autocmd FileType rust setlocal tabstop=4 shiftwidth=4
 augroup END
 let g:rust_recommended_style = 0
+set foldmethod=indent
 
 " ==============
 " Search options
