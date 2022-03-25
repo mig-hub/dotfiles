@@ -33,6 +33,8 @@ Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-repeat'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'easymotion/vim-easymotion'
+Plug 'ap/vim-css-color'
+Plug 'jreybert/vimagit'
 Plug '/usr/local/opt/fzf'
 call plug#end()
 
