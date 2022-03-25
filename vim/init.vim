@@ -289,8 +289,8 @@ augroup Misc
   autocmd BufNewFile *.url silent! 0r ~/.dotfiles/skeletons/default.url
   " Show insert mode without cursor change
   " Avoids osx+tmux+nvim cursor change hell
-  autocmd InsertEnter * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=DarkBlue guifg=DarkBlue
-  autocmd InsertLeave * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=Cyan guifg=Cyan
+  autocmd InsertEnter * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=Green guifg=Green
+  autocmd VimEnter,InsertLeave * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=DarkBlue guifg=DarkBlue
 augroup END
 
 " ============
