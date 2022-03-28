@@ -28,6 +28,9 @@ if !has('nvim')
     let &t_EI = "\e[2 q"
   endif
 
+  " C-L clears but also removes search highlight
+  nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+
 endif " if not nvim
 
 " ======================

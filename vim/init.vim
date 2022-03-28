@@ -55,7 +55,7 @@ set guifont=Monaco:h24
 set nofoldenable
 set statusline=%.30F\ %y%=%l/%L
 set timeoutlen=1000 ttimeoutlen=0
-set scrolloff=5
+set scrolloff=999 " Large number keeps cursor in the middle
 set sidescrolloff=10
 set clipboard^=unnamed
 set list
@@ -161,6 +161,8 @@ inoremap /*<CR> /*<CR>*/<Esc>O
 " Save
 nnoremap ss :w<CR>
 vnoremap ss <Esc>:w<CR>
+
+" Remove highlights when escaping with jk
 inoremap <silent> jk <Esc>:nohlsearch<CR>
 
 " Visual up/down
@@ -176,9 +178,6 @@ vnoremap < <gv
 vnoremap > >gv
 vnoremap <C-h> <gv
 vnoremap <C-l> >gv
-
-" C-L clears but also removes search highlight
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
 " Select line without indentation
 nnoremap vv ^vg_

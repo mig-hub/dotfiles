@@ -61,6 +61,15 @@ add-nvim() {
   mkdir -p ~/.local/share/nvim/plugged
 }
 
+add-emacs() {
+  section "Symlinking emacs directory to ~/.emacs.d ..."
+  if [[ ! -d ~/.emacs.d ]]; then
+    ln -s ~/.dotfiles/emacs ~/.emacs.d
+  else
+    echo "/!\\  ~/.emacs.d already exists"
+  fi
+}
+
 add-tmux-conf() {
   section "Sourcing tmux conf in ~/.tmux.conf"
   ensure-file ~/.tmux.conf
@@ -73,6 +82,7 @@ add-all() {
   add-gitconfig
   add-nvim
   add-vimrc
+  add-emacs
   add-tmux-conf
 }
 
