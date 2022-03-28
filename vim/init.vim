@@ -73,6 +73,8 @@ let g:vim_vue_plugin_config = {
       \'debug': 0,
       \}
 
+set cursorline
+
 " =====
 " Netrw
 " =====
