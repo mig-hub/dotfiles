@@ -197,6 +197,8 @@ nnoremap s ^f{%i<CR><Esc>k^f{wi<CR><Esc>^
 " This makes browsing tabs easy because R and T are next to each other.
 " `gr` goes left `gt` goes right.
 nnoremap gr gT
+nnoremap H gT
+nnoremap L gt
 
 " Search with magic on
 nnoremap / /\v
