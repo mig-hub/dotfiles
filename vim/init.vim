@@ -132,6 +132,56 @@ set path+=**
 set nobackup
 set noswapfile
 
+" =============
+" Quickfix list
+" =============
+
+" A typical workflow is to use the Vimgrep/vimgrep command to search for
+" a pattern: `:Vimgrep transform **/*.scss`
+" Then use `:cdo` directly or `<leader>cr` which generates the boilerplate
+" for a search and replace which only needs to be completed and launched.
+"
+" If you just want to navigate through the matches, you can with `[q` and
+" `]q`.
+"
+" Alternatively you can edit the quickfix list before launching the search and
+" replace. In order to do this, just open the qf window `<leader>co` and make
+" it editable with `<leader>ce`. Then remove the unwanted line and save with
+" `<leader>cw` once you are done. You can then start search and replace with
+" `<leader>cr`.
+
+" Vimgrep just uses regular vimgrep but ensures it is silent and that
+" the quickfix window is opened automatically.
+command! -nargs=+ Vimgrep execute 'silent vimgrep! <args>' | copen
+
+" Begin the search and replace
+nnoremap <leader>cr :cdo s/// \| update<C-Left><C-Left><Left><Left><Left>
+nnoremap <leader>cd :cdo s/// \| update<C-Left><C-Left><Left><Left><Left>
+
+" Show the quickfix window
+nnoremap <Leader>co :copen<CR>
+" Hide the quickfix window
+nnoremap <Leader>cc :cclose<CR>
+" Go to the previous location
+nnoremap [q :cprev<CR>
+" Go to the next location
+nnoremap ]q :cnext<CR>
+
+function! QuickfixMapping()
+  " Make the quickfix list modifiable
+  nnoremap <buffer> <leader>ce :set modifiable<CR>
+  " Save the changes in the quickfix window
+  nnoremap <buffer> <leader>cw :cgetbuffer<CR>:cclose<CR>:copen<CR>
+  nnoremap <buffer> <leader>cs :cgetbuffer<CR>:cclose<CR>:copen<CR>
+endfunction
+
+augroup quickfix_group
+  autocmd!
+  autocmd filetype qf call QuickfixMapping()
+  " Ensures qf can read its own error format
+  autocmd filetype qf setlocal errorformat+=%f\|%l\ col\ %c\|%m
+augroup END
+
 " ========
 " Mappings
 " ========
