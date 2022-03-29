@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This can be used in a pipe when you want to be able to edit
+# stdin/stdout with the EDITOR.
+# e.g. ls -la | vipe | less
+
+# create temporary file
+TMPFILE=`mktemp /tmp/vipe.bashXXXXXXXX`
+cat > ${TMPFILE}
+${EDITOR} ${TMPFILE} < /dev/tty > /dev/tty
+cat ${TMPFILE}
+rm ${TMPFILE}
+
