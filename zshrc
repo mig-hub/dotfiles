@@ -261,7 +261,7 @@ alias tn='t new -s'
 alias ta='t attach -t'
 alias tls='t ls'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias localip='ifconfig | awk '\''$1=="inet" {print $2}'\'''
+alias localip='ifconfig | awk '\''$1=="inet" && $5=="broadcast" {print $2}'\'''
 alias speed='speedtest-cli'
 alias -g DN="&>/dev/null"
 alias -g DNA="&>/dev/null &"
