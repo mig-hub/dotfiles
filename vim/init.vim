@@ -137,8 +137,8 @@ set noswapfile
 " Quickfix list
 " =============
 "
-" A typical workflow is to use the `<leader>sv` to begin a search for a
-" pattern: e.g. `... vimgrep transform **/*.scss ...`. This will open a new tab,
+" A typical workflow is to use the `<leader>sg` to begin a search for a
+" pattern: e.g. `... grep transform -t sass ...`. This will open a new tab,
 " search and then open the quickfix list.
 "
 " From there you can navigate through matches and do what you want.
@@ -151,6 +151,18 @@ set noswapfile
 " well before running the command.
 "
 " ================================
+
+" Use ripgrep as the default grep
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+  set grepformat=%f:%l:%c:%m
+endif
+" Begin a command which will open a new tab, run ripgrep
+" and open the quickfix list.
+" You only need to complete in place the pattern you want
+" to search, and possibly update the list of files
+" e.g. Search all rust files with -t rust
+nnoremap <leader>sg :tabnew \| grep  \| copen<C-Left><C-Left><Left>
 
 " Begin a command which will open a new tab, run vimgrep
 " and open the quickfix list.
