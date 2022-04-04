@@ -31,6 +31,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ap/vim-css-color'
 Plug '/usr/local/opt/fzf'
@@ -51,7 +52,7 @@ set showmatch
 set number
 set guifont=Monaco:h24
 set nofoldenable
-set statusline=%.30F\ %y%=%l/%L
+set statusline=%.30F\ %y%=%{FugitiveStatusline()}\ %l/%L
 set timeoutlen=1000 ttimeoutlen=0
 set scrolloff=999 " Large number keeps cursor in the middle
 set sidescrolloff=10
