@@ -20,8 +20,8 @@ fi
 export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$GOPATH/bin:/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
 
 # Key binding
-bindkey -e
-KEYTIMEOUT=5
+bindkey -v
+KEYTIMEOUT=1
 # cursor-ins-mode() {
 #   if [ -n "$TMUX" ]; then
 #     echo -ne '\ePtmux;\e\e[5 q\e\\'
@@ -51,8 +51,16 @@ KEYTIMEOUT=5
 # zle -N zle-line-init
 # zle -N zle-keymap-select
 setopt PROMPT_SUBST
-bindkey "^b" backward-word 
-bindkey "^f" forward-word
+# bindkey "^b" backward-word 
+# bindkey "^f" forward-word
+# Better searching in command mode
+bindkey -M vicmd '?' history-incremental-search-backward
+bindkey -M vicmd '/' history-incremental-search-forward
+# Beginning search with arrow keys
+# bindkey "^[OA" up-line-or-beginning-search
+# bindkey "^[OB" down-line-or-beginning-search
+# bindkey -M vicmd "k" up-line-or-beginning-search
+# bindkey -M vicmd "j" down-line-or-beginning-search
 
 setopt autocd
 
