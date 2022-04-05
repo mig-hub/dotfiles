@@ -224,9 +224,6 @@ augroup END
 " Mappings
 " ========
 
-" Digraph
-inoremap <C-k><C-k> <Esc>:help digraph-table<CR>
-
 " Autoclosings
 inoremap '' ''<Left>
 inoremap "" ""<Left>
