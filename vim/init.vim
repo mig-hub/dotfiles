@@ -301,6 +301,22 @@ nnoremap <leader>e. :e.<CR>
 nnoremap <leader>tn :tabe.<CR>
 nnoremap <leader>tb :tabe.<CR>
 nnoremap <leader>t. :tabe.<CR>
+" Git/Fugitive
+nnoremap <leader>gs :G<CR>
+nnoremap <leader>gpnm :G push nas master<CR>
+nnoremap <leader>glnm :G pull nas master<CR>
+nnoremap <leader>gphm :G push heroku master<CR>
+nnoremap <leader>glhm :G pull heroku master<CR>
+nnoremap <leader>gpgm :G push github master<CR>
+nnoremap <leader>glgm :G pull github master<CR>
+nnoremap <leader>gpwm :G push web master<CR>
+nnoremap <leader>glwm :G pull web master<CR>
+nnoremap <leader>gpom :G push origin master<CR>
+nnoremap <leader>glom :G pull origin master<CR>
+nnoremap <leader>gpam :G push admin master<CR>
+nnoremap <leader>glam :G pull admin master<CR>
+nnoremap <leader>gpsm :G push staging master<CR>
+nnoremap <leader>glsm :G pull staging master<CR>
 " Minitest
 nnoremap <leader>mt :vsplit term://bundle exec ruby -Ilib:test % --pride<CR>
 " Plug
