@@ -395,6 +395,8 @@ augroup Misc
   " Avoids osx+tmux+nvim cursor change hell
   autocmd InsertEnter * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=Green guifg=Green
   autocmd VimEnter,InsertLeave * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=DarkBlue guifg=DarkBlue
+  autocmd InsertEnter * NoMatchParen
+  autocmd VimEnter,InsertLeave * DoMatchParen
 augroup END
 
 " ============
