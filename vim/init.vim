@@ -33,6 +33,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ap/vim-css-color'
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -343,6 +344,8 @@ nnoremap <leader>gpam :G push admin master<CR>
 nnoremap <leader>glam :G pull admin master<CR>
 nnoremap <leader>gpsm :G push staging master<CR>
 nnoremap <leader>glsm :G pull staging master<CR>
+" Git/GV - git log interactive
+nnoremap <leader>gl :GV<CR>
 " Minitest
 nnoremap <leader>mt :vsplit term://bundle exec ruby -Ilib:test % --pride<CR>
 " Plug
