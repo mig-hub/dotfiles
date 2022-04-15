@@ -12,7 +12,7 @@
   ch = checkout
   chb = checkout -b
   nb = checkout -b
-  d = diff
+  d = diff --word-diff=color --word-diff-regex=.
   dc = diff --cached
   ps = push
   pl = pull
