@@ -347,14 +347,6 @@ nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>ps :PlugStatus<CR>
 nnoremap <leader>pc :PlugClean!<CR>
 
-" =================
-" Fix muscle memory
-" =================
-
-nnoremap <leader>q<CR> :echo "Use [leader]qq instead."<CR>
-nnoremap <leader>e.<CR> :echo "Do not type enter after this leader mapping"<CR>
-nnoremap <C-P> :echo "Use fzf with [leader]ff instead"<CR>
-
 " =======
 " Runtime
 " =======
