@@ -1,0 +1,32 @@
+snippet data:
+	data() {
+	  return {
+			${1:state}: ${0},
+		}
+	},
+snippet props:
+	props: [
+		'${0}',
+	],
+snippet computed:
+	computed: {
+	  ${1:page}() {
+		  return ${0};
+		},
+	},
+snippet methods:
+	methods: {
+	  ${1:methodName}() {
+		  ${0}
+		},
+	},
+snippet mobile
+	@include mobile-portrait {
+		${0}
+	}
+snippet tablet
+	@include tablet-portrait {
+		${0}
+	}
+snippet vw
+	vw(${0}px)

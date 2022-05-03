@@ -1,7 +1,3 @@
-snippet mobile
-	@include mobile {
-		${0}
-	}
 snippet portrait
 	@include portrait {
 		${0}
@@ -10,19 +6,19 @@ snippet landscape
 	@include landscape {
 		${0}
 	}
-snippet pom
-	@include portrait-or-mobile {
+snippet mobile
+	@include mobile-portrait {
 		${0}
 	}
-snippet !pom
-	@include landscape-not-mobile {
+snippet tablet
+	@include tablet-portrait {
 		${0}
 	}
 snippet $mobile
 	$mobile: (body-size: ${1:16px}, ref-width: ${2:800px}, breakpoint: ${3:800px});
   ${0}
-snippet em
-	em(${0}px)
+snippet vw
+	vw(${0}px)
 snippet inline-block
 	@include inline-block;${0}
 snippet inb
