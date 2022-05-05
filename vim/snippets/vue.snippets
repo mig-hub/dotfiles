@@ -1,3 +1,16 @@
+snippet head:
+	head() {
+		return {
+			title: this.page.metaTitle,
+			meta: [
+			  {
+			    hid: 'description',
+			    name: 'description',
+			    content: this.page.metaDescription,
+			  },
+			],
+		}
+	},
 snippet data:
 	data() {
 	  return {
