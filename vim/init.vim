@@ -329,7 +329,7 @@ nnoremap <leader>tn :tabe.<CR>
 nnoremap <leader>tb :tabe.<CR>
 nnoremap <leader>t. :tabe.<CR>
 " Git/Fugitive
-nnoremap <leader>gs :G<CR>
+nnoremap <leader>gs :vertical G<CR>
 nnoremap <leader>gpn :G push nas master<CR>
 nnoremap <leader>gph :G push heroku master<CR>
 nnoremap <leader>gpg :G push github master<CR>
