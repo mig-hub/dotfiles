@@ -9,18 +9,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Color schemes
 " Plug 'altercation/vim-colors-solarized'
 " Filetypes
-Plug 'slim-template/vim-slim'
-Plug 'rust-lang/rust.vim'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'rhysd/vim-crystal'
-Plug 'elixir-editors/vim-elixir'
-Plug 'dag/vim-fish'
+Plug 'sheerun/vim-polyglot'
 Plug 'lee-jon/vim-io'
-Plug 'mityu/vim-applescript'
-Plug 'elmcast/elm-vim'
-Plug 'leafOfTree/vim-vue-plugin'
-Plug 'digitaltoad/vim-pug'
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
