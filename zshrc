@@ -80,11 +80,21 @@ zstyle ':vcs_info:git:*' formats '%b'
 precmd() {
   echo -ne "\e]1;${PWD##*/}\a" # sets the tab title to current dir
   vcs_info # Sets vcs info for git branch in a var
-  setopt PROMPT_SUBST
+  if [ -n "$vcs_info_msg_0_" ]; then
+    VCS_PROMPT=" @ %{$fg[blue]%}${vcs_info_msg_0_}%{$reset_color%}"
+  fi
   # cursor-ins-mode
-  PROMPT="
-%{$fg[cyan]%}| %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %5~ %{$fg[cyan]%}${vcs_info_msg_0_}%(1j. %{$fg[red]%}%j.)
-%{$fg[cyan]%}| %{$reset_color%}"
+  NEWLINE=$'\n'
+  UNAME_PROMPT="%{$fg[yellow]%}%n %{$reset_color%}@ %{$fg[yellow]%}%m%{$reset_color%}"
+  DIR_PROMPT="%{$fg[blue]%}%5~%{$reset_color%}${VCS_PROMPT}%{$reset_color%}"
+  JOBS_PROMPT="%(1j. jobs:%{$fg[red]%}%j.)%{$reset_color%}"
+  PROMPT="${NEWLINE}%{$fg[magenta]%}⌂ ${UNAME_PROMPT} : ${DIR_PROMPT}${JOBS_PROMPT}${NEWLINE}%{$fg[magenta]%}Ϟ %{$reset_color%}"
+  RPROMPT="%{$fg[magenta]%}%*%{$reset_color%}"
+}
+
+TMOUT=1
+TRAPALRM() {
+    zle reset-prompt
 }
 
 # Helper functions
