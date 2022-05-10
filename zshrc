@@ -81,7 +81,7 @@ precmd() {
   echo -ne "\e]1;${PWD##*/}\a" # sets the tab title to current dir
   vcs_info # Sets vcs info for git branch in a var
   if [ -n "$vcs_info_msg_0_" ]; then
-    VCS_PROMPT=" @ %{$fg[blue]%}${vcs_info_msg_0_}%{$reset_color%}"
+    VCS_PROMPT="  %{$fg[blue]%}${vcs_info_msg_0_}%{$reset_color%}"
   fi
   # cursor-ins-mode
   NEWLINE=$'\n'
