@@ -82,6 +82,8 @@ precmd() {
   vcs_info # Sets vcs info for git branch in a var
   if [ -n "$vcs_info_msg_0_" ]; then
     VCS_PROMPT="  %{$fg[blue]%}${vcs_info_msg_0_}%{$reset_color%}"
+  else
+    VCS_PROMPT=''
   fi
   # cursor-ins-mode
   NEWLINE=$'\n'
