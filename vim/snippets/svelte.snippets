@@ -1,0 +1,35 @@
+snippet $lib
+	import ${1} from "$lib/${2}";${0}
+snippet component
+	import ${1} from "$lib/components/${1}.svelte";${0}
+snippet style
+	<style>
+		${0}
+	</style>
+snippet @debug
+	{@debug ${1}}${0}
+snippet #if
+	{#if ${1}}
+		${0}
+	{/if}
+snippet :else
+	{:else${1}}
+		${0}
+snippet #each
+	{#each ${1} as ${2}}
+		${0}
+	{/each}
+snippet @html
+	{@html ${1}}${0}
+snippet slot
+	<slot${1}/>
+snippet svelte:self
+	<svelte:self${1}/>${0}
+snippet svelte:head
+	<svelte:head>
+		${0}
+	</svelte:head>
+snippet svelte:window
+	<svelte:window${1}/>${0}
+snippet svelte:body
+	<svelte:body${1}/>${0}

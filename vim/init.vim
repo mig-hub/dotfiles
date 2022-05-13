@@ -53,6 +53,7 @@ set sidescrolloff=10
 set clipboard^=unnamed
 set list
 set listchars=tab:▸\ ,trail:␠,nbsp:⎵
+let g:snipMate = { 'snippet_version' : 1 }
 let g:vim_markdown_folding_disabled=1
 let g:vim_vue_plugin_config = { 
       \'syntax': {
@@ -229,8 +230,6 @@ inoremap {<CR> {<CR>}<Esc>O
 inoremap {{<Space> {{<Space><Space>}}<Left><Left><Left>
 inoremap (<Space> (<Space><Space>)<Left><Left>
 inoremap (<CR> (<CR>)<Esc>O
-inoremap <> <><Left>
-inoremap </ </><Left>
 inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
 inoremap /*<CR> /*<CR>*/<Esc>O
 
