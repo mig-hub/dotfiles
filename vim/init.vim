@@ -53,7 +53,7 @@ set sidescrolloff=10
 set clipboard^=unnamed
 set list
 set listchars=tab:▸\ ,trail:␠,nbsp:⎵
-let g:snipMate = { 'snippet_version' : 1 }
+let g:snipMate = get( g:, 'snipMate', { 'snippet_version' : 1 } )
 let g:vim_markdown_folding_disabled=1
 let g:vim_vue_plugin_config = { 
       \'syntax': {
