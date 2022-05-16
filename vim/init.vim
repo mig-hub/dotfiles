@@ -217,9 +217,6 @@ augroup END
 " ========
 
 " Autoclosings
-inoremap '; ''<Left>
-inoremap "; ""<Left>
-inoremap `; ``<Left>
 inoremap [<Space> [<Space><Space>]<Left><Left>
 inoremap [<CR> [<CR>]<Esc>O
 inoremap [' ['']<Left><Left>
