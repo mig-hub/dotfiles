@@ -21,7 +21,7 @@ export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:
 
 # Key binding
 bindkey -v
-KEYTIMEOUT=1
+KEYTIMEOUT=10
 # cursor-ins-mode() {
 #   if [ -n "$TMUX" ]; then
 #     echo -ne '\ePtmux;\e\e[5 q\e\\'
@@ -56,6 +56,7 @@ setopt PROMPT_SUBST
 # Better searching in command mode
 bindkey -M vicmd '?' history-incremental-search-backward
 bindkey -M vicmd '/' history-incremental-search-forward
+bindkey -M viins 'jk' vi-cmd-mode
 # Beginning search with arrow keys
 # bindkey "^[OA" up-line-or-beginning-search
 # bindkey "^[OB" down-line-or-beginning-search
