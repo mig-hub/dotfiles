@@ -16,8 +16,26 @@ if isbin go; then
   export GOPATH=$(go env GOPATH)
 fi
 
-# Bin locations
-export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$GOPATH/bin:/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
+##############################################
+# PATH prepending, most important must be last
+##############################################
+# Old all in one
+# export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$GOPATH/bin:/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
+if [[ $(uname -s) == "Darwin" ]]; then
+  # Puts airport in the PATH
+  export PATH=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
+fi
+# Go bin path
+export PATH=$GOPATH/bin:$PATH
+# RBENV itself path but not the shims which added at the bottom of this file
+# Not sure if still needed
+export PATH=~/.rbenv/bin:$PATH
+# Dotfiles bin directory
+export PATH=~/.dotfiles/bin:$PATH
+# Home bin directory
+export PATH=~/bin:$PATH
+# Current working directory
+export PATH=.:$PATH
 
 # Key binding
 bindkey -v
