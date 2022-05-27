@@ -296,9 +296,9 @@ for r in nas heroku github web origin admin staging; do
 done
 alias tmux="TERM=screen-256color-bce tmux"
 alias t='tmux'
-alias tn='t new -s'
-alias ta='t attach -t'
-alias tls='t ls'
+alias tn='tmux new -s'
+alias ta='tmux attach -t'
+alias tl='tmux ls'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ifconfig | awk '\''$1=="inet" && $5=="broadcast" {print $2}'\'''
 alias speed='speedtest-cli'
