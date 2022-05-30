@@ -111,7 +111,6 @@ set breakindent
 set showmatch
 set number
 set nofoldenable
-set statusline=%.30F\ %y%=%{FugitiveStatusline()}\ %l/%L
 set timeoutlen=1000 ttimeoutlen=0
 set scrolloff=999 " Large number keeps cursor in the middle
 set sidescrolloff=10
@@ -159,6 +158,28 @@ let g:context_filetype#filetypes.svelte =
 let g:ft = ''
 " \   {'filetype' : 'css', 'start' : '<style \?.*>', 'end' : '</style>'},
 
+" ==========
+" Statusline
+" ==========
+"
+set laststatus=2
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! GitStatusline()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=\ 
+set statusline+=%.30f
+set statusline+=%{GitStatusline()}
+set statusline+=%=
+set statusline+=%y
+set statusline+=\ 
+set statusline+=%l/%L
 
 " =====
 " Netrw
