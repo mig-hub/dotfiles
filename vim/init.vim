@@ -64,11 +64,13 @@ if &background == "dark"
   highlight htmlTag ctermfg=8
   highlight htmlEndTag ctermfg=8
   highlight cssBraces ctermfg=8
+  highlight netrwClassify ctermfg=8
 else
   highlight Comment ctermfg=7
   highlight htmlTag ctermfg=7
   highlight htmlEndTag ctermfg=7
   highlight cssBraces ctermfg=7
+  highlight netrwClassify ctermfg=7
 end
 highlight link diffRemoved DiffDelete
 highlight link diffAdded DiffAdd
