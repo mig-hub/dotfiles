@@ -39,7 +39,8 @@ export PATH=.:$PATH
 
 # Key binding
 bindkey -v
-KEYTIMEOUT=10
+KEYTIMEOUT=10 # I have used 10 here instead of 1 to fix an issue
+
 # cursor-ins-mode() {
 #   if [ -n "$TMUX" ]; then
 #     echo -ne '\ePtmux;\e\e[5 q\e\\'
