@@ -8,41 +8,34 @@ end
 set -gx PATH . ~/bin ~/.dotfiles/bin ~/.rbenv/bin /usr/local/bin /usr/local/sbin /usr/local/share/npm/bin /usr/local/heroku/bin $GOPATH"/bin" /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources $PATH
 
 function fish_prompt
-  set_color cyan
-  printf '| '
+  set_color magenta
+  printf '⌂ '
   set_color yellow
   printf $USER
-  set_color cyan
-  printf ' at '
+  set_color normal
+  printf ' @ '
   set_color yellow
   printf (hostname | cut -d . -f 1)
-  set_color cyan
-  printf ' in '
-  set_color magenta
+  set_color normal
+  printf ' : '
+  set_color blue
   printf (prompt_pwd)
 
-  set -l isgit (git rev-parse --git-dir ^ /dev/null)
-  if test -n "$isgit"
-    printf '('
-    set -l hasdiff (git diff)
-    if test -n "$hasdiff"
-      set_color red
-    else
-      set_color green
-    end
-    printf (git branch ^ /dev/null | grep -e '\* ' | sed 's/^..\(.*\)/\1/')
-    set_color magenta
-    printf ')'
-  end
+  printf (fish_git_prompt)
 
   set -l number_of_jobs (jobs | wc -l | xargs)
   if test $number_of_jobs -ne '0'
     set_color red
     printf ' '(jobs | wc -l | xargs)
   end
-  set_color cyan
-  printf '\n| '
+  set_color magenta
+  printf '\n≈ '
   set_color normal
+end
+
+function fish_right_prompt
+  set_color magenta
+  date +"%H:%M:%S"
 end
 
 function fish_title

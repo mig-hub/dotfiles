@@ -23,6 +23,16 @@ add-zshrc() {
   echo "" >> ~/.zshrc
 }
 
+add-fish() {
+  section "Symlinking fish directory to ~/.config/fish ..."
+  if [[ ! -d ~/.config/fish ]]; then
+    mkdir -p ~/.config
+    ln -s ~/.dotfiles/fish ~/.config/fish
+  else
+    echo "/!\\  ~/.config/fish already exists"
+  fi
+}
+
 add-gitconfig() {
   section "Including gitconfig in ~/.gitconfig ..."
   ensure-file ~/.gitconfig
