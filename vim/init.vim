@@ -8,9 +8,11 @@
 call plug#begin('~/.local/share/nvim/plugged')
 " Color schemes
 " Plug 'altercation/vim-colors-solarized'
+Plug 'jeffkreeftmeijer/vim-dim'
 " Filetypes
 Plug 'sheerun/vim-polyglot'
 Plug 'lee-jon/vim-io'
+Plug 'Shougo/context_filetype.vim'
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -32,6 +34,67 @@ Plug 'nvim-orgmode/orgmode'
 Plug 'dhruvasagar/vim-table-mode'
 call plug#end()
 
+" ============
+" Color Scheme
+" ============
+
+set background=dark
+colorscheme grim
+
+" 0: Black    8: Bright Black
+" 1: Red      9: Bright Red
+" 2: Green    10: Bright Green
+" 3: Yellow   11: Bright Yellow
+" 4: Blue     12: Bright Blue
+" 5: Magenta  13: Bright Magenta
+" 6: Cyan     14: Bright Cyan
+" 7: White    15: Bright White
+
+highlight Identifier cterm=NONE ctermfg=2
+highlight String ctermfg=4
+highlight Number ctermfg=4
+highlight Type ctermfg=3
+highlight Keyword ctermfg=1
+highlight PreProc ctermfg=1
+highlight vimCommand ctermfg=5
+highlight Statement ctermfg=3
+if &background == "dark"
+  highlight Comment ctermfg=8
+  highlight htmlTag ctermfg=8
+  highlight htmlEndTag ctermfg=8
+  highlight cssBraces ctermfg=8
+else
+  highlight Comment ctermfg=7
+  highlight htmlTag ctermfg=7
+  highlight htmlEndTag ctermfg=7
+  highlight cssBraces ctermfg=7
+end
+highlight link diffRemoved DiffDelete
+highlight link diffAdded DiffAdd
+
+" augroup Colors
+"   autocmd!
+"   autocmd VimEnter,InsertLeave * highlight StatusLine cterm=reverse ctermfg=4 ctermbg=0
+"   autocmd InsertEnter * highlight StatusLine cterm=reverse ctermfg=2 ctermbg=0
+" augroup END
+
+" highlight IncSearch ctermfg=11 ctermbg=0 cterm=reverse
+
+" Use this to know the highlight group of the thing under the cursor:
+" :SynStack
+
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+command! SynStack echo SynStack()
+
+" Test colors with:
+command! HiTest so $VIMRUNTIME/syntax/hitest.vim
+
 " ====
 " Misc
 " ====
@@ -41,11 +104,11 @@ call plug#end()
 " fuck up the first alternate buffer
 set nohidden
 
+set cursorline
 set linebreak
 set breakindent
 set showmatch
 set number
-set guifont=Monaco:h24
 set nofoldenable
 set statusline=%.30F\ %y%=%{FugitiveStatusline()}\ %l/%L
 set timeoutlen=1000 ttimeoutlen=0
@@ -54,8 +117,16 @@ set sidescrolloff=10
 set clipboard^=unnamed
 set list
 set listchars=tab:▸\ ,trail:␠,nbsp:⎵
+
+" SnipMate
 let g:snipMate = get( g:, 'snipMate', { 'snippet_version' : 1 } )
+
+" Markdown
 let g:vim_markdown_folding_disabled=1
+
+" Vue
+let g:vue_pre_processors = ['pug', 'scss']
+" This is not the plugin from polyglot
 let g:vim_vue_plugin_config = { 
       \'syntax': {
       \   'template': ['html', 'pug'],
@@ -70,8 +141,23 @@ let g:vim_vue_plugin_config = {
       \'debug': 0,
       \}
 
-set cursorline
-highlight Folded ctermbg=Black guibg=Black
+" Context filetype
+if !exists('g:context_filetype#same_filetypes')
+  let g:context_filetype#filetypes = {}
+endif
+let g:context_filetype#filetypes.svelte =
+\ [
+\   {'filetype' : 'javascript', 'start' : '<script>', 'end' : '</script>'},
+\   {
+\     'filetype': 'typescript',
+\     'start': '<script\%( [^>]*\)\? \%(ts\|lang="\%(ts\|typescript\)"\)\%( [^>]*\)\?>',
+\     'end': '',
+\   },
+\   {'filetype' : 'scss', 'start' : '<style>', 'end' : '</style>'},
+\ ]
+let g:ft = ''
+" \   {'filetype' : 'css', 'start' : '<style \?.*>', 'end' : '</style>'},
+
 
 " =====
 " Netrw
@@ -84,7 +170,7 @@ let g:netrw_banner = 0
 let g:netrw_localcopydircmd = 'cp -r'
 let g:netrw_list_hide= '^\.\.\=/\=$,.DS_Store'
 let g:netrw_hide = 1
-hi! link netrwMarkFile Search
+highlight! link netrwMarkFile Search
 
 function! NetrwMapping() " Mappings available inside netrw
   " Toggle hidden files
@@ -366,23 +452,10 @@ augroup Misc
   autocmd FileType slim setlocal nobreakindent
   autocmd BufNewFile *.vue silent! 0r ~/.dotfiles/skeletons/vue-pug-scss.vue
   autocmd BufNewFile *.url silent! 0r ~/.dotfiles/skeletons/default.url
-  " Show insert mode without cursor change
-  " Avoids osx+tmux+nvim cursor change hell
-  autocmd InsertEnter * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=Green guifg=Green
-  autocmd VimEnter,InsertLeave * hi StatusLine term=reverse cterm=reverse gui=reverse ctermfg=DarkBlue guifg=DarkBlue
+  " Hide matching parens in insert mode
   autocmd InsertEnter * NoMatchParen
   autocmd VimEnter,InsertLeave * DoMatchParen
 augroup END
-
-" ============
-" Color Scheme
-" ============
-
-set background=dark
-" colorscheme solarized
-" Fix IncSearch because solarized started to change the style 
-" of the first search result
-hi IncSearch term=reverse cterm=reverse gui=reverse ctermfg=Yellow guifg=Yellow
 
 " ============================
 " Change cursor on insert mode
