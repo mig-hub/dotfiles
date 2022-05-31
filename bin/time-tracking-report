@@ -1,0 +1,45 @@
+#!/usr/bin/awk -f
+
+# This script is for parsing simple tracking time org files.
+# Org files should be a list of first level titles and their
+# logbooks. The script prints the titles, the total of each
+# logbook and a complete total at the end.
+
+BEGIN {
+  total_minutes = 0
+  local_minutes = 0
+  }
+
+/^\*/ {
+  # Prints title lines
+  print $0
+  }
+
+/:LOGBOOK:/ {
+  # Reset local minutes
+  local_minutes = 0
+  }
+
+/CLOCK:/ {
+  local_minutes += hm2minutes( $8 )
+  }
+
+/:END:/ {
+  total_minutes += local_minutes
+  printf "  %s\n", minutes2hm( local_minutes )
+  }
+
+END {
+  printf "\nTOTAL: %s\n", minutes2hm( total_minutes )
+  }
+
+function hm2minutes( hm ) {
+  split( hm, atoms, ":" )
+  return atoms[1] * 60 + atoms[2]
+  }
+
+function minutes2hm( minutes ) {
+  h = int( minutes / 60 )
+  m = int( minutes % 60 )
+  return sprintf( "%s:%02s", h, m )
+  }
