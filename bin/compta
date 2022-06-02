@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+unless File.exist? 'compta.yml'
+  # Once everything else works, replace this with a process to create the config.
+  puts "Missing compta.yml !"
+  puts "Maybe you're not in a compta directory."
+  exit
+else
+  require_relative 'compta_utils/config'
+  require_relative 'compta_utils/ls'
+  include Compta
+  compta_init
+end
+
+require 'irb'
+require 'irb/completion'
+IRB.start
+
