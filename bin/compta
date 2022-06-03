@@ -5,13 +5,14 @@ unless File.exist? 'compta.yml'
   puts "Missing compta.yml !"
   puts "Maybe you're not in a compta directory."
   exit
-else
-  require_relative 'compta_utils/config'
-  require_relative 'compta_utils/ls'
-  require_relative 'compta_utils/ed'
-  include Compta
-  compta_init
 end
+
+require_relative 'compta_utils/config'
+require_relative 'compta_utils/ls'
+require_relative 'compta_utils/ed'
+require_relative 'compta_utils/pdf'
+include Compta
+compta_init
 
 require 'irb'
 require 'irb/completion'

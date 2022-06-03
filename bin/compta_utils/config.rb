@@ -1,6 +1,4 @@
-require 'yaml'
-require_relative '../ruby_utils/string_color'
-require_relative '../ruby_utils/prompt_methods'
+require_relative 'helpers'
 
 module Compta
 

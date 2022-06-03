@@ -1,3 +1,7 @@
+require 'yaml'
+require_relative '../ruby_utils/string_color'
+require_relative '../ruby_utils/prompt_methods'
+
 module Compta
 
   def float_to_price f
@@ -67,4 +71,25 @@ module Compta
     find_doc :book_entry, number, year
   end
 
+  # Loading docs
+
+  def load_doc type, number, year=Time.now.year
+    file = find_doc type, number, year
+    if file.nil? or not File.exist? file
+      return nil
+    end
+    YAML.load_file file
+  end
+
+  # PDF location for a doc
+
+  def pdf_file_for type, doc
+    if type != :proposal and type != :invoice
+      raise "Wrong PDF type: #{ type }."
+    end
+    prefix = $compta_config["#{ type }_pdf_prefix".to_sym]
+    "#{ type }s-pdf/#{ prefix }#{ doc[:id] }.pdf"
+  end
+
 end
+
