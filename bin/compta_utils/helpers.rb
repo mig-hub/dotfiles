@@ -14,6 +14,10 @@ module Compta
     end
   end
 
+  def string_to_date str
+    Time.new( *str.split( '-' ) )
+  end
+
   QUARTERS = {
     '01' => 'Q1', '02' => 'Q1', '03' => 'Q1',
     '04' => 'Q2', '05' => 'Q2', '06' => 'Q2',
