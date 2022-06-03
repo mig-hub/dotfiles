@@ -7,8 +7,8 @@ unless File.exist? 'compta.yml'
   exit
 else
   require_relative 'compta_utils/config'
-  require_relative 'compta_utils/ls_invoices'
-  require_relative 'compta_utils/ls_book_entries'
+  require_relative 'compta_utils/ls'
+  require_relative 'compta_utils/ed'
   include Compta
   compta_init
 end

@@ -38,4 +38,33 @@ module Compta
     end
   end
 
+  # Methods to find docs.
+  # Docs can be identified by their year and number.
+  # By default we use the current year.
+
+  def find_doc type, number, year=Time.now.year
+    if type == :proposal or type == :invoice
+      Dir[ "#{ type }s/#{ year }-*#{ number.to_s.rjust( 3, '0' ) }.yml" ].first
+    elsif type == :book_entry
+      # Invoice year is used to make sure we don't get a uniqueness problem
+      # when an invoice is paid on the following year after it was issued.
+      # e.g. Invoices issued in December and paid in January
+      Dir[ "book-entries/????????????#{ year }-*#{ number.to_s.rjust( 3, '0' ) }.yml" ].first
+    else
+      nil
+    end
+  end
+
+  def find_proposal number, year=Time.now.year
+    find_doc :proposal, number, year
+  end
+
+  def find_invoice number, year=Time.now.year
+    find_doc :invoice, number, year
+  end
+
+  def find_book_entry number, year=Time.now.year
+    find_doc :book_entry, number, year
+  end
+
 end
