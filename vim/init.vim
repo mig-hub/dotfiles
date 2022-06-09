@@ -178,6 +178,29 @@ function! GitStatusline()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
+let s:latestmode = 'n'
+
+function! RedrawStatusline(mode)
+  " Not perfect but not bad.
+  " It just wait for one move before changing color in visual mode.
+  if a:mode == s:latestmode
+    return ''
+  else
+    let s:latestmode = a:mode
+  endif
+  if a:mode == 'n'
+    highlight StatusLine cterm=reverse ctermfg=4 ctermbg=0
+  elseif a:mode == 'i'
+    highlight StatusLine cterm=reverse ctermfg=2 ctermbg=0
+  elseif a:mode == 'R'
+    highlight StatusLine cterm=reverse ctermfg=5 ctermbg=0
+  elseif a:mode == 'v' || a:mode == 'V' || a:mode == '^V'
+    highlight StatusLine cterm=reverse ctermfg=3 ctermbg=0
+  else
+    highlight StatusLine cterm=reverse ctermfg=4 ctermbg=0
+  endif
+endfunction
+
 set statusline=\ 
 set statusline+=%.30f
 set statusline+=%{GitStatusline()}
@@ -185,6 +208,7 @@ set statusline+=%=
 set statusline+=%y
 set statusline+=\ 
 set statusline+=%l/%L
+set statusline+=%{RedrawStatusline(mode())}
 
 " =====
 " Netrw
