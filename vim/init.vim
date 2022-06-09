@@ -119,6 +119,8 @@ set sidescrolloff=10
 set clipboard^=unnamed
 set list
 set listchars=tab:▸\ ,trail:␠,nbsp:⎵
+set splitbelow
+set splitright
 
 " SnipMate
 let g:snipMate = get( g:, 'snipMate', { 'snippet_version' : 1 } )
