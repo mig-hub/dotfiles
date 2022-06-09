@@ -59,6 +59,7 @@ highlight Keyword ctermfg=1
 highlight PreProc ctermfg=1
 highlight vimCommand ctermfg=5
 highlight Statement ctermfg=3
+highlight TabLine cterm=NONE ctermfg=0 ctermbg=7
 if &background == "dark"
   highlight Comment ctermfg=8
   highlight htmlTag ctermfg=8
