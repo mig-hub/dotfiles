@@ -2,6 +2,8 @@ require_relative 'helpers'
 
 module Compta
 
+  END_NUMBER_RE = /[1-9]\d*$/.freeze
+
   LENGTH_DATE_COL = 10
   LENGTH_ID_COL = 11
   LENGTH_BOOK_ID_COL = LENGTH_DATE_COL + LENGTH_ID_COL + 2
@@ -62,6 +64,29 @@ module Compta
   end
   alias_method :lsb, :ls_book_entries
 
+  def ls_clients
+    ( $compta_config[:clients] or [] ).each_with_index do |c, i|
+      print i.to_s.rjust( 3 ).blue
+      print '  '
+      print truncate( c[:client_name], LENGTH_CLIENT_COL )
+      print '  '
+      print truncate( c[:client_details].gsub( /\s+/, ' ' ), LENGTH_SUMMARY_COL )
+      puts
+    end
+    $compta_return
+  end
+  alias_method :lsc, :ls_clients
+
+  def ls_payment_methods
+    PAYMENT_METHODS.each_with_index do |pm, i|
+      print i.to_s.rjust( 3 ).blue
+      print '  '
+      puts pm
+    end
+    $compta_return
+  end
+  alias_method :lspm, :ls_payment_methods
+
   private
 
   def print_proposal doc
@@ -69,7 +94,7 @@ module Compta
   end
 
   def print_invoice doc, payment_status=:clear
-    out = doc[:id]
+    out = doc[:id].sub( END_NUMBER_RE, '\0'.reverse_color )
     out += '  '
     out += doc[:date]
     out += '  '
@@ -102,7 +127,7 @@ module Compta
   end
 
   def print_book_entry doc
-    print doc[:id]
+    print doc[:id].sub( END_NUMBER_RE, '\0'.reverse_color )
     print '  '
     print price_to_string( doc[:amount] ).rjust(LENGTH_PRICE_COL)
     print '  '
@@ -113,7 +138,7 @@ module Compta
   end
 
   def print_quarter_summary name, amount
-    puts "#{ name.ljust(LENGTH_BOOK_ID_COL) }  #{ price_to_string( amount ).rjust(LENGTH_PRICE_COL) }".blue
+    puts "#{ name.ljust(LENGTH_BOOK_ID_COL) }  #{ price_to_string( amount ).rjust(LENGTH_PRICE_COL) }".green
   end
 
 end

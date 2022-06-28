@@ -77,22 +77,6 @@ module Compta
 
     private
 
-    def doctype
-      if type == :invoice
-        if doc[:lang] == 'fr'
-          'FACTURE'
-        else
-          'INVOICE'
-        end
-      else
-        if doc[:lang] == 'fr'
-          'DEVIS'
-        else
-          'PROPOSAL'
-        end
-      end
-    end
-
     def set_fonts
       if $compta_config[:font]
         font_families.update(
@@ -135,7 +119,7 @@ module Compta
         end
 
         grid( 0, 2 ).bounding_box do
-          text( doctype.upcase, size: 9.pt )
+          text( doctype( type, doc[:lang] ).upcase, size: 9.pt )
           info = $compta_config["#{ type }_pdf_prefix".to_sym].to_s
           info << doc[:id]
           info << "\n\n</date>\n"

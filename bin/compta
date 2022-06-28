@@ -10,7 +10,9 @@ end
 require_relative 'compta_utils/config'
 require_relative 'compta_utils/ls'
 require_relative 'compta_utils/ed'
+require_relative 'compta_utils/new'
 require_relative 'compta_utils/pdf'
+require_relative 'compta_utils/email'
 include Compta
 compta_init
 

@@ -11,6 +11,28 @@ module Compta
     puts "Aloha #{ $compta_config[:first_name].blue } !\nWelcome to Compta."
   end
 
+  def collect_clients
+    clients = []
+    Dir['invoices/*.yml'].each do |file|
+      doc = YAML.load_file file
+      current_client = {
+        client_name: doc[:client_name],
+        client_details: doc[:client_details],
+      }
+      unless clients.include? current_client
+        clients << current_client
+      end
+    end
+    $compta_config[:clients] = clients
+    if confirm "Would you like to write clients in config"
+      File.open("compta.yml", "r+") do |file|
+        file.write($compta_config.to_yaml)
+      end
+      puts "Clients where added to compta.yml config file.".green
+    end
+    $compta_return
+  end
+
   def create_config
     conf = {}
     printf 'First name: '
