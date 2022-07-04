@@ -120,7 +120,7 @@ module Compta
 
         grid( 0, 2 ).bounding_box do
           text( doctype( type, doc[:lang] ).upcase, size: 9.pt )
-          info = $compta_config["#{ type }_pdf_prefix".to_sym].to_s
+          info = $compta_config["#{ type }_pdf_prefix".to_sym].to_s.dup
           info << doc[:id]
           info << "\n\n</date>\n"
           info << doc[:date].split( '-' ).reverse.join( '/' )
