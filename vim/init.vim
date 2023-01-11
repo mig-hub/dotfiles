@@ -60,18 +60,23 @@ highlight PreProc ctermfg=1
 highlight vimCommand ctermfg=5
 highlight Statement ctermfg=3
 highlight TabLine cterm=NONE ctermfg=0 ctermbg=7
+highlight CursorLine cterm=NONE
 if &background == "dark"
   highlight Comment ctermfg=8
   highlight htmlTag ctermfg=8
   highlight htmlEndTag ctermfg=8
   highlight cssBraces ctermfg=8
   highlight netrwClassify ctermfg=8
+  highlight CursorLineNr ctermfg=15 cterm=NONE
+  " highlight MatchParen ctermbg=0
 else
   highlight Comment ctermfg=7
   highlight htmlTag ctermfg=7
   highlight htmlEndTag ctermfg=7
   highlight cssBraces ctermfg=7
   highlight netrwClassify ctermfg=7
+  highlight CursorLineNr ctermfg=0 cterm=NONE
+  " highlight MatchParen ctermbg=15
 end
 highlight link diffRemoved DiffDelete
 highlight link diffAdded DiffAdd
@@ -113,6 +118,7 @@ set linebreak
 set breakindent
 set showmatch
 set number
+set mouse=a
 set nofoldenable
 set timeoutlen=1000 ttimeoutlen=0
 set scrolloff=999 " Large number keeps cursor in the middle
@@ -503,6 +509,7 @@ augroup Misc
   autocmd FileType slim setlocal nobreakindent
   autocmd BufNewFile *.vue silent! 0r ~/.dotfiles/skeletons/vue-pug-scss.vue
   autocmd BufNewFile *.url silent! 0r ~/.dotfiles/skeletons/default.url
+  autocmd BufNewFile *.svelte silent! 0r ~/.dotfiles/skeletons/default.svelte
   " Hide matching parens in insert mode
   autocmd InsertEnter * NoMatchParen
   autocmd VimEnter,InsertLeave * DoMatchParen
