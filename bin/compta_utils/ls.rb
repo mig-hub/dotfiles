@@ -29,7 +29,9 @@ module Compta
     Dir[ "invoices/*.yml" ].sort.each do |file|
       doc = YAML.load_file file
       payment_status = :clear
-      unless doc[:status] == 'fully paid'
+      if doc[:status] == 'cancelled'
+        payment_status = :cancelled
+      elsif doc[:status] != 'fully paid'
         payment_status = :due
         total_due += doc[:total]
         date = string_to_date doc[:date]
@@ -103,7 +105,9 @@ module Compta
     out += truncate( doc[:client_name], LENGTH_CLIENT_COL )
     out += '  '
     out += truncate( doc[:summary], LENGTH_SUMMARY_COL )
-    if payment_status == :due
+    if payment_status == :cancelled
+      puts out.brightblack
+    elsif payment_status == :due
       puts out.yellow
     elsif payment_status == :overdue
       puts out.red
