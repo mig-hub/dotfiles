@@ -298,6 +298,7 @@ alias be='bundle exec'
 alias gemb="gem build *.gemspec"
 alias gemp="gem push *.gem; rm *.gem"
 alias rsync-synchronize="rsync -avzu --delete --progress -h" # src dst
+alias nrd="npm run dev"
 alias hk='heroku'
 alias hkc='heroku apps:create --region eu'
 alias g='git'
