@@ -1,2 +1,48 @@
 snippet import
 	import ${1} from "${2}";${0}
+snippet import.
+	import ${1} from "./${1}"${0}
+snippet san-schema
+	export default {
+	  title: '${1}',
+		name: '${2}',
+		type: '${3:document}',
+		fields: [
+		  ${0}
+		],
+	}
+snippet san-field
+	{
+		title: '${1}',
+		name: '${2}',
+		type: '${3:string}',${0}
+	},
+snippet san-required
+	validation: Rule => Rule.required(),
+snippet san-preview
+	preview: {
+		select: {
+			title: '${1:title}',
+			subtitle: '${2:subtitle}',
+			media: '${3:image}',${0}
+		},
+	},
+snippet san-desk-structure
+	export const structure = (S) =>
+		S.list().title( 'Content' ).items([
+			${0}
+		])
+snippet san-desk-submenu
+	S.listItem().title( '${1}' ).child(
+		S.list().title( '${1}' ).items([
+			${0}
+		])
+	),
+snippet san-desk-list
+	S.documentTypeListItem( '${1:type}' ).title( '${2}' ),
+snippet san-desk-single
+	S.listItem().title( '${1:Home}' ).id( '${2:homePage}' ).child(
+		S.document().schemaType( '${2}' ).documentId( '${2}' )
+	),
+
+
