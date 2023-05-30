@@ -1,6 +1,6 @@
 extends scss
 snippet $lib
-	import ${1} from "$lib/${2}";${0}
+	import ${1} from "\$lib/${2}";${0}
 snippet component
 	import ${1} from "\$lib/components/${1}.svelte";${0}
 snippet style
@@ -34,3 +34,36 @@ snippet svelte:window
 	<svelte:window${1}/>${0}
 snippet svelte:body
 	<svelte:body${1}/>${0}
+snippet onmount
+	import { onMount } from 'svelte';
+	onMount( () => {
+		${0}
+	});
+snippet stores
+	import { ${0} } from "\$lib/stores";
+snippet import-md
+	import SvelteMarkdown from 'svelte-markdown';
+snippet import-markdown
+	import SvelteMarkdown from 'svelte-markdown';
+snippet md
+	<SvelteMarkdown
+		source={ ${0} }
+		options={{ gfm: true, breaks: true, mangle: false }}
+	/>
+snippet markdown
+	<SvelteMarkdown
+		source={ ${0} }
+		options={{ gfm: true, breaks: true, mangle: false }}
+	/>
+snippet forward
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	const onClick = (e) => dispatch('click', e);
+snippet emit
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	const onClick = (e) => dispatch('click', e);
+snippet dispatch
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	const onClick = (e) => dispatch('click', e);
