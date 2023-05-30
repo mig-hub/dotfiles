@@ -1,10 +1,12 @@
 #!/usr/bin/env ruby
 
+DEFAULT_RATE = 80
+
 if ARGV.length == 0
   STDERR.puts "Turn the time into a cost. Rounded to 6min to avoid cents wit any rate."
-  STDERR.puts "Usage: time-cost <time> [<hourly-rate>]"
+  STDERR.puts "Usage: time-cost <time> [<hourly-rate> || 80]"
   STDERR.puts "e.g. : time-cost 0:20"
-  STDERR.puts "e.g. : time-cost 0:20 70"
+  STDERR.puts "e.g. : time-cost 0:20 80"
   exit 1
 end
 
@@ -22,7 +24,7 @@ else
   hm[0]*60 + hm[1]
 end
 
-rate = ARGV[1].nil? ? 70 : ARGV[1].to_i
+rate = ARGV[1].nil? ? DEFAULT_RATE : ARGV[1].to_i
 if rate != 60
   # Gives round numbers with any rate, no cents
   # Rounds to 0.1 above
