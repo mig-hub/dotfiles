@@ -9,36 +9,6 @@ snippet page-data
 snippet layout-data
 	/** @type {import('./$types').LayoutData} */
 	export let data;
-snippet page-load
-	/** @type {import('./$types').PageLoad} */
-	export function load({ url }) {
-		return {
-			q: url.searchParams.get( 'q' ),
-		};
-	}
-snippet layout-load
-	/** @type {import('./$types').LayoutLoad} */
-	export function load({ url }) {
-		return {
-			q: url.searchParams.get( 'q' ),
-		};
-	}
-snippet page-load-sanity
-	import { getPage } from "$lib/sanity";
-	/** @type {import('./$types').PageLoad} */
-	export async function load() {
-		return {
-			page: await getPage( 'home' ),
-		};
-	}
-snippet layout-load-sanity
-	import { getPage } from "$lib/sanity";
-	/** @type {import('./$types').LayoutLoad} */
-	export async function load() {
-		return {
-			page: await getPage( 'home' ),
-		};
-	}
 snippet style
 	<style lang='scss' >
 		${0}
