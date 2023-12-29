@@ -18,6 +18,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
+Plug 'mattn/emmet-vim'
 " Misc
 Plug '/usr/local/opt/fzf'
 Plug 'tomtom/tcomment_vim'
