@@ -1,3 +1,6 @@
+snippet inc{
+	@include ${1:placeholder} {${0}
+	}
 snippet portrait
 	@include portrait {${0}
 	}
@@ -21,6 +24,12 @@ snippet mobilep
 	}
 snippet tabletp
 	@include tablet-portrait {${0}
+	}
+snippet everywhere
+	@include everywhere {${0}
+	}
+snippet placeholder
+	@include placeholder {${0}
 	}
 snippet $mobile
 	$mobile: (body-size: ${1:16px}, ref-width: ${2:800px}, breakpoint: ${3:800px});
