@@ -490,7 +490,8 @@ augroup Misc
   autocmd FileType slim setlocal nobreakindent
   autocmd BufNewFile *.vue silent! 0r ~/.dotfiles/skeletons/vue-pug-scss.vue
   autocmd BufNewFile *.url silent! 0r ~/.dotfiles/skeletons/default.url
-  autocmd BufNewFile *.svelte silent! 0r ~/.dotfiles/skeletons/default.svelte
+  " autocmd BufNewFile *.svelte silent! 0r ~/.dotfiles/skeletons/default.svelte
+  autocmd BufWritePre *.svelte call sveltekit#ImportAllComponents()
   " Hide matching parens in insert mode
   autocmd InsertEnter * NoMatchParen
   autocmd VimEnter,InsertLeave * DoMatchParen

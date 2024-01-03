@@ -11,7 +11,15 @@ snippet layout-data
 	export let data;
 snippet style
 	<style lang='scss' >
+
 		${0}
+
+	</style>
+snippet scss
+	<style lang='scss' >
+
+		${0}
+
 	</style>
 snippet @debug
 	{@debug ${1}}${0}
@@ -36,6 +44,12 @@ snippet svelte:head
 	<svelte:head>
 		${0}
 	</svelte:head>
+snippet meta-description
+	<meta name="description" content={ ${1} } />
+snippet if-meta-description
+	{#if ${1}?.length }
+		<meta name="description" content={ ${1/?//g} } />
+	{/if}${0}
 snippet svelte:window
 	<svelte:window${1}/>${0}
 snippet svelte:body
