@@ -68,7 +68,7 @@ function! sveltekit#ImportComponent( componentName )
 endfunction
 
 function! sveltekit#IsComponentImported( componentName )
-  let l:importLineNum = search( 'import ' .. a:componentName, 'n' )
+  let l:importLineNum = search( '\v\Cimport .*' .. a:componentName, 'n' )
   return l:importLineNum != 0
 endfunction
 
@@ -87,7 +87,7 @@ function! sveltekit#ComponentSveltekitPath( componentName )
   return substitute( sveltekit#ComponentPath( a:componentName ), '^.*lib', '$lib', '' )
 endfunction
 
-function! sveltekit#MatchComponentName( name )
+function! s:MatchComponentName( name )
   return a:name =~# '\v^' .. s:componentNameRegex .. '$'
 endfunction
 
