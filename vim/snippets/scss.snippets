@@ -40,3 +40,50 @@ snippet inline-block
 	@include inline-block;${0}
 snippet inb
 	@include inline-block;${0}
+snippet snap
+	overflow-y: auto;
+	scroll-snap-type: y mandatory;
+	> * {
+		scroll-snap-align: start;
+	}
+snippet snap-scroll
+	overflow-y: auto;
+	scroll-snap-type: y mandatory;
+	> * {
+		scroll-snap-align: start;
+	}
+snippet snap-horizontal
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	> * {
+		scroll-snap-align: start;
+	}
+snippet snap-scroll-horizontal
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	> * {
+		scroll-snap-align: start;
+	}
+snippet hide-scroll
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+snippet hide-scrollbar
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
