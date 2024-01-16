@@ -32,7 +32,7 @@ module Compta
     if not file.nil? and File.exist? file
       system "#{ EDITOR } #{ file }"
     else
-      puts "File #{ file } does not exist.".red
+      raise "File #{ file } does not exist.".red
     end
     $compta_return
   end
