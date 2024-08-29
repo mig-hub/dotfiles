@@ -1,0 +1,22 @@
+#! /bin/zsh
+
+# Web video
+if [[ $# < 1 ]]; then
+  echo "Usage: videoconvert <original-videos>"
+  echo "Usage: videoconvert big.mov"
+  echo "Usage: videoconvert big.mov another-big.mov"
+  echo "Usage: videoconvert *.mov"
+  echo "Reampled will be created with the suffix '.web' before the extension."
+  echo
+  echo "With Env Vars."
+  echo "Any can be changed."
+  echo "Usage: FORMAT=mp4 SUFFIX=lowres WIDTH=1024 videoconvert *.mov"
+else
+  local format="${FORMAT:-mp4}"
+  local suffix="${SUFFIX:-web}"
+  local width="${WIDTH:-1024}"
+  for f in $*; do
+    ffmpeg -i "$f" -filter:v "scale=${width}:-1" -c:a copy "${f:r}.${suffix}.${format}"
+  done
+fi
+
