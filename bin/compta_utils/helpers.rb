@@ -109,6 +109,11 @@ module Compta
     "#{ text }\r\n\r\n#{ $compta_config[:iban_details] }"
   end
 
+  # Check if doc matches text
+
+  def doc_match? doc, text
+    "#{ doc[:client_name] } #{ doc[:summary] } #{ doc[:transaction_reference] }".downcase.include?( text.downcase )
+  end
 
   # Methods to find docs.
   # Docs can be identified by their year and number.

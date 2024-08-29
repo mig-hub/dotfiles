@@ -11,10 +11,12 @@ module Compta
   LENGTH_CLIENT_COL = 24
   LENGTH_SUMMARY_COL = 48
 
-  def ls_proposals
+  def ls_proposals search=nil
     Dir[ "proposals/*.yml" ].sort.each do |file|
       doc = YAML.load_file file
-      print_proposal doc
+      if !search or doc_match?( doc, search )
+        print_proposal doc
+      end
     end
     $compta_return
   end
@@ -22,7 +24,7 @@ module Compta
 
   PAYMENT_LIMIT = ( 30 * 24 * 60 * 60 ).freeze
 
-  def ls_invoices
+  def ls_invoices search=nil
     total_due = 0
     total_overdue = 0
     now = Time.now
@@ -40,28 +42,38 @@ module Compta
           total_overdue += doc[:total]
         end
       end
-      print_invoice doc, payment_status
+      if !search or doc_match?( doc, search )
+        print_invoice doc, payment_status
+      end
     end
-    print_due_summary total_due, total_overdue
+    if !search
+      print_due_summary total_due, total_overdue
+    end
     $compta_return
   end
   alias_method :lsi, :ls_invoices
 
-  def ls_book_entries
+  def ls_book_entries search=nil
     current_quarter = nil
     quarter_total = 0
     Dir[ "book-entries/*.yml" ].sort.each do |file|
       doc = YAML.load_file file
       quarter = quarter_for_date doc[:payment_date]
       if current_quarter and quarter != current_quarter
-        print_quarter_summary current_quarter, quarter_total
+        if !search
+          print_quarter_summary current_quarter, quarter_total
+        end
         quarter_total = 0
       end
-      print_book_entry doc
+      if !search or doc_match?( doc, search )
+        print_book_entry doc
+      end
       current_quarter = quarter
       quarter_total += doc[:amount]
     end
-    print_quarter_summary current_quarter, quarter_total
+    if !search
+      print_quarter_summary current_quarter, quarter_total
+    end
     $compta_return
   end
   alias_method :lsb, :ls_book_entries
