@@ -418,8 +418,9 @@ inoremap <C-u> <esc>gUiwEa
 nnoremap <C-n> :set relativenumber!<CR>
 
 " Copilot mappings
-inoremap <C-k> <Plug>(copilot-next)
-inoremap <C-j> <Plug>(copilot-prev)
+inoremap <C-\> <Plug>(copilot-next)
+inoremap <C-,> <Plug>(copilot-accept-word)
+inoremap <C-;> <Plug>(copilot-accept-line)
 
 " ===============
 " Leader Mappings
@@ -466,6 +467,10 @@ nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>ps :PlugStatus<CR>
 nnoremap <leader>pc :PlugClean!<CR>
+" Copilot
+nnoremap <leader>cpp :Copilot panel<CR>
+nnoremap <leader>cpe :Copilot enable<CR>
+nnoremap <leader>cpd :Copilot disable<CR>
 
 " =======
 " Runtime
