@@ -34,6 +34,7 @@ Plug 'ap/vim-css-color'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-orgmode/orgmode'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'github/copilot.vim'
 call plug#end()
 
 " ============
@@ -169,6 +170,10 @@ let g:context_filetype#filetypes.svelte =
 \ ]
 let g:ft = ''
 " \   {'filetype' : 'css', 'start' : '<style \?.*>', 'end' : '</style>'},
+
+" Github Copilot
+let g:copilot_workspace_folders =
+       \ ["~/work"]
 
 " ==========
 " Statusline
@@ -411,6 +416,10 @@ inoremap <C-u> <esc>gUiwEa
 
 " Switch absolute/relative line number
 nnoremap <C-n> :set relativenumber!<CR>
+
+" Copilot mappings
+inoremap <C-k> <Plug>(copilot-next)
+inoremap <C-j> <Plug>(copilot-prev)
 
 " ===============
 " Leader Mappings
