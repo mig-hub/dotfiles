@@ -135,15 +135,6 @@ TRAPALRM() {
 
 # Helper functions
 
-grepdir() {
-  if [[ $# == 0 ]]; then
-    echo "Usage: grepdir <query>"
-    echo "Usage: grepdir <query> .<ext>"
-  else
-    grep "$1" **/*${2}(.) --color -rni
-  fi
-}
-
 mkcd() {
   if [ ! -n "$1" ]; then
     echo "Enter a directory name"

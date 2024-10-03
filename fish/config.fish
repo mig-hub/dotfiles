@@ -56,17 +56,6 @@ function mkcd
   end
 end
 
-function grepdir
-  if test (count $argv) -eq 0
-    echo "Usage: grepdir <query>"
-    echo "Usage: grepdir <query> .<ext>"
-  else if test (count $argv) -eq 1
-    grep $argv[1] **/* --color -rni
-  else
-    grep $argv[1] **/*$argv[2] --color -rni
-  end
-end
-
 function uri-escape
   ruby -e 'require "uri"; print URI.encode_www_form_component(ARGV[0])' "$argv"
 end
