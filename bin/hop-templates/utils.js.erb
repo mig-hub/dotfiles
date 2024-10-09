@@ -1,0 +1,46 @@
+// Simple function to create slugs from any string, even with accents
+export function slugify( text ) {
+  return text
+    .toString()
+    .replace( /\&/g, 'and' )
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-');
+};
+
+export const sanitizeUrl = ( url ) => {
+  return url.replace( /^(https:\/\/)?(www\.)example.org/, '' );
+};
+
+export const months = [
+  'Jan', 'Feb', 'Mar', 'Apr',
+  'May', 'Jun', 'Jul', 'Aug',
+  'Sep', 'Oct', 'Nov', 'Dec',
+];
+
+export const monthsLong = [
+  'January', 'February', 'March',
+  'April', 'May', 'June',
+  'July', 'August', 'September',
+  'October', 'November', 'December',
+];
+
+export const formatDate = ( str ) => {
+  const date = new Date( str );
+  return `${ date.getDate() } ${ months[date.getMonth()] } ${ date.getFullYear() }`;
+};
+
+export const splitArray = (array, size) => {
+  // Splits the arrray in chunks of ${size} items
+  let result = [];
+  for (let i = 0; i < array.length; i += size) {
+    let chunk = array.slice(i, i + size);
+    result.push(chunk);
+  }
+  return result;
+};
+

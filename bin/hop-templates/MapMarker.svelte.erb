@@ -1,0 +1,35 @@
+<script>
+
+  import { browser } from '$app/environment'
+  import { onMount, getContext } from 'svelte';
+  import { mapbox } from '$lib/mapbox.js';
+
+  const { getMap } = getContext( 'maps' );
+  const map = getMap();
+
+  export let lat = 51.52632469681716;
+  export let lon = -0.08904887388885468;
+  export let className = 'marker ';
+
+  let marker = null;
+
+  onMount( () => {
+
+    if ( browser ) {
+      const el = document.createElement( 'div' );
+      el.className = 'marker ' + className;
+
+      marker = new mapbox.Marker({
+        element: el,
+        anchor: 'bottom'
+      }).setLngLat( {lon, lat} ).addTo( map );
+    }
+
+    return () => {
+      if ( marker ) marker.remove();
+    };
+
+  });
+
+</script>
+

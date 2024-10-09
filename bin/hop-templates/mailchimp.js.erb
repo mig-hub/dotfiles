@@ -1,0 +1,20 @@
+import { MAILCHIMP_KEY } from "$env/static/private";
+import mailchimp from "@mailchimp/mailchimp_marketing";
+
+if ( MAILCHIMP_KEY?.length ) {
+  mailchimp.setConfig({
+    apiKey: MAILCHIMP_KEY,
+    server: MAILCHIMP_KEY.split('-')[1],
+  });
+}
+
+export async function mailchimpSubscribe( email, merge_fields, tags ) {
+  const response = await mailchimp.lists.setListMember("<change-me>", email, {
+    email_address: email,
+    status_if_new: "subscribed",
+    merge_fields: merge_fields || {},
+    tags: tags || [],
+  });
+  return response;
+}
+

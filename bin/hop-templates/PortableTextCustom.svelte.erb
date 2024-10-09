@@ -1,0 +1,33 @@
+<script>
+
+  import { PortableText } from '@portabletext/svelte';
+  import PortableTextLink from "$lib/components/PortableTextLink.svelte";
+  import PortableTextInlineParagraph from "$lib/components/PortableTextInlineParagraph.svelte";
+
+  export let value = [];
+  export let inline = false;
+
+  const componentsInline = {
+    block: {
+      normal: PortableTextInlineParagraph,
+    },
+  };
+
+  const componentsBase = {
+    // block: {
+    //   h2: PortableTextH2,
+    // },
+    marks: {
+      link: PortableTextLink,
+    },
+  };
+
+  $: components = inline ? { ...componentsBase, ...componentsInline } : componentsBase;
+
+</script>
+
+<PortableText
+  {value}
+  {components}
+/>
+

@@ -1,0 +1,68 @@
+<script>
+
+  import { onMount, setContext } from 'svelte';
+  import { mapbox } from '$lib/mapbox.js';
+  import "$lib/../../node_modules/mapbox-gl/dist/mapbox-gl.css"
+
+  setContext( 'maps', {
+    getMap: () => map,
+  });
+
+  export let lat = 51.52632469681716;
+  export let lon = -0.08904887388885468;
+  export let zoom = 16;
+
+  export let map = null;
+
+  let container;
+
+  function setMap() {
+    map = new mapbox.Map({
+      container,
+      style: 'mapbox://styles/mapbox/light-v10',
+      center: {lon, lat},
+      zoom,
+    });
+    map.scrollZoom.disable();
+    map.addControl( new mapbox.NavigationControl() );
+    map.on('click', (e) => {
+      console.log( e.lngLat.wrap() );
+    });
+  }
+
+  onMount( () => {
+    setMap();
+    return () => {
+      if ( map ) map.remove();
+    };
+  });
+
+</script>
+
+<div class="map" bind:this={ container }>
+  {#if map }
+    <slot />
+  {/if}
+</div>
+
+<style lang='scss'>
+
+  .map {
+    width: 100%;
+    aspect-ratio: 16 / 8;
+    @include tablet {
+      aspect-ratio: 3 / 2;
+    }
+    @include mobile {
+      aspect-ratio: 3 / 4;
+    }
+    :global(.marker) {
+      background-image: url(/img/marker.svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: vw(39);
+      height: vw(46);
+    }
+  }
+
+</style>

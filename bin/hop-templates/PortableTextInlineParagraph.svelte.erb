@@ -1,0 +1,21 @@
+<script>
+
+  export let portableText;
+  $: value = portableText?.value;
+
+</script>
+
+<span class="pseudo-p"><slot/></span>
+
+<style lang='scss' >
+
+  .pseudo-p {
+    display: block;
+  }
+
+  .pseudo-p:not( :first-child ) {
+    margin-top: 1em;
+  }
+
+</style>
+

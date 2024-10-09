@@ -1,0 +1,14 @@
+<%- getter = defined?(getter).nil? or getter.to_s.strip.empty? ? nil : getter -%>
+<%- repo = defined?(repo).nil? or repo.to_s.strip.empty? ? 'repo' : repo -%>
+<%- if getter -%>
+import { <%= getter %> } from "$lib/<%= repo or 'repo' %>";
+<%- end -%>
+
+/** @type {import('./types').PageLoad} */
+export async function load({ url, params }) {
+  return {
+    <%- if getter -%>
+    page: await <%= getter %>(),
+    <%- end -%>
+  };
+};

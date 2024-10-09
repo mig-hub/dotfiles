@@ -1,0 +1,17 @@
+<script>
+
+  export let portableText;
+  $: value = portableText?.value;
+  $: href = value?.href;
+  $: target = value?.targetBlank ? '_blank' : undefined;
+
+</script>
+
+{#if href }
+  <a {href} {target} >
+    <slot />
+  </a>
+{:else}
+  <slot />
+{/if}
+

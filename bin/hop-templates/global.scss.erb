@@ -1,0 +1,80 @@
+@import 'resets';
+
+/* @font-face { */
+/*   font-family: 'Example'; */
+/*   src: url('/fonts/example.woff2') format('woff2'), url('/fonts/example.woff') format('woff'); */
+/*   font-weight: normal; */
+/*   font-style: normal; */
+/* } */
+
+:root {
+  --bg-color: #ffffff;
+  --fg-color: #000000;
+
+  // IMPORTANT: Use unitless values for all numbers that are meant to be used with vw().
+  // The unit will be stripped out when using a direct number, but not with a CSS var.
+  // e.g. --ref-width: 1280;
+
+  // IMPORTANT: For using vw() when setting a CSS var, it needs to be wrapped in #{}.
+  // e.g. --body-size: #{vw( 16 )};
+
+  --ref-width: 1280;
+  --body-size: #{ vw( 16 ) };
+  --page-margin: #{ vw( 16 ) };
+  --gutter: #{ vw( 16 ) };
+  @include tablet {
+    --ref-width: 768;
+  }
+  @include mobile {
+    --ref-width: 375;
+  }
+  @include desktop {
+    --ref-width: 1600;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  @extend %font-regular-medium;
+  color: var( --fg-color );
+  background-color: var( --bg-color );
+  &.noscroll {
+    overflow: hidden;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: normal;
+}
+
+button, input, select, textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  color: inherit;
+  background-color: transparent;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+p:first-child {
+  margin-top: 0;
+}
+p:last-child {
+  margin-bottom: 0;
+}
+

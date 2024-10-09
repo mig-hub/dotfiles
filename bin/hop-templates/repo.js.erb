@@ -1,0 +1,89 @@
+import { createClient } from '@sanity/client';
+
+const projectId = '<change-me>';
+const dataset = 'production';
+
+export const client = createClient({
+  projectId,
+  dataset,
+  useCdn: false, // set to `true` to fetch from edge cache
+  apiVersion: '2024-07-19', // use current date (YYYY-MM-DD) to target the latest API version
+  // token: process.env.SANITY_SECRET_TOKEN // Only if you want to update content with the client
+});
+
+const pageFields = `_id, _type, slug, title, "imageUrl": image.asset->url`;
+const ctaFields = `..., "fileUrl": file.asset->url, "page": page-> { ${ pageFields }, }`;
+
+const modulesQuery = `"modules": modules[] {
+  ...,
+  "imageUrl": image.asset->url,
+  "imageDimensions": image.asset->metadata.dimensions,
+  "items": items[] {
+    ...,
+    "imageUrl": image.asset->url,
+    "videoUrl": video.asset->url,
+    "ctas": ctas[] {
+      ${ ctaFields },
+    },
+    "page": page-> {
+      ${ pageFields },
+    },
+  },
+  "tenants": tenants[] {
+    ...,
+    "slugTitle": array::join(units,",") + " " + title,
+    ${ popupQuery },
+  },
+  "pages": pages[]-> {
+    ${ pageFields },
+  },
+}`;
+
+const subMenuFields = `
+  _type == 'reference' => @->{
+    ${ pageFields },
+  },
+  _type == 'subMenu' => @{
+    ...,
+    "imageUrl": image.asset->url,
+    "mainPage": mainPage-> {
+      ${ pageFields },
+    },
+    "subPages": subPages[]-> {
+      ${ pageFields },
+    },
+  }
+`;
+
+export async function getLayout() {
+  const query = `*[_type == "layout"][0] {
+    ...,
+    "homepage": homepage-> {
+      ${ pageFields },
+    },
+    "menuItems": menuItems[] {
+      ${ subMenuFields },
+    },
+    "legalPages": legalPages[]-> {
+      ${ pageFields },
+    },
+  }`;
+  return await client.fetch( query );
+};
+
+export async function getHomepage() {
+	const query = `*[_type == "layout"][0].homepage-> {
+    ...,
+    ${ modulesQuery },
+  }`;
+  return await client.fetch( query );
+};
+
+export async function getPage( slug ) {
+  const query = `*[_type == "basicPage" && slug.current == "${ slug }" ][0] {
+    ...,
+    ${ modulesQuery },
+  }`;
+  return await client.fetch( query );
+};
+

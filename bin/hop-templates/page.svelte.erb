@@ -1,0 +1,19 @@
+<script>
+
+  /** @type {import('./types').PageData} */
+  export let data;
+
+  $: metaTitle = data?.page?.title || 'Home';
+  $: metaDescription = data?.page?.metaDescription;
+
+</script>
+
+<svelte:head>
+  <title>{ metaTitle }</title>
+  {#if metaDescription?.length }
+    <meta name="description" content={ metaDescription } />
+  {/if}
+</svelte:head>
+
+<h1>{ metaTitle }</h1>
+

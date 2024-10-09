@@ -1,0 +1,33 @@
+<script>
+
+  import "$lib/../styles/global.scss";
+
+  import { browser } from '$app/environment'
+  import smoothscroll from 'smoothscroll-polyfill';
+  if (browser) {
+    smoothscroll.polyfill();
+  }
+
+  export let data;
+
+  let reqFrame;
+  const onFrame = () => {
+    // Set 1vh
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    // Loop
+    reqFrame = requestAnimationFrame( onFrame );
+  };
+
+  import { onMount } from 'svelte';
+  onMount( () => {
+    reqFrame = requestAnimationFrame( onFrame );
+    return () => cancelAnimationFrame( reqFrame );
+  });
+
+</script>
+
+<main>
+  <slot/>
+</main>
+

@@ -1,0 +1,69 @@
+<script>
+
+  export let src;
+  export let loop = false;
+  export let autoplay = false;
+
+  // import lottie from "lottie-web";
+  let lottie;
+
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
+  let div;
+  let anim;
+
+  import { onMount } from 'svelte';
+
+  onMount(async () => {
+    try {
+
+      // Needs to be loaded dynamically because it needs to load in browser
+      lottie = (await import('lottie-web')).default;
+      anim = lottie.loadAnimation({
+        container: div,
+        path: src,
+        loop,
+        autoplay,
+        renderer: 'svg',
+        rendererSettings: {
+          preserveAspectRatio: "xMidYMid meet",
+          clearCanvas: false,
+          progressiveLoad: true,
+          hideOnTransparent: true
+        }
+      });
+
+    } catch (err) {
+
+      dispatch( 'error', {
+        detail: {
+          error: err,
+        }
+      });
+
+    }
+
+    if ( anim ) {
+
+      anim.addEventListener( "enterFrame", () => {
+        let frame = anim.currentFrame;
+        let progress = ( anim.currentFrame / anim.totalFrames) * 100;
+        dispatch( 'frame', {
+          frame,
+          progress,
+        });
+      });
+
+      anim.addEventListener( "complete", () => {
+        dispatch( 'complete' );
+      });
+    }
+
+  });
+
+</script>
+
+<div bind:this={ div }>
+</div>
+

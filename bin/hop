@@ -1,0 +1,127 @@
+#!/bin/zsh
+
+local here="${0:a:h}"
+
+ensure-file() {
+  mkdir -p "${1:h}" && touch "$1"
+}
+
+read-var() {
+  # $1 = prompt
+  # $2 = default value
+  local tmp="$2"
+  vared -M emacs -p "$1: " tmp
+  echo $tmp
+}
+
+create-page-js() {
+  zparseopts -D -K -E -- out:=out getter:=getter repo:=repo
+  out="${out[2]:-/dev/stdout}"
+  getter="${getter[2]:-getHome}"
+  repo="${repo[2]:-repo}"
+  erb -T 2 -P getter="$getter" repo="$repo" "${here}/hop-templates/svelte-page.js.erb" > "$out"
+}
+
+template() {
+  erb -T 2 -P "${here}/hop-templates/${1}.erb" "${@:2}"
+}
+
+init-sveltekit() {
+  # $1 is directory name
+  cd "${1:h}"
+  if npm create svelte@latest "${1:t}"; then
+    cd "${1:t}"
+    mkdir "private"
+    echo "/private" >> .gitignore
+    npm install
+    git init
+    git add .
+    git commit -m "Fresh SvelteKit project"
+    npm install -D sass
+    npm install -D smoothscroll-polyfill
+    git commit -am "Add base dependencies"
+    template svelte.config.js > svelte.config.js
+    template vite.config.js > vite.config.js
+    mkdir -p src/styles
+    template framework.scss > src/styles/framework.scss
+    template resets.scss > src/styles/resets.scss
+    template config.scss > src/styles/config.scss
+    template global.scss > src/styles/global.scss
+    template layout.svelte > src/routes/+layout.svelte
+    template page.svelte > src/routes/+page.svelte
+    mkdir -p src/lib/components
+    template utils.js > src/lib/utils.js
+  fi
+}
+
+add-sanity() {
+  npm install -D @sanity/client
+  mkdir -p src/lib
+  template repo.js > src/lib/repo.js
+  echo
+  echo "Add your Sanity project ID to src/lib/repo.js"
+  read -s -k '?Press any key to continue.'
+}
+
+add-portabletext () {
+  npm install -D @portabletext/svelte
+  mkdir -p src/lib/components/portabletext
+  template PortableTextCustom.svelte > src/lib/components/portabletext/PortableTextCustom.svelte
+  template PortableTextLink.svelte > src/lib/components/portabletext/PortableTextLink.svelte
+  template PortabletextInlineParagraph.svelte > src/lib/components/portabletext/PortableTextInlineParagraph.svelte
+  echo
+  echo "Components were added to src/lib/components/portabletext"
+  echo "Use PortableTextCustom"
+  read -s -k '?Press any key to continue.'
+}
+
+add-markdown() {
+  npm install -D svelte-markdown
+}
+
+add-portal() {
+  npm install -D svelte-portal
+}
+
+add-mailchimp() {
+  npm install -D @mailchimp/mailchimp_marketing
+  mkdir -p src/lib
+  template mailchimp.js > src/lib/mailchimp.js
+  echo
+  echo "Add MAILCHIMP_KEY and MAILCHIMP_LIST_ID to your .env file"
+  echo "Method mailchimpSubscribe(email, merge_fields={}, tags=[]) is importable from src/lib/mailchimp.js"
+  read -s -k '?Press any key to continue.'
+  # TODO: see how to add an action and/or a form.
+}
+
+add-lottie() {
+  npm install -D lottie-web
+  mkdir -p src/lib/components
+  template Lottie.svelte > src/lib/components/Lottie.svelte
+  echo
+  echo "Component Lottie was added to src/lib/components"
+  read -s -k '?Press any key to continue.'
+}
+
+add-mapbox() {
+  npm install -D mapbox-gl
+  template mapbox.js > src/lib/mapbox.js
+  echo
+  echo "Add your Mapbox access token to src/lib/mapbox.js"
+  read -s -k '?Press any key to continue.'
+  mkdir -p src/lib/components
+  template Map.svelte > src/lib/components/map/Map.svelte
+  template MapMarker.svelte > src/lib/components/map/MapMarker.svelte
+  echo
+  echo "Components Map and MapMarker were added to src/lib/components/map"
+  read -s -k '?Press any key to continue.'
+  mkdir -p static/img
+  template marker.svg > static/img/marker.svg
+  echo
+  echo "A default SVG marker was added to static/img, feel free to update it and its dimensions in Map.svelte."
+  read -s -k '?Press any key to continue.'
+}
+
+# Use the first argument as subcommand name and pass the remaining args
+"$1" "${@:2}"
+
