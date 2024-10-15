@@ -378,8 +378,6 @@ noremap <Up> k
 " Indenting
 vnoremap < <gv
 vnoremap > >gv
-vnoremap <C-h> <gv
-vnoremap <C-l> >gv
 
 " Select line without indentation
 nnoremap vv ^vg_
