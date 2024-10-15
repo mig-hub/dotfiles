@@ -414,6 +414,15 @@ inoremap <C-t> <esc>viW:s/-/_/g<CR>gv<esc>a
 " Make current word uppercase (for constants)
 inoremap <C-u> <esc>gUiwEa
 
+" Example of how to use complete()
+inoremap <C-j> <C-R>=ListMonths()<CR>
+func ListMonths()
+  call complete(col('.'), ['January', 'February', 'March',
+  \ 'April', 'May', 'June', 'July', 'August', 'September',
+  \ 'October', 'November', 'December'])
+  return ''
+endfunc
+
 " Switch absolute/relative line number
 nnoremap <C-n> :set relativenumber!<CR>
 
