@@ -339,7 +339,8 @@ nnoremap ]q :cnext<CR>
 augroup quickfix_group
   autocmd!
   " Ensures qf can read its own error format
-  autocmd filetype qf setlocal errorformat+=%f\|%l\ col\ %c\|%m
+  autocmd FileType qf setlocal errorformat+=%f\|%l\ col\ %c\|%m
+  autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
 augroup END
 
 " ========
