@@ -63,7 +63,7 @@ highlight vimCommand ctermfg=5
 highlight Statement ctermfg=3
 highlight TabLine cterm=NONE ctermfg=0 ctermbg=8
 highlight TabLineFill cterm=NONE ctermfg=0 ctermbg=8
-highlight TabLineSel cterm=NONE ctermfg=0 ctermbg=7
+highlight TabLineSel cterm=NONE ctermfg=0 ctermbg=15
 highlight CursorLine cterm=NONE
 if &background == "dark"
   highlight Comment ctermfg=8
