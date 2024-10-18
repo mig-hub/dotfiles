@@ -130,7 +130,7 @@ precmd() {
 
 TMOUT=1
 TRAPALRM() {
-    zle reset-prompt
+  zle reset-prompt
 }
 
 # Helper functions
