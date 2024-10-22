@@ -64,23 +64,23 @@ highlight Statement ctermfg=3
 highlight TabLine cterm=NONE ctermfg=0 ctermbg=8
 highlight TabLineFill cterm=NONE ctermfg=0 ctermbg=8
 highlight TabLineSel cterm=NONE ctermfg=0 ctermbg=15
-highlight CursorLine cterm=NONE
+highlight CursorLine cterm=NONE ctermbg=0
 if &background == "dark"
   highlight Comment ctermfg=8
   highlight htmlTag ctermfg=8
   highlight htmlEndTag ctermfg=8
   highlight cssBraces ctermfg=8
   highlight netrwClassify ctermfg=8
-  highlight CursorLineNr ctermfg=15 cterm=NONE
-  " highlight MatchParen ctermbg=0
+  highlight CursorLineNr ctermfg=0 ctermbg=15 cterm=NONE
+  highlight MatchParen ctermbg=0
 else
   highlight Comment ctermfg=7
   highlight htmlTag ctermfg=7
   highlight htmlEndTag ctermfg=7
   highlight cssBraces ctermfg=7
   highlight netrwClassify ctermfg=7
-  highlight CursorLineNr ctermfg=0 cterm=NONE
-  " highlight MatchParen ctermbg=15
+  highlight CursorLineNr ctermfg=15 ctermbg=0 cterm=NONE
+  highlight MatchParen ctermbg=15
 end
 highlight link diffRemoved DiffDelete
 highlight link diffAdded DiffAdd
