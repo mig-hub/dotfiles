@@ -5,11 +5,16 @@ try-source() {
   [[ -f "$1" ]] && source "$1"
 }
 
-export EDITOR=nvim
-export VISUAL=nvim
 if isbin nvim; then
+  export EDITOR=nvim
+  export VISUAL=nvim
   alias vim='nvim'
   alias vi='nvim'
+else
+  export EDITOR=vim
+  export VISUAL=vim
+  alias vim='vim'
+  alias vi='vim'
 fi
 export PAGER=less
 if isbin go; then
@@ -25,8 +30,11 @@ if [[ $(uname -s) == "Darwin" ]]; then
   # Puts airport in the PATH
   export PATH=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources:$PATH
 fi
-# Go bin path
-export PATH=$GOPATH/bin:$PATH
+
+if isbin go; then
+  # Go bin path
+  export PATH=$GOPATH/bin:$PATH
+fi
 # RBENV itself path but not the shims which added at the bottom of this file
 # Not sure if still needed
 export PATH=~/.rbenv/bin:$PATH
@@ -97,6 +105,7 @@ for km in viopp visual; do
 done
 
 setopt autocd
+setopt extended_glob
 
 # Completion
 autoload -U compinit && compinit
@@ -281,17 +290,9 @@ alias now='date +"%H:%M"'
 alias week='date +%V'
 alias src='source ~/.zshrc'
 alias psg='ps aux | grep'
-alias rub='ru -b'
-alias ruk='ru -k'
-alias bun='bundle'
-alias bi='bundle install'
-alias be='bundle exec'
-alias gemb="gem build *.gemspec"
-alias gemp="gem push *.gem; rm *.gem"
 alias rsync-synchronize="rsync -avzu --delete --progress -h" # src dst
-alias nrd="npm run dev"
-alias hk='heroku'
-alias hkc='heroku apps:create --region eu'
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias localip='ifconfig | awk '\''$1=="inet" && $5=="broadcast" {print $2}'\'''
 alias g='git'
 alias gst='git status -sb' # gs is ghostscript
 alias gsm='git submodule'
@@ -301,22 +302,37 @@ for r in nas heroku github web origin admin staging; do
   alias "gp${r:0:1}m"="git push ${r} master"
   alias "gl${r:0:1}m"="git pull ${r} master"
 done
-alias tmux="TERM=screen-256color-bce tmux"
-alias t='tmux'
-alias tn='tmux new -s'
-alias ta='tmux attach -t'
-alias tl='tmux ls'
-alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias localip='ifconfig | awk '\''$1=="inet" && $5=="broadcast" {print $2}'\'''
-alias speed='speedtest-cli'
-alias -g DN="&>/dev/null"
-alias -g DNA="&>/dev/null &"
-alias -g G="| grep"
-alias -g L="| less"
-if [[ $(uname -s) == "Darwin" ]]; then
-  alias ls='ls -1AFG'
-  alias irun='arch -x86_64' # run with rosetta
-  alias ibrew='arch -x86_64 /usr/local/bin/brew'
+if isbin rackup; then
+  alias rub='ru -b'
+  alias ruk='ru -k'
+fi
+if isbin bundle; then
+  alias bun='bundle'
+  alias bi='bundle install'
+  alias be='bundle exec'
+fi
+if isbin gem; then
+  alias gemb="gem build *.gemspec"
+  alias gemp="gem push *.gem; rm *.gem"
+fi
+if isbin npm; then
+  alias nrd="npm run dev"
+fi
+if isbin heroku; then
+  alias hk='heroku'
+  alias hkc='heroku apps:create --region eu'
+fi
+if isbin tmux; then
+  alias tmux="TERM=screen-256color-bce tmux"
+  alias t='tmux'
+  alias tn='tmux new -s'
+  alias ta='tmux attach -t'
+  alias tl='tmux ls'
+fi
+if isbin speedtest-cli; then
+  alias speed='speedtest-cli'
+fi
+if isbin brew; then
   alias br='brew'
   alias brud='brew update; echo "\nOutdated:\n"; brew outdated'
   alias brod='brew outdated'
@@ -324,6 +340,15 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias brcu='brew cleanup -s; rm -rf $(brew --cache)'
   alias brcul='brew leaves | xargs brew cleanup; rm -rf $(brew --cache)'
   alias brup='brew update; brew upgrade; brew leaves | xargs brew cleanup'
+fi
+if isbin pacman; then
+  alias pacug='sudo pacman -Syu'
+fi
+if isbin lazygit; then
+  alias lg='lazygit'
+fi
+if [[ $(uname -s) == "Darwin" ]]; then
+  alias ls='ls -1AFG'
   alias dns='dscacheutil -flushcache  && sudo killall -HUP mDNSResponder'
   alias whisper='say -v "Whisper"'
   alias et='osascript -e "tell application \"Finder\" to empty trash"'
@@ -337,12 +362,8 @@ if [[ $(uname -s) == "Darwin" ]]; then
   alias chrome='open -a "Google Chrome"'
   alias olh='open http://localhost:8080/'
 fi
-if isbin pacman; then
-  alias pacug='sudo pacman -Syu'
-fi
-if isbin lazygit; then
-  alias lg='lazygit'
-fi
+alias -g DN="&>/dev/null"
+alias -g DNA="&>/dev/null &"
 
 export LESS_TERMCAP_mb=$'\e[1;35m'
 export LESS_TERMCAP_md=$'\e[1;34m'
