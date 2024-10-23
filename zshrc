@@ -381,6 +381,8 @@ bindkey -M viins "^ " magic-space
 # normal space during searches
 bindkey -M isearch " " magic-space
 
+autoload -U zsh/datetime
+
 export LESS_TERMCAP_mb=$'\e[1;35m'
 export LESS_TERMCAP_md=$'\e[1;34m'
 export LESS_TERMCAP_me=$'\e[0m'
