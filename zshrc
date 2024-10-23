@@ -149,8 +149,9 @@ mkcd() {
     echo "Enter a directory name"
   elif [ -d $1 ]; then
     echo "\`$1' already exists"
+    cd $1
   else
-    mkdir $1 && cd $1
+    mkdir -p $1 && cd $1
   fi
 }
 
