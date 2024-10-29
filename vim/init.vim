@@ -342,6 +342,7 @@ inoremap {<CR> {<CR>}<Esc>O
 inoremap (<CR> (<CR>)<Esc>O
 inoremap /*<CR> /*<CR>*/<Esc>O
 
+" Normal Mappings prefixed by `s`
 " Save
 nnoremap ss :w<CR>
 vnoremap ss <Esc>:w<CR>
