@@ -135,6 +135,9 @@ set splitright
 
 " SnipMate
 let g:snipMate = get( g:, 'snipMate', { 'snippet_version' : 1 } )
+" Replace Tab because tab is used by Copilot
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
 " Markdown
 let g:vim_markdown_folding_disabled=1
