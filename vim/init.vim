@@ -374,7 +374,6 @@ vnoremap , ;
 
 " Break line
 nnoremap <CR> i<CR><Esc>k$
-nnoremap s ^f{%i<CR><Esc>k^f{wi<CR><Esc>^
 
 " Previous tab
 " This makes browsing tabs easy because R and T are next to each other.
@@ -389,14 +388,8 @@ nnoremap / /\v
 " Center when searching
 nnoremap n nzz
 
-" Change dashes to underscores on current word
-inoremap <C-t> <esc>viW:s/-/_/g<CR>gv<esc>a
-
-" Make current word uppercase (for constants)
-inoremap <C-u> <esc>gUiwEa
-
 " Example of how to use complete()
-inoremap <C-j> <C-R>=ListMonths()<CR>
+" inoremap <C-j> <C-R>=ListMonths()<CR>
 func ListMonths()
   call complete(col('.'), ['January', 'February', 'March',
   \ 'April', 'May', 'June', 'July', 'August', 'September',
