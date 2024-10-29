@@ -337,17 +337,9 @@ augroup END
 " ========
 
 " Autoclosings
-inoremap [<Space> [<Space><Space>]<Left><Left>
 inoremap [<CR> [<CR>]<Esc>O
-inoremap [' ['']<Left><Left>
-inoremap [" [""]<Left><Left>
-inoremap [: [:]<Left>
-inoremap {<Space> {<Space><Space>}<Left><Left>
 inoremap {<CR> {<CR>}<Esc>O
-inoremap {{<Space> {{<Space><Space>}}<Left><Left><Left>
-inoremap (<Space> (<Space><Space>)<Left><Left>
 inoremap (<CR> (<CR>)<Esc>O
-inoremap /*<Space> /*<Space><Space>*/<Left><Left><Left>
 inoremap /*<CR> /*<CR>*/<Esc>O
 
 " Save
