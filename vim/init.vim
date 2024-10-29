@@ -315,23 +315,6 @@ if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
   set grepformat=%f:%l:%c:%m
 endif
-" Begin a command which will open a new tab, run ripgrep
-" and open the quickfix list.
-" You only need to complete in place the pattern you want
-" to search, and possibly update the list of files
-" e.g. Search all rust files with -t rust
-nnoremap <leader>sg :tabnew \| grep  \| copen<C-Left><C-Left><Left>
-
-" Begin a command which will open a new tab, run vimgrep
-" and open the quickfix list.
-" You only need to complete in place the pattern you want
-" to search, and possibly update the list of files
-" e.g. Search all JS files with **/*.js
-nnoremap <leader>sv :tabnew \| vimgrep  **/* \| copen<C-Left><C-Left><C-Left><Left>
-
-" Begin the search and replace.
-" Quickfix needs to be populated first.
-nnoremap <leader>sr :cdo s///ce \| update<C-Left><C-Left><Left><Left><Left><Left><Left>
 
 " Show the quickfix window
 nnoremap <Leader>co :copen<CR>
