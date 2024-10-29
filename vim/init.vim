@@ -420,9 +420,6 @@ nnoremap <leader>vr :so $MYVIMRC<CR>
 nnoremap <leader>a ggVG
 " Add empty lines
 nnoremap <leader><CR> o<Esc>k
-" Quit
-nnoremap <leader>qq :q<CR>
-nnoremap <leader>qa :qa<CR>
 " Fzf
 set rtp+=/opt/homebrew/opt/fzf
 nnoremap <leader>ff :FZF<CR>
