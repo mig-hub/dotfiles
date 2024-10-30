@@ -296,31 +296,12 @@ set noswapfile
 " Quickfix list
 " =============
 "
-" A typical workflow is to use the `<leader>sg` to begin a search for a
-" pattern: e.g. `... grep transform -t sass ...`. This will open a new tab,
-" search and then open the quickfix list.
-"
-" From there you can navigate through matches and do what you want.
-" Navigation is simplified with `]q`/`[q` mappings.
-"
-" But most of the time you will want to start a search and replace with
-" `<leader>sr`. This will prepare the command and put you in place to populate
-" the patterns: e.g. `... s/apple/pear/ce ...`. The default flags ask for
-" confirmation on each match and ignore errors, but you can change these as
-" well before running the command.
-"
-" ================================
-
 " Use ripgrep as the default grep
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
   set grepformat=%f:%l:%c:%m
 endif
 
-" Show the quickfix window
-nnoremap <Leader>co :copen<CR>
-" Hide the quickfix window
-nnoremap <Leader>cc :cclose<CR>
 " Go to the previous location
 nnoremap [q :cprev<CR>
 " Go to the next location
