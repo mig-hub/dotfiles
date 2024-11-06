@@ -1,10 +1,9 @@
 <script>
 
-  /** @type {import('./types').PageData} */
-  export let data;
+  let { data } = $props();
 
-  $: metaTitle = data?.page?.title || 'Home';
-  $: metaDescription = data?.page?.metaDescription;
+  let metaTitle = $derived( data?.page?.title || 'Home' );
+  let metaDescription = $derived( data?.page?.metaDescription );
 
 </script>
 

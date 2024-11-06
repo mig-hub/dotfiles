@@ -1,14 +1,16 @@
 <script>
 
-  export let src;
-  export let loop = false;
-  export let autoplay = false;
+  let {
+    src,
+    loop = false,
+    autoplay = false,
+    onerror = () => {},
+    onframe = () => {},
+    oncomplete = () => {},
+  } = $props();
 
   // import lottie from "lottie-web";
   let lottie;
-
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
 
   let div;
   let anim;
@@ -36,7 +38,7 @@
 
     } catch (err) {
 
-      dispatch( 'error', {
+      onerror({
         detail: {
           error: err,
         }
@@ -49,14 +51,14 @@
       anim.addEventListener( "enterFrame", () => {
         let frame = anim.currentFrame;
         let progress = ( anim.currentFrame / anim.totalFrames) * 100;
-        dispatch( 'frame', {
+        onframe({
           frame,
           progress,
         });
       });
 
       anim.addEventListener( "complete", () => {
-        dispatch( 'complete' );
+        oncomplete();
       });
     }
 

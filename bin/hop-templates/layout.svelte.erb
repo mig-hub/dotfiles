@@ -9,7 +9,7 @@
     smoothscroll.polyfill();
   }
 
-  export let data;
+  let { data } = $props();
 
   let reqFrame;
   const onFrame = () => {
