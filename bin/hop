@@ -29,7 +29,7 @@ template() {
 init-sveltekit() {
   # $1 is directory name
   cd "${1:h}"
-  if npm create svelte@latest "${1:t}"; then
+  if npx sv create "${1:t}"; then
     cd "${1:t}"
     mkdir "private"
     echo "/private" >> .gitignore
