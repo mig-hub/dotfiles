@@ -413,13 +413,13 @@ nnoremap <leader>tb :tabe.<CR>
 nnoremap <leader>t. :tabe.<CR>
 " Git/Fugitive
 nnoremap <leader>gs :vertical G<CR>
-nnoremap <leader>gpn :G push nas master<CR>
-nnoremap <leader>gph :G push heroku master<CR>
-nnoremap <leader>gpg :G push github master<CR>
-nnoremap <leader>gpw :G push web master<CR>
-nnoremap <leader>gpo :G push origin master<CR>
-nnoremap <leader>gpa :G push admin master<CR>
-nnoremap <leader>gps :G push staging master<CR>
+nnoremap <leader>gpn :G push nas main<CR>
+nnoremap <leader>gph :G push heroku main<CR>
+nnoremap <leader>gpg :G push github main<CR>
+nnoremap <leader>gpw :G push web main<CR>
+nnoremap <leader>gpo :G push origin main<CR>
+nnoremap <leader>gpa :G push admin main<CR>
+nnoremap <leader>gps :G push staging main<CR>
 " Git/GV - git log interactive
 nnoremap <leader>gl :GV<CR>
 " Minitest
