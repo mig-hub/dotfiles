@@ -9,7 +9,10 @@
     smoothscroll.polyfill();
   }
 
-  let { data } = $props();
+  let {
+    data,
+    children,
+  } = $props();
 
   let reqFrame;
   const onFrame = () => {
@@ -29,6 +32,6 @@
 </script>
 
 <main>
-  <slot/>
+  {@render children?.()}
 </main>
 
