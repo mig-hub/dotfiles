@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use "sass:meta";
+@use "sass:selector";
 
 // Vars
 
@@ -8,7 +10,7 @@ $vw-disabled: false;
 // functions
 
 @function strip-unit($number) {
-  @if type-of($number) == 'number' and not unitless($number) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
     @return math.div( $number , ($number * 0 + 1) );
   }
   @return $number;
@@ -102,7 +104,7 @@ $vw-disabled: false;
 }
 
 @mixin optional-at-root($sel) {
-  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+  @at-root #{if(not &, $sel, selector.append(&, $sel))} {
     @content;
   }
 }
