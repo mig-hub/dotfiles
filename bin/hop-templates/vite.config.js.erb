@@ -1,12 +1,16 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
+import path from "path";
+const pathSrc = path.resolve(__dirname, "./src");
+
 export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        api: 'modern-compiler',
         additionalData: `
-          @use './src/styles/config' as *;
+          @use '${pathSrc}/styles/config.scss' as *;
         `,
       }
     },
