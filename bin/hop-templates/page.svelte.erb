@@ -2,8 +2,8 @@
 
   let { data } = $props();
 
-  let metaTitle = $derived( data?.page?.title || 'Home' );
-  let metaDescription = $derived( data?.page?.metaDescription );
+  const metaTitle = $derived( data?.page?.title || 'Home' );
+  const metaDescription = $derived( data?.page?.metaDescription );
 
 </script>
 
