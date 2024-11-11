@@ -42,49 +42,7 @@ call plug#end()
 " Color Scheme
 " ============
 
-set background=dark
-colorscheme grim
-
-" 0: Black    8: Bright Black
-" 1: Red      9: Bright Red
-" 2: Green    10: Bright Green
-" 3: Yellow   11: Bright Yellow
-" 4: Blue     12: Bright Blue
-" 5: Magenta  13: Bright Magenta
-" 6: Cyan     14: Bright Cyan
-" 7: White    15: Bright White
-
-highlight Identifier cterm=NONE ctermfg=2
-highlight String ctermfg=4
-highlight Number ctermfg=4
-highlight Type ctermfg=3
-highlight Keyword ctermfg=1
-highlight PreProc ctermfg=1
-highlight vimCommand ctermfg=5
-highlight Statement ctermfg=3
-highlight TabLine cterm=NONE ctermfg=0 ctermbg=8
-highlight TabLineFill cterm=NONE ctermfg=0 ctermbg=8
-highlight TabLineSel cterm=NONE ctermfg=0 ctermbg=15
-highlight CursorLine cterm=NONE ctermbg=0
-if &background == "dark"
-  highlight Comment ctermfg=8
-  highlight htmlTag ctermfg=8
-  highlight htmlEndTag ctermfg=8
-  highlight cssBraces ctermfg=8
-  highlight netrwClassify ctermfg=8
-  highlight CursorLineNr ctermfg=0 ctermbg=15 cterm=NONE
-  highlight MatchParen ctermbg=0
-else
-  highlight Comment ctermfg=7
-  highlight htmlTag ctermfg=7
-  highlight htmlEndTag ctermfg=7
-  highlight cssBraces ctermfg=7
-  highlight netrwClassify ctermfg=7
-  highlight CursorLineNr ctermfg=15 ctermbg=0 cterm=NONE
-  highlight MatchParen ctermbg=15
-end
-highlight link diffRemoved DiffDelete
-highlight link diffAdded DiffAdd
+colorscheme migvim
 
 " augroup Colors
 "   autocmd!
@@ -96,6 +54,7 @@ highlight link diffAdded DiffAdd
 
 " Use this to know the highlight group of the thing under the cursor:
 " :SynStack
+" When using Neovim+treesitter, use :Inspect instead.
 
 function! SynStack()
   if !exists("*synstack")
