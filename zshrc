@@ -284,6 +284,7 @@ flasher () {
 
 # aliases
 alias ls='ls -1AF --color'
+alias ll='ls -lhAF --color'
 alias mkdir='mkdir -pv'
 alias wh='which'
 alias du='du -sh'
@@ -352,6 +353,7 @@ if isbin lazygit; then
 fi
 if [[ $(uname -s) == "Darwin" ]]; then
   alias ls='ls -1AFG'
+  alias ll='ls -lhAFG'
   alias dns='dscacheutil -flushcache  && sudo killall -HUP mDNSResponder'
   alias whisper='say -v "Whisper"'
   alias et='osascript -e "tell application \"Finder\" to empty trash"'
