@@ -1,6 +1,8 @@
 @use 'sass:math';
 @use "sass:meta";
 @use "sass:selector";
+@use "sass:list";
+@use "sass:map";
 
 // Vars
 
@@ -26,6 +28,13 @@ $vw-disabled: false;
   }
 }
 
+@function vertical-line($color: #000000, $width: 1px) {
+  @return linear-gradient($color, $color) center/ $width 100% no-repeat;
+}
+@function horizontal-line($color: #000000, $width: 1px) {
+  @return linear-gradient($color, $color) center/ 100% $width no-repeat;
+}
+
 // Mixins
 
 @mixin vendor($key, $val...) {
@@ -33,6 +42,36 @@ $vw-disabled: false;
   @each $vendor in $vendors {
     #{$vendor}#{$key}: $val; 
   }
+}
+
+// Uses the vertical-line and horizontal-line functions to add a group of lines to the background.
+// Each line can have a color, width, direction and position.
+// Position is vertical or horizontal depending on the direction.
+// Default values are:
+// ('color': currentColor, 'width': 1px, 'position': 0, 'direction': 'vertical');
+//
+// e.g.
+// @include bg-lines((
+//   ('color': #ffffff, 'width': 1px, 'direction': 'vertical', 'position': 33%),
+//   ('color': #ffffff, 'width': 1px, 'direction': 'horizontal', 'position': 13px)
+// ));
+//
+@mixin bg-lines($lines) {
+  $default-line: ('color': currentColor, 'width': 1px, 'position': 0, 'direction': 'vertical');
+  $bg: ();
+  $pos: ();
+  @each $line in $lines {
+    $l: map.merge($default-line, $line);
+    @if map.get($l, 'direction') == 'vertical' {
+      $bg: list.append($bg, vertical-line( map.get($l, 'color'), map.get($l, 'width') ), comma);
+      $pos: list.append($pos, map.get($l, 'position') 0, comma);
+    } @else {
+      $bg: list.append($bg, horizontal-line( map.get($l, 'color'), map.get($l, 'width') ), comma);
+      $pos: list.append($pos, 0 map.get($l, 'position'), comma);
+    }
+  }
+  background: $bg;
+  background-position: $pos;
 }
 
 @mixin portrait {
