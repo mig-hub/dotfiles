@@ -1,11 +1,13 @@
 <script>
 
   import { PortableText } from '@portabletext/svelte';
-  import PortableTextLink from "$lib/components/PortableTextLink.svelte";
-  import PortableTextInlineParagraph from "$lib/components/PortableTextInlineParagraph.svelte";
+  import PortableTextLink from "$lib/components/portabletext/PortableTextLink.svelte";
+  import PortableTextInlineParagraph from "$lib/components/portabletext/PortableTextInlineParagraph.svelte";
 
-  export let value = [];
-  export let inline = false;
+  let {
+    value = [],
+    inline = false,
+  } = $props();
 
   const componentsInline = {
     block: {
@@ -22,7 +24,7 @@
     },
   };
 
-  $: components = inline ? { ...componentsBase, ...componentsInline } : componentsBase;
+  let components = $derived( inline ? { ...componentsBase, ...componentsInline } : componentsBase );
 
 </script>
 

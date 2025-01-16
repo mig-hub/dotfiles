@@ -1,7 +1,10 @@
 <script>
 
-  export let portableText;
-  $: value = portableText?.value;
+  let {
+    portableText,
+  } = $props();
+
+  let value = $derived(portableText?.value);
 
 </script>
 

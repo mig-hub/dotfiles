@@ -1,9 +1,12 @@
 <script>
 
-  export let portableText;
-  $: value = portableText?.value;
-  $: href = value?.href;
-  $: target = value?.targetBlank ? '_blank' : undefined;
+  let {
+    portableText,
+  } = $props();
+
+  let value = $derived(portableText?.value);
+  let href = $derived(value?.href);
+  let target = $derived(value?.targetBlank ? '_blank' : undefined);
 
 </script>
 
