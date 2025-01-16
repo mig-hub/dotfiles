@@ -2,6 +2,7 @@
 
   let {
     portableText,
+    children,
   } = $props();
 
   let value = $derived(portableText?.value);
@@ -12,7 +13,7 @@
 
 {#if href }
   <a {href} {target} >
-    <slot />
+    { @render children?.() }
   </a>
 {:else}
   <slot />

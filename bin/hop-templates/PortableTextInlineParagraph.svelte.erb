@@ -2,13 +2,14 @@
 
   let {
     portableText,
+    children,
   } = $props();
 
   let value = $derived(portableText?.value);
 
 </script>
 
-<span class="pseudo-p"><slot/></span>
+<span class="pseudo-p">{ @render children?.() }</span>
 
 <style lang='scss' >
 
