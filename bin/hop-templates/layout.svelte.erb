@@ -1,5 +1,8 @@
 <script>
 
+  import { breakpoint } from "$lib/store";
+  import { getBreakpoint } from "$lib/utils";
+
   import "$lib/../styles/resets.scss";
   import "$lib/../styles/global.scss";
 
@@ -25,11 +28,18 @@
 
   import { onMount } from 'svelte';
   onMount( () => {
+    $breakpoint = getBreakpoint();
     reqFrame = requestAnimationFrame( onFrame );
     return () => cancelAnimationFrame( reqFrame );
   });
 
+  const onResize = () => {
+    $breakpoint = getBreakpoint();
+  };
+
 </script>
+
+<svelte:window onresize={ onResize } />
 
 <main>
   {@render children?.()}

@@ -42,6 +42,23 @@ body {
   }
 }
 
+// Used for javascript breakpoint detection
+// window.getComputedStyle(document.body, ':before').content.replace(/\"/g, '');
+body::before {
+  content: "laptop";
+  display: none;
+  visibility: hidden;
+  @include mobile {
+    content: "mobile";
+  }
+  @include tablet {
+    content: "tablet";
+  }
+  @include desktop {
+    content: "desktop";
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: normal;
