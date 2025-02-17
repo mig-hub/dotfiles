@@ -7,11 +7,13 @@
   const { getMap } = getContext( 'maps' );
   const map = getMap();
 
-  export let lat = 51.52632469681716;
-  export let lon = -0.08904887388885468;
-  export let className = 'marker ';
+  let {
+    lat = 51.52632469681716,
+    lon = -0.08904887388885468,
+    className = '',
+  } = $props();
 
-  let marker = null;
+  let marker = $state(null);
 
   onMount( () => {
 

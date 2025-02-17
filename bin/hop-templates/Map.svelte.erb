@@ -8,11 +8,14 @@
     getMap: () => map,
   });
 
-  export let lat = 51.52632469681716;
-  export let lon = -0.08904887388885468;
-  export let zoom = 16;
+  let {
+    lat = 51.52632469681716,
+    lon = -0.08904887388885468,
+    zoom = 16,
+    children,
+  } = $props();
 
-  export let map = null;
+  let map = $state(null);
 
   let container;
 
@@ -41,7 +44,7 @@
 
 <div class="map" bind:this={ container }>
   {#if map }
-    <slot />
+    {@render children?.()}
   {/if}
 </div>
 
