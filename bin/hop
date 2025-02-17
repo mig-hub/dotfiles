@@ -111,7 +111,7 @@ add-mapbox() {
   echo
   echo "Add your Mapbox access token to src/lib/mapbox.js"
   read -s -k '?Press any key to continue.'
-  mkdir -p src/lib/components
+  mkdir -p src/lib/components/map
   template Map.svelte > src/lib/components/map/Map.svelte
   template MapMarker.svelte > src/lib/components/map/MapMarker.svelte
   echo
