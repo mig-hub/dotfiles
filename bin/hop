@@ -28,6 +28,10 @@ template() {
 
 init-sveltekit() {
   # $1 is directory name
+  if [ -z "$1" ]; then
+    echo "No directory name supplied"
+    return 1
+  fi
   cd "${1:h}"
   if npx sv create "${1:t}"; then
     cd "${1:t}"
