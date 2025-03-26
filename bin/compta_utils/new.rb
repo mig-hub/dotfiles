@@ -99,10 +99,116 @@ module Compta
   end
   alias_method :newp, :new_proposal
 
-  def new_invoice
-    new_doc :invoice
+  def new_invoice proposal_number=nil, proposal_year=Time.now.year
+    if proposal_number.nil?
+      new_doc :invoice
+    else
+      if confirm "Would you like to create a deposit invoice for this proposal ?".yellow
+        new_deposit_invoice proposal_number, proposal_year
+      elsif confirm "Would you like to create a completion invoice for this proposal ?".yellow
+        new_invoice_from_proposal proposal_number, proposal_year
+      end
+    end
   end
   alias_method :newi, :new_invoice
+
+  def new_deposit_invoice proposal_number, proposal_year=Time.now.year
+
+    proposal = load_doc :proposal, proposal_number, proposal_year
+
+    if proposal.nil?
+      puts "Cannot find proposal number #{ proposal_number } in year #{ proposal_year }.".red
+      return $compta_return
+    end
+
+    doc = default_doc :invoice
+
+    print "ID ( or '#{ doc[:id] }' ) : "
+    id = STDIN.gets.chomp
+    unless id == ''
+      doc[:id] = id
+      doc[:incremental_number] = id[ /\d\d\d$/ ].to_i( 10 )
+    end
+
+    doc[:lang] = proposal[:lang]
+    doc[:payment_details] = payment_details_for( :invoice, proposal[:lang] )
+    doc[:client_name] = proposal[:client_name]
+    doc[:client_details] = proposal[:client_details]
+    doc[:summary] = "Deposit #{proposal[:summary]}"
+
+    print "Title ( or '#{doc[:summary]}' ) : "
+    summary = STDIN.gets.chomp
+    unless summary == ''
+      doc[:summary] = summary
+    end
+
+    prefix = $compta_config[:proposal_pdf_prefix]
+    item = {
+      description: "50% Deposit for proposal #{prefix}#{proposal[:id]}, #{proposal[:summary]}",
+      price: proposal[:total] / 2,
+    }
+    print "Price ( or #{price_to_string(item[:price])} ) : "
+    price_string = STDIN.gets.chomp
+    unless price_string == ''
+      item[:price] = string_to_price( price_string )
+    end
+    doc[:items] << item
+
+    doc[:total] = item[:price]
+
+    if confirm "Would you like to save this new deposit invoice ?".yellow
+      save_doc :invoice, doc
+    end
+
+    $compta_return
+  end
+
+  def new_invoice_from_proposal proposal_number, proposal_year=Time.now.year
+
+    proposal = load_doc :proposal, proposal_number, proposal_year
+
+    if proposal.nil?
+      puts "Cannot find proposal number #{ proposal_number } in year #{ proposal_year }.".red
+      return $compta_return
+    end
+
+    doc = default_doc :invoice
+
+    print "ID ( or '#{ doc[:id] }' ) : "
+    id = STDIN.gets.chomp
+    unless id == ''
+      doc[:id] = id
+      doc[:incremental_number] = id[ /\d\d\d$/ ].to_i( 10 )
+    end
+
+    doc[:lang] = proposal[:lang]
+    doc[:payment_details] = payment_details_for( :invoice, proposal[:lang] )
+    doc[:client_name] = proposal[:client_name]
+    doc[:client_details] = proposal[:client_details]
+    doc[:summary] = proposal[:summary]
+    doc[:items] = proposal[:items].dup
+    doc[:total] = proposal[:total]
+
+    if confirm "Would you like to substract the deposit ?".yellow
+      item = {
+        description: "50% Deposit already paid",
+        price: -proposal[:total] / 2,
+      }
+      print "Price ( or #{price_to_string(item[:price])} ) : "
+      price_string = STDIN.gets.chomp
+      unless price_string == ''
+        item[:price] = string_to_price( price_string )
+      end
+      doc[:items] << item
+      doc[:total] += item[:price]
+    end
+
+    if confirm "Would you like to save this new invoice ?".yellow
+      save_doc :invoice, doc
+    end
+
+    $compta_return
+  end
 
   def book_entry_for invoice
     date_string = date_to_string Time.now
