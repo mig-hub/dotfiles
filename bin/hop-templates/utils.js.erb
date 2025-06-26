@@ -49,3 +49,11 @@ export const splitArray = (array, size) => {
   return result;
 };
 
+export const portableTextToPlainText = ( blocks = [] ) =>{
+  return blocks.map(block => {
+    if ( block._type !== 'block' || !block.children ) {
+      return '';
+    }
+    return block.children.map( child => child.text ).join('');
+  }).join('\n\n');
+};
