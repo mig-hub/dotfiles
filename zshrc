@@ -197,6 +197,17 @@ unpkg() {
   fi
 }
 
+ghc() {
+  if [ ! -n "$1" ]; then
+    echo "Creates a private github repository for the current directory with upstream set to 'github'"
+    echo "Usage: ghc <repo-name>"
+  elif isbin gh; then
+    gh repo create "$1" --private --source=. --remote=github
+  else
+    echo "You do not seem to have the 'gh' command installed."
+  fi
+}
+
 # Quick zip
 z() {
   zip -r -X "$1.zip" "$1"
