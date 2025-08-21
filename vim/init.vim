@@ -342,9 +342,9 @@ endfunc
 nnoremap <C-n> :set relativenumber!<CR>
 
 " Copilot mappings
-inoremap <C-\> <Plug>(copilot-next)
-inoremap <C-,> <Plug>(copilot-accept-word)
-inoremap <C-;> <Plug>(copilot-accept-line)
+imap <C-\> <Plug>(copilot-next)
+imap <C-A> <Plug>(copilot-accept-word)
+imap <C-L> <Plug>(copilot-accept-line)
 
 " ===============
 " Leader Mappings
