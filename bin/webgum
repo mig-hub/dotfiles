@@ -1,0 +1,155 @@
+#!/usr/bin/env ruby
+
+require 'thor'
+require_relative './webgum_lib/utils'
+require_relative './webgum_lib/compta'
+require_relative './webgum_lib/sanity'
+require_relative './webgum_lib/groq'
+require_relative './webgum_lib/svelte'
+
+class Webgum < Thor
+
+  class_option :config, type: :string, default: 'webgum.yml', desc: 'Path to configuration file'
+
+  include Utils
+
+  desc :defaults, "Print default configuration"
+  def defaults
+    puts "name: My Project"
+    puts "style_variables:"
+    puts "  default:"
+    puts "    bg_color: '#ffffff'"
+    puts "    fg_color: '#000000'"
+    puts "    ref_width: 1280"
+    puts "    body_size: 16pxvw"
+    puts "    page_margin: 16pxvw"
+    puts "    gutter: 16pxvw"
+    puts "  tablet:"
+    puts "    ref_width: 768"
+    puts "  mobile:"
+    puts "    ref_width: 375"
+    puts "  desktop:"
+    puts "    ref_width: 1600"
+    puts "sitemap:"
+    puts "  - label: Home"
+    puts "schemas:"
+  end
+
+  desc :sitemap_blog, "Print sitemap blog"
+  def sitemap_blog
+    puts <<~YAML.gsub(/^/, "  ")
+      - label: Blog
+        pages:
+          - label: Article
+            multiple: true
+    YAML
+  end
+
+  desc :cta_schema, "Print CTA schema"
+  def cta_schema
+    puts <<~YAML.gsub(/^/, "  ")
+      - name: cta
+        title: Call to Action
+        type: object
+        fields:
+          - name: title
+          - name: ctaType
+            label: Type
+            options:
+              list:
+                - label: Page
+                  value: page
+                - label: External URL
+                  value: href
+                - label: File Download
+                  value: download
+            validations:
+              - required
+          - name: page
+            type: reference
+            to:
+              # implement a page schema
+            weak: true
+            options:
+              disableNew: true
+            # Implement hidden
+          - name: href
+            label: URL
+            # Implement hidden
+          - name: file
+            type: file
+            # Implement hidden
+          - name: targetBlank
+            label: Open in new tab
+            type: boolean
+            validations:
+              - required
+        defaults:
+          ctaType: page
+          targetBlank: false
+        preview:
+          select:
+            title: title
+            subtitle: ctaType
+    YAML
+  end
+
+  desc :rough_estimate, "Print rough estimate"
+  def rough_estimate
+    has_sitemap = config['sitemap'] and config['sitemap'].is_a?(Array) and config['sitemap'].any?
+    has_modules = config['moduleTypes'] and config['moduleTypes'].is_a?(Array) and config['moduleTypes'].any?
+    pages_count = if has_sitemap
+      count_sitemap_pages(config['sitemap'])
+    else
+      0
+    end
+    puts "The pages/modules ratio is generally around 1/1.3 — 1/2.2"
+    puts "Bigger projects tend to be closer to 1/1.3"
+    if has_sitemap and has_modules
+      puts "Ratio for this project is 1/#{ (config['moduleTypes'].size.to_f / pages_count).round(2) }"
+    end
+    puts
+    if has_sitemap
+      puts "#{ pages_count } pages"
+      puts "#{ 10 * pages_count }h based on pages (better estimate when not many details are known)"
+    else
+      puts "No sitemap with pages found in configuration."
+    end
+    puts
+    if has_modules
+      puts "#{ config['moduleTypes'].size } modules"
+      puts "#{ 5 * config['moduleTypes'].size }h based on modules"
+    else
+      puts "No module types with estimates found in configuration."
+    end
+  end
+
+  desc :compta, "Compta related commands"
+  subcommand :compta, Compta
+
+  desc :sanity, "Sanity related commands"
+  subcommand :sanity, Sanity
+
+  desc :groq, "GROQ related commands"
+  subcommand :groq, Groq
+
+  desc :svelte, "Svelte related commands"
+  subcommand :svelte, Svelte
+
+  private
+
+  def count_sitemap_pages(pages)
+    count = 0
+    pages.each do |page|
+      count += 1
+      if page['pages'] and page['pages'].is_a?(Array) and page['pages'].any?
+        count += count_sitemap_pages(page['pages'])
+      end
+    end
+    count
+  end
+
+end
+
+Webgum.start(ARGV)
+

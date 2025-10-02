@@ -1,0 +1,82 @@
+# This is an example
+name: Rive Studio
+pageSchemas:
+  - type: basicPage
+moduleSchemas:
+  - type: featureBoxSection
+schemas:
+
+  - name: basicPage
+    fields:
+      - name: title
+        required: true
+      - name: modules
+        type: array
+        of:
+          - type: featureBoxSection
+          - type: reference
+            to:
+              - type: rate
+
+  - name: featureBoxSection
+    type: object
+    fields:
+      - name: title
+        validations:
+          - required
+      - name: body
+        type: text
+
+  - name: rate
+    type: object
+    fields:
+      - name: stars
+        type: number
+        validations:
+          - required
+          - min(1)
+          - max(5)
+
+  - name: cta
+    title: Call to Action
+    type: object
+    fields:
+      - name: title
+      - name: ctaType
+        label: Type
+        options:
+          list:
+            - label: Page
+              value: page
+            - label: External URL
+              value: href
+            - label: File Download
+              value: download
+        validations:
+          - required
+      - name: page
+        type: reference
+        to:
+          # implement a page schema
+        weak: true
+        options:
+          disableNew: true
+        # Implement hidden
+      - name: href
+        label: URL
+        # Implement hidden
+      - name: file
+        type: file
+        # Implement hidden
+      - name: targetBlank
+        label: Open in new tab
+        type: boolean
+        validations:
+          - required
+    defaults:
+      ctaType: page
+      targetBlank: false
+    preview:
+      select:
+        title: title
+        subtitle: ctaType
