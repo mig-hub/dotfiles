@@ -17,20 +17,9 @@
     children,
   } = $props();
 
-  let reqFrame;
-  const onFrame = () => {
-    // Set 1vh
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    // Loop
-    reqFrame = requestAnimationFrame( onFrame );
-  };
-
   import { onMount } from 'svelte';
   onMount( () => {
     $breakpoint = getBreakpoint();
-    reqFrame = requestAnimationFrame( onFrame );
-    return () => cancelAnimationFrame( reqFrame );
   });
 
   const onResize = () => {
