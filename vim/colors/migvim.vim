@@ -38,8 +38,8 @@ highlight Special ctermfg=6
 
 " Tabs
 
-highlight TabLine cterm=NONE ctermfg=0 ctermbg=8
-highlight TabLineFill cterm=NONE ctermfg=0 ctermbg=8
+highlight TabLine cterm=NONE ctermfg=8 ctermbg=0
+highlight TabLineFill cterm=NONE ctermfg=8 ctermbg=0
 highlight TabLineSel cterm=NONE ctermfg=0 ctermbg=15
 
 " Cursor
@@ -57,12 +57,15 @@ highlight DiffText ctermfg=0 ctermbg=11 cterm=bold
 
 " Filetype specific
 
-highlight htmlTag ctermfg=8
-highlight htmlEndTag ctermfg=8
+highlight link htmlTag Comment
+highlight link htmlEndTag Comment
+highlight link htmlTagN Comment
 
-highlight cssBraces ctermfg=8
+highlight link cssBraces Comment
 
-highlight svelteBrace ctermfg=8
+highlight link svelteBrace Comment
+
+highlight link vueSurroundingTag Comment
 
 highlight netrwExe ctermfg=2
 highlight netrwClassify ctermfg=8
