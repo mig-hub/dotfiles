@@ -10,6 +10,7 @@ endif
 let g:colors_name="migvim"
 
 set background=dark
+set notermguicolors
 
 " 0: Black    8: Bright Black
 " 1: Red      9: Bright Red
