@@ -15,24 +15,26 @@ class Webgum < Thor
 
   desc :defaults, "Print default configuration"
   def defaults
-    puts "name: My Project"
-    puts "style_variables:"
-    puts "  default:"
-    puts "    bg_color: '#ffffff'"
-    puts "    fg_color: '#000000'"
-    puts "    ref_width: 1280"
-    puts "    body_size: 16pxvw"
-    puts "    page_margin: 16pxvw"
-    puts "    gutter: 16pxvw"
-    puts "  tablet:"
-    puts "    ref_width: 768"
-    puts "  mobile:"
-    puts "    ref_width: 375"
-    puts "  desktop:"
-    puts "    ref_width: 1600"
-    puts "sitemap:"
-    puts "  - label: Home"
-    puts "schemas:"
+    puts <<~YAML
+      name: My Project
+      style_variables:
+        default:
+          bg_color: '#ffffff'
+          fg_color: '#000000'
+          ref_width: 1280
+          body_size: 16pxvw
+          page_margin: 16pxvw
+          gutter: 16pxvw
+        tablet:
+          ref_width: 768
+        mobile:
+          ref_width: 375
+        desktop:
+          ref_width: 1600
+      sitemap:
+        - label: Home
+      schemas:
+    YAML
   end
 
   desc :sitemap_blog, "Print sitemap blog"
@@ -68,17 +70,26 @@ class Webgum < Thor
           - name: page
             type: reference
             to:
-              # implement a page schema
+              - type: basicPage
             weak: true
             options:
               disableNew: true
-            # Implement hidden
+            hiddenIf:
+              field: ctaType
+              isNot:
+                - page
           - name: href
             label: URL
-            # Implement hidden
+            hiddenIf:
+              field: ctaType
+              isNot:
+                - href
           - name: file
             type: file
-            # Implement hidden
+            hiddenIf:
+              field: ctaType
+              isNot:
+                - download
           - name: targetBlank
             label: Open in new tab
             type: boolean
@@ -91,6 +102,98 @@ class Webgum < Thor
           select:
             title: title
             subtitle: ctaType
+    YAML
+  end
+
+  desc :link_schema, "Print Link schema"
+  def link_schema
+    puts <<~YAML.gsub(/^/, "  ")
+      - name: link
+        type: object
+        fields:
+          - name: title
+            validations:
+              - required
+          - name: href
+            label: URL
+            validations:
+              - required
+        preview:
+          select:
+            title: title
+            subtitle: href
+    YAML
+  end
+
+  desc :asset_schema, "Print Asset schema"
+  def asset_schema
+    puts <<~YAML.gsub(/^/, "  ")
+      - name: asset
+        type: object
+        fields:
+          - name: fileType
+            type: string
+            options:
+              list:
+                - label: None
+                  value: none
+                - label: Image
+                  value: image
+                - label: Video
+                  value: video
+            validations:
+              - required
+          - name: image
+            type: image
+            hiddenIf:
+              field: fileType
+              isNot:
+                - image
+          - name: video
+            type: file
+            hiddenIf:
+              field: fileType
+              isNot:
+                - video
+          - name: imagePortrait
+            type: image
+            hiddenIf:
+              field: fileType
+              isNot:
+                - image
+            description: Optional
+          - name: videoPortrait
+            type: file
+            hiddenIf:
+              field: fileType
+              isNot:
+                - video
+            description: Optional
+        defaults:
+          fileType: image
+        preview:
+          select:
+            title: image.originalFilename
+            media: image
+    YAML
+  end
+
+  desc :meta_fields, "Print Meta schemas"
+  def meta_fields
+    puts <<~YAML.gsub(/^/, "      ")
+      - name: metaTitle
+      - name: metaDescription
+        type: text
+    YAML
+  end
+
+  desc :published_field, "Print Published field"
+  def published_field
+    puts <<~YAML.gsub(/^/, "      ")
+      - name: published
+        type: boolean
+        validations:
+          - required
     YAML
   end
 

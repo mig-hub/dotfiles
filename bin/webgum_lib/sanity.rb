@@ -1,4 +1,5 @@
 require 'thor'
+require 'set'
 require_relative './utils'
 
 class Webgum < Thor
@@ -32,10 +33,29 @@ class Webgum < Thor
       puts "]"
     end
 
+    desc :utils, "Print utils.ts"
+    def utils
+      puts_type_portable_text
+      puts
+      puts_portable_text_preview
+      puts
+    end
+
     desc "schema SCHEMA_NAME", "Print a schema definition"
     def schema schema_name
       s = get_schema(schema_name)
+      utils = Set.new
+      s['fields'].each do |f|
+        if f['type'].to_s =~ /^portableText/
+          utils.add( "type#{ f['type'].capitalize }" )
+          utils.add( "portableTextPreview" )
+        end
+      end
       label = s.fetch( s['label'], label_for( s['name'] ) )
+      unless utils.empty?
+        puts "import { #{ utils.join(', ') } } from './utils';"
+        puts
+      end
       puts "export default {"
       puts "  title: '#{ label }',"
       puts "  name: '#{ s['name'] }',"
@@ -64,10 +84,21 @@ class Webgum < Thor
       puts "    {"
       puts "      title: '#{ label }',"
       puts "      name: '#{ f['name'] }',"
-      puts "      type: '#{ f['type'] || 'string' }',"
+      if f['type'].to_s =~ /^portableText/
+        puts "      ...type#{ f['type'].capitalize },"
+      else
+        puts "      type: '#{ f['type'] || 'string' }',"
+      end
+      if f.key?('description')
+        puts "      description: '#{ f['description'] }',"
+      end
+      if f.key?('weak') && f['weak'] == true
+        puts "      weak: true,"
+      end
       reference_to(s, f)
       array_of(s, f)
       opts(s, f)
+      hidden_if( s, f )
       validations(s, f)
       puts "    },"
     end
@@ -98,7 +129,11 @@ class Webgum < Thor
       f = get_field(schema_name, field_name)
       if f.key?('options') && f['options'].is_a?(Hash)
         puts "      options: {"
+        if f['options'].key?('disableNew') && f['options']['disableNew'] == true
+          puts "        disableNew: true,"
+        end
         opts_list( s, f )
+        opts_slug_source( s, f )
         puts "      },"
       end
     end
@@ -116,6 +151,28 @@ class Webgum < Thor
           end
         end
         puts "        ],"
+      end
+    end
+
+    desc "opts_slug_source SCHEMA_NAME FIELD_NAME", "Print options slug source for a field"
+    def opts_slug_source schema_name, field_name
+      f = get_field(schema_name, field_name)
+      if f.key?('options') && f['options'].is_a?(Hash) && f['options'].key?('sourceField') && f['options']['sourceField'].is_a?(String)
+        puts "        source: (doc, { parent }) => parent && parent.#{ f['options']['sourceField'] },"
+      end
+    end
+
+    desc "hidden_if SCHEMA_NAME FIELD_NAME", "Print hidden function for a field"
+    def hidden_if schema_name, field_name
+      f = get_field(schema_name, field_name)
+      if f.key?('hiddenIf') && f['hiddenIf'].is_a?(Hash)
+        puts "      hidden: ({ parent }) => {"
+        if f['hiddenIf'].key?('is')
+          puts "        return [#{ f['hiddenIf']['is'].map{|v| javascript_object(v)}.join(', ') }].includes(parent?.#{ f['hiddenIf']['field'] });"
+        elsif f['hiddenIf'].key?('isNot')
+          puts "        return ![#{ f['hiddenIf']['isNot'].map{|v| javascript_object(v)}.join(', ') }].includes(parent?.#{ f['hiddenIf']['field'] });"
+        end
+        puts "      },"
       end
     end
 
@@ -189,6 +246,68 @@ class Webgum < Thor
       end
     end
 
+  end
+
+  def puts_type_portable_text
+    puts <<~SCRIPT
+      export const typePortableText = {
+        type: 'array',
+        of: [
+          {
+            type: 'block',
+            styles: [
+              { title: 'Normal', value: 'normal' },
+              // { title: 'H1', value: 'h1' },
+              // { title: 'H2', value: 'h2' },
+              // { title: 'H3', value: 'h3' },
+              // { title: 'H4', value: 'h4' },
+              // { title: 'H5', value: 'h5' },
+              // { title: 'H6', value: 'h6' },
+              // { title: 'Quote', value: 'blockquote' },
+            ],
+            marks: {
+              decorators: [
+                // { title: 'Strong', value: 'strong' },
+                { title: 'Emphasis', value: 'em' },
+              ],
+              annotations: [
+                {
+                  title: 'Link',
+                  name: 'link',
+                  type: 'object',
+                  fields: [
+                    {
+                      title: 'URL',
+                      name: 'href',
+                      type: 'string',
+                    },
+                    {
+                      title: 'Open in new tab',
+                      name: 'targetBlank',
+                      type: 'boolean',
+                    },
+                  ],
+                },
+              ],
+            },
+            lists: [
+              // { title: 'Bullet', value: 'bullet' },
+              // { title: 'Numbered', value: 'number' },
+            ],
+          }
+        ],
+        description: "Regular return lines without creating a paragraph is achieved by pressing Shift+Return.",
+      };
+    SCRIPT
+  end
+
+  def puts_portable_text_preview
+    puts <<~SCRIPT
+      export const portableTextPreview = (field, defaultValue = "Empty text") => {
+        const block = (field || []).find(block => block._type === 'block');
+        return block ? block.children.filter(child => child._type === 'span').map(span => span.text).join('') : defaultValue;
+      };
+    SCRIPT
   end
 
 end
