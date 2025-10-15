@@ -10,7 +10,8 @@ export default defineConfig({
       scss: {
         api: 'modern-compiler',
         additionalData: `
-          @use '${pathSrc}/styles/config.scss' as *;
+          @use '${pathSrc}/styles/utils.scss' as *;
+          @use '${pathSrc}/styles/extendable-classes.scss' as *;
         `,
       }
     },

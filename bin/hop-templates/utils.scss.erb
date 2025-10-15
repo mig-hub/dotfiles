@@ -1,31 +1,24 @@
-@use 'sass:math';
-@use "sass:meta";
+// Vars
+
+$mobile-breakpoint: 600px;
+$tablet-breakpoint: 900px;
+$desktop-breakpoint: 1440px;
+$vendors: ('-webkit-','-moz-','-ms-','-o-','');
+
+// Imports
+
 @use "sass:selector";
 @use "sass:list";
 @use "sass:map";
 
-// Vars
-
-$vendors: ('-webkit-','-moz-','-ms-','-o-','');
-$vw-disabled: false;
-
 // functions
 
-@function strip-unit($number) {
-  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
-    @return math.div( $number , ($number * 0 + 1) );
-  }
-  @return $number;
-}
-
 @function vw($size) {
-  // Use this to get a value in vw based the design which has px values
-  // for a specific viewport width stored in a css var called --ref-width.
-  @if $vw-disabled {
-    @return $size;
-  } @else {
-    @return calc( strip-unit( $size ) / var( --ref-width, 1280 ) * 100vw );
-  }
+  // Use this to get a value in vw based the design which has px values.
+  // It depends on a CSS variables --px being set to the amount of vw per px.
+  // Use: `--px: calc(100vw / var(--ref-width));` and set unitless --ref-width
+  // for each breakpoints.
+  @return calc( $size * var(--px, 0.1vw) );
 }
 
 @function vertical-line($color: #000000, $width: 1px) {
@@ -37,10 +30,52 @@ $vw-disabled: false;
 
 // Mixins
 
+@mixin mobile {
+  @media screen and (orientation: portrait) and (max-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and ( min-width: $mobile-breakpoint+1 ) and (max-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+@mixin laptop-desktop {
+  @media screen and (min-width: $tablet-breakpoint+1) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media screen and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin landscape {
+  @media screen and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin retina {
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6/2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+    @content;
+  }
+}
+
 @mixin vendor($key, $val...) {
   // Low level mixin for prepending a property with known vendor prefixes
   @each $vendor in $vendors {
-    #{$vendor}#{$key}: $val; 
+    #{$vendor}#{$key}: $val;
   }
 }
 
@@ -74,14 +109,8 @@ $vw-disabled: false;
   background-position: $pos;
 }
 
-@mixin portrait {
-  @media screen and (orientation: portrait) {
-    @content;
-  }
-}
-
-@mixin landscape {
-  @media screen and (orientation: landscape) {
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector.append(&, $sel))} {
     @content;
   }
 }
@@ -107,12 +136,6 @@ $vw-disabled: false;
   }
 }
 
-@mixin retina {
-  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6/2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
-    @content;
-  }
-}
-
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {
     @content;
@@ -127,23 +150,6 @@ $vw-disabled: false;
     @content;
   }
   @keyframes #{$name} {
-    @content;
-  }
-}
-
-@mixin fixed-proportions-wrap($width: 16, $height: 9) {
-  // Legacy. Nowadays aspect-ratio is better.
-  position: relative; 
-  height: 0; overflow: hidden;
-  padding-bottom: calc( $height / $width * 100%);
-  & > * {
-    position: absolute; left: 0; top: 0;
-    width: 100%; height: 100%;
-  }
-}
-
-@mixin optional-at-root($sel) {
-  @at-root #{if(not &, $sel, selector.append(&, $sel))} {
     @content;
   }
 }
@@ -172,4 +178,5 @@ $vw-disabled: false;
   * * * * * * * * { background-color: rgba(0,255,0,.2); }
   * * * * * * * * * { background-color: rgba(0,0,255,.2); }
 }
+
 

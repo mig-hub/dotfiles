@@ -9,6 +9,15 @@
   --bg-color: #ffffff;
   --fg-color: #000000;
 
+  --z-page: 1;
+  --z-header: 2;
+
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  --ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+  --ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+  --ease-in-out-expo: cubic-bezier(1.000, 0.000, 0.000, 1.000);
+  --ease: var(--ease-in-out-quart);
+
   // IMPORTANT: Use unitless values for all numbers that are meant to be used with vw().
   // The unit will be stripped out when using a direct number, but not with a CSS var.
   // e.g. --ref-width: 1280;
@@ -17,6 +26,8 @@
   // e.g. --body-size: #{vw( 16 )};
 
   --ref-width: 1280;
+  // Use this to convert px to vw: calc( desired-px * var(--px) ) or vw( desired-px )
+  --px: calc( 100vw / var( --ref-width ) );
   --body-size: #{ vw( 16 ) };
   --page-margin: #{ vw( 16 ) };
   --gutter: #{ vw( 16 ) };
@@ -31,12 +42,15 @@
   }
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-margin-top: var( --header-height, 0px );
+}
 
 body {
   margin: 0;
   padding: 0;
-  @extend %font-regular-medium;
+  @extend %font-body;
   color: var( --fg-color );
   background-color: var( --bg-color );
   &.noscroll {

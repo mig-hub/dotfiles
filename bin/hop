@@ -47,9 +47,9 @@ init-sveltekit() {
     template svelte.config.js > svelte.config.js
     template vite.config.js > vite.config.js
     mkdir -p src/styles
-    template framework.scss > src/styles/framework.scss
+    template utils.scss > src/styles/utils.scss
+    template extendable-classes.scss > src/styles/extendable-classes.scss
     template resets.scss > src/styles/resets.scss
-    template config.scss > src/styles/config.scss
     template global.scss > src/styles/global.scss
     template layout.svelte > src/routes/+layout.svelte
     template page.svelte > src/routes/+page.svelte

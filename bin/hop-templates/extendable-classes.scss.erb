@@ -1,0 +1,21 @@
+@use 'utils.scss' as *;
+
+%font-body {
+  font-size: var( --body-size );
+  font-weight: normal;
+  line-height: 1.2;
+  letter-spacing: 0em;
+}
+
+%grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  @include tablet {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+  @include mobile {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
