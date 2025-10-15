@@ -11,6 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'jeffkreeftmeijer/vim-dim'
 " Filetypes
 Plug 'sheerun/vim-polyglot'
+Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
 Plug 'lee-jon/vim-io'
 Plug 'Shougo/context_filetype.vim'
 " Snippets
@@ -212,6 +213,12 @@ augroup netrw_mapping " Activate netrw mappings
   autocmd!
   autocmd filetype netrw call NetrwMapping()
 augroup END
+
+" =======
+" NuShell
+" =======
+
+:lua require'nu'.setup{}
 
 " =======
 " Orgmode
