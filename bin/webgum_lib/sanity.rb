@@ -47,7 +47,7 @@ class Webgum < Thor
       utils = Set.new
       s['fields'].each do |f|
         if f['type'].to_s =~ /^portableText/
-          utils.add( "type#{ f['type'].capitalize }" )
+          utils.add( "#{ f['type'].capitalize }Type" )
           utils.add( "portableTextPreview" )
         end
       end
@@ -85,7 +85,7 @@ class Webgum < Thor
       puts "      title: '#{ label }',"
       puts "      name: '#{ f['name'] }',"
       if f['type'].to_s =~ /^portableText/
-        puts "      ...type#{ f['type'].capitalize },"
+        puts "      ...#{ f['type'] }Type,"
       else
         puts "      type: '#{ f['type'] || 'string' }',"
       end
