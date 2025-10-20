@@ -85,21 +85,21 @@ module Utils
     case obj
     when Hash
       items = obj.map do |k, v|
-        "#{space}  #{k}: #{javascript_object(v, indent + 1)}"
+        "#{space}  #{k}: #{javascript_object(v, indent + 1)},"
       end
       if items.size == 1
-        "{ #{items[0].strip} },"
+        "{ #{items[0].strip.sub(/,$/, '')} }"
       else
-        "{\n#{items.join(",\n")}\n#{space}},"
+        "{\n#{items.join("\n")}\n#{space}}"
       end
     when Array
       items = obj.map do |v|
-        "#{space}  #{javascript_object(v, indent + 1)}"
+        "#{space}  #{javascript_object(v, indent + 1)},"
       end
       if items.size == 0
-        "[],"
+        "[]"
       else
-        "[\n#{items.join(",\n")}\n#{space}],"
+        "[\n#{items.join("\n")}\n#{space}]"
       end
     when String
       "'#{obj.gsub("'", "\\'")}'"

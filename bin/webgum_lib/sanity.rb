@@ -244,7 +244,7 @@ class Webgum < Thor
         if item.is_a?(String)
           puts "        { type: '#{ item }' },"
         elsif item.is_a?(Hash)
-          puts "        #{ javascript_object(item, 4) }"
+          puts "        #{ javascript_object(item, 4) },"
         end
       end
     end
