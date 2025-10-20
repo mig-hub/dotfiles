@@ -18,6 +18,9 @@ class Webgum < Thor
           schema(s['name'])
         end
       end
+      stdout_to('./schemaTypes/utils.ts') do
+        utils
+      end
     end
 
     desc :index, "Print index.ts importing all schemas"
@@ -35,7 +38,7 @@ class Webgum < Thor
 
     desc :utils, "Print utils.ts"
     def utils
-      puts_type_portable_text
+      puts_portable_text_type
       puts
       puts_portable_text_preview
       puts
@@ -246,68 +249,68 @@ class Webgum < Thor
       end
     end
 
-  end
-
-  def puts_type_portable_text
-    puts <<~SCRIPT
-      export const typePortableText = {
-        type: 'array',
-        of: [
-          {
-            type: 'block',
-            styles: [
-              { title: 'Normal', value: 'normal' },
-              // { title: 'H1', value: 'h1' },
-              // { title: 'H2', value: 'h2' },
-              // { title: 'H3', value: 'h3' },
-              // { title: 'H4', value: 'h4' },
-              // { title: 'H5', value: 'h5' },
-              // { title: 'H6', value: 'h6' },
-              // { title: 'Quote', value: 'blockquote' },
-            ],
-            marks: {
-              decorators: [
-                // { title: 'Strong', value: 'strong' },
-                { title: 'Emphasis', value: 'em' },
+    def puts_portable_text_type
+      puts <<~SCRIPT
+        export const portableTextType = {
+          type: 'array',
+          of: [
+            {
+              type: 'block',
+              styles: [
+                { title: 'Normal', value: 'normal' },
+                // { title: 'H1', value: 'h1' },
+                // { title: 'H2', value: 'h2' },
+                // { title: 'H3', value: 'h3' },
+                // { title: 'H4', value: 'h4' },
+                // { title: 'H5', value: 'h5' },
+                // { title: 'H6', value: 'h6' },
+                // { title: 'Quote', value: 'blockquote' },
               ],
-              annotations: [
-                {
-                  title: 'Link',
-                  name: 'link',
-                  type: 'object',
-                  fields: [
-                    {
-                      title: 'URL',
-                      name: 'href',
-                      type: 'string',
-                    },
-                    {
-                      title: 'Open in new tab',
-                      name: 'targetBlank',
-                      type: 'boolean',
-                    },
-                  ],
-                },
+              marks: {
+                decorators: [
+                  // { title: 'Strong', value: 'strong' },
+                  { title: 'Emphasis', value: 'em' },
+                ],
+                annotations: [
+                  {
+                    title: 'Link',
+                    name: 'link',
+                    type: 'object',
+                    fields: [
+                      {
+                        title: 'URL',
+                        name: 'href',
+                        type: 'string',
+                      },
+                      {
+                        title: 'Open in new tab',
+                        name: 'targetBlank',
+                        type: 'boolean',
+                      },
+                    ],
+                  },
+                ],
+              },
+              lists: [
+                // { title: 'Bullet', value: 'bullet' },
+                // { title: 'Numbered', value: 'number' },
               ],
-            },
-            lists: [
-              // { title: 'Bullet', value: 'bullet' },
-              // { title: 'Numbered', value: 'number' },
-            ],
-          }
-        ],
-        description: "Regular return lines without creating a paragraph is achieved by pressing Shift+Return.",
-      };
-    SCRIPT
-  end
+            }
+          ],
+          description: "Regular return lines without creating a paragraph is achieved by pressing Shift+Return.",
+        };
+      SCRIPT
+    end
 
-  def puts_portable_text_preview
-    puts <<~SCRIPT
-      export const portableTextPreview = (field, defaultValue = "Empty text") => {
-        const block = (field || []).find(block => block._type === 'block');
-        return block ? block.children.filter(child => child._type === 'span').map(span => span.text).join('') : defaultValue;
-      };
-    SCRIPT
+    def puts_portable_text_preview
+      puts <<~SCRIPT
+        export const portableTextPreview = (field, defaultValue = "Empty text") => {
+          const block = (field || []).find(block => block._type === 'block');
+          return block ? block.children.filter(child => child._type === 'span').map(span => span.text).join('') : defaultValue;
+        };
+      SCRIPT
+    end
+
   end
 
 end
