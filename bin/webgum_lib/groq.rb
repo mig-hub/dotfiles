@@ -25,7 +25,7 @@ class Webgum < Thor
         elsif f['type'] == 'reference'
           puts "  \"#{f['name']}\": #{f['name']}->{"
           f['to'].each do |to_item|
-            puts "    _type == #{ to_item['type'] } => @{ ${#{ to_item['type'] }Fields} },"
+            puts "    _type == '#{ to_item['type'] }' => @{ ${#{ to_item['type'] }Fields} },"
           end
           puts "  },"
         elsif f['type'] == 'array'
@@ -34,11 +34,11 @@ class Webgum < Thor
             if of_item['type'] == 'reference'
               puts "    _type == 'reference' => @->{"
               of_item['to'].each do |to_item|
-                puts "      _type == #{ to_item['type'] } => @{ ${#{ to_item['type'] }Fields} },"
+                puts "      _type == '#{ to_item['type'] }' => @{ ${#{ to_item['type'] }Fields} },"
               end
               puts "    },"
             else
-              puts "    _type == #{ of_item['type'] } => @{ ${#{ of_item['type'] }Fields} },"
+              puts "    _type == '#{ of_item['type'] }' => @{ ${#{ of_item['type'] }Fields} },"
             end
           end
           puts "  },"
