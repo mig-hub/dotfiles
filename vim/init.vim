@@ -9,11 +9,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Color schemes
 " Plug 'altercation/vim-colors-solarized'
 Plug 'jeffkreeftmeijer/vim-dim'
-" Filetypes
-Plug 'sheerun/vim-polyglot'
-Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
-Plug 'lee-jon/vim-io'
-Plug 'Shougo/context_filetype.vim'
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -33,10 +28,17 @@ Plug 'junegunn/gv.vim'
 Plug 'mhinz/vim-signify'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ap/vim-css-color'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'main' }
 Plug 'nvim-orgmode/orgmode'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
+" Filetypes
+Plug 'sheerun/vim-polyglot'
+" Plug 'LhKipp/nvim-nu', {'do': ':TSInstall nu'}
+Plug 'lee-jon/vim-io'
+Plug 'Shougo/context_filetype.vim'
 call plug#end()
 
 " ============
@@ -213,18 +215,6 @@ augroup netrw_mapping " Activate netrw mappings
   autocmd!
   autocmd filetype netrw call NetrwMapping()
 augroup END
-
-" =======
-" NuShell
-" =======
-
-:lua require'nu'.setup{}
-
-" =======
-" Orgmode
-" =======
-
-:lua require('setuporgmode')
 
 " ===========
 " Indentation
@@ -416,6 +406,7 @@ augroup RecognizeFiles
   autocmd BufRead,BufNewFile *.Brewfile setlocal filetype=ruby
   autocmd BufRead,BufNewFile *.json setlocal filetype=javascript
   autocmd BufRead,BufNewFile *.muttrc setlocal filetype=muttrc
+  autocmd BufRead,BufNewFile *.nu setlocal filetype=nu
 augroup END
 
 " This avoid the skeleton creation and reads in general
@@ -446,3 +437,6 @@ augroup END
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
+" Until init.lua is complete
+
+lua require('init')
