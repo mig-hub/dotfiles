@@ -14,9 +14,11 @@ if [[ $# < 1 ]]; then
 else
   local format="${FORMAT:-mp4}"
   local suffix="${SUFFIX:-web}"
-  local width="${WIDTH:-1024}"
+  local width="${WIDTH:-1280}"
   for f in $*; do
-    ffmpeg -i "$f" -filter:v "scale=${width}:-1" -c:a copy "${f:r}.${suffix}.${format}"
+    #ffmpeg -i "$f" -filter:v "scale=${width}:-1" -c:a copy "${f:r}.${suffix}.${format}"
+    # ffmpeg -i "$f" -vf "scale=${width}:-2" -c:v libx264 -movflags +faststart -c:a copy -an "${f:r}.${suffix}.${format}"
+    ffmpeg -i "$f" -movflags +faststart "${f:r}.${suffix}.${format}"
   done
 fi
 
