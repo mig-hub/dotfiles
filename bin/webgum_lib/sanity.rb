@@ -93,7 +93,7 @@ class Webgum < Thor
         puts "      type: '#{ f['type'] || 'string' }',"
       end
       if f.key?('description')
-        puts "      description: '#{ f['description'] }',"
+        puts "      description: \"#{ f['description'] }\","
       end
       if f.key?('weak') && f['weak'] == true
         puts "      weak: true,"
