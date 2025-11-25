@@ -9,7 +9,7 @@ class Webgum < Thor
 
     desc "schemas", "List all schema GROQ field definitions"
     def schemas
-      config['schemas'].each do |s|
+      config['schemas'].reverse.each do |s|
         schema(s['name'])
       end
     end
