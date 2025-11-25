@@ -50,7 +50,7 @@ class Webgum < Thor
       utils = Set.new
       s['fields'].each do |f|
         if f['type'].to_s =~ /^portableText/
-          utils.add( "#{ f['type'].capitalize }Type" )
+          utils.add( "#{ f['type'] }Type" )
           utils.add( "portableTextPreview" )
         end
       end
