@@ -1,6 +1,6 @@
 <script>
 
-  import { breakpoint } from "$lib/store";
+  import { states } from "$lib/states.svelte.js";
   import { getBreakpoint } from "$lib/utils";
 
   import "$lib/../styles/resets.scss";
@@ -19,11 +19,11 @@
 
   import { onMount } from 'svelte';
   onMount( () => {
-    $breakpoint = getBreakpoint();
+    states.breakpoint = getBreakpoint();
   });
 
   const onResize = () => {
-    $breakpoint = getBreakpoint();
+    states.breakpoint = getBreakpoint();
   };
 
   import { onNavigate } from '$app/navigation';

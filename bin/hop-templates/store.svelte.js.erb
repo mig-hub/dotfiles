@@ -1,0 +1,24 @@
+let breakpointState = $state( 'laptop' );
+let isStagingState = $state( false );
+let layoutState = $state({});
+
+export const store = {
+  get breakpoint() {
+    return breakpointState;
+  },
+  set breakpoint(value) {
+    breakpointState = value;
+  },
+  get isStaging() {
+    return isStagingState;
+  },
+  set isStaging(value) {
+    isStagingState = value;
+  },
+  get layout() {
+    return layoutState;
+  },
+  set layout(value) {
+    layoutState = value;
+  },
+};

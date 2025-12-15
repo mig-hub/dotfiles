@@ -54,7 +54,7 @@ init-sveltekit() {
     template layout.svelte > src/routes/+layout.svelte
     template page.svelte > src/routes/+page.svelte
     mkdir -p src/lib
-    template store.js > src/lib/store.js
+    template states.svelte.js > src/lib/states.svelte.js
     mkdir -p src/lib/components
     template utils.js > src/lib/utils.js
   fi
