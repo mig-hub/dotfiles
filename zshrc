@@ -7,6 +7,7 @@ try-source() {
   [[ -f "$1" ]] && source "$1"
 }
 
+export XDG_CONFIG_HOME="$HOME/.config"
 if isbin nvim; then
   export EDITOR=nvim
   export VISUAL=nvim
