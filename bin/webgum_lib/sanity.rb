@@ -54,13 +54,13 @@ class Webgum < Thor
           utils.add( "portableTextPreview" )
         end
       end
-      label = s.fetch( s['label'], label_for( s['name'] ) )
+      label = s.fetch( 'label', label_for( s['name'] ) )
       unless utils.empty?
         puts "import { #{ utils.join(', ') } } from './utils';"
         puts
       end
       puts "export default {"
-      puts "  title: '#{ label }',"
+      puts "  title: \"#{ label }\","
       puts "  name: '#{ s['name'] }',"
       puts "  type: '#{ s['type'] || 'document' }',"
       fields(s)
@@ -85,7 +85,7 @@ class Webgum < Thor
       f = get_field(schema_name, field_name)
       label = f.fetch( 'label', label_for( f['name'] ) )
       puts "    {"
-      puts "      title: '#{ label }',"
+      puts "      title: \"#{ label }\","
       puts "      name: '#{ f['name'] }',"
       if f['type'].to_s =~ /^portableText/
         puts "      ...#{ f['type'] }Type,"
