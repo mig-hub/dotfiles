@@ -42,6 +42,12 @@ $vendors: ('-webkit-','-moz-','-ms-','-o-','');
   }
 }
 
+@mixin mobile-tablet {
+  @media screen and (max-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
 @mixin desktop {
   @media screen and (min-width: $desktop-breakpoint) {
     @content;
