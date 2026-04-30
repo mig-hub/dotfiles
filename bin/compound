@@ -1,14 +1,11 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env nu
 
 # Calculates the compound growth ratio after n iterations
-
-if ARGV.length < 2
-  STDERR.puts "Usage: compound <growth> <iterations>"
-  STDERR.puts "e.g. : compound 1.05 10"
-  exit 1
-end
-
-growth = ARGV[0].to_f
-iterations = ARGV[1].to_f
-puts growth**iterations
+#
+def main [
+  growth: float
+  iterations: float
+] {
+  $growth ** $iterations
+}
 
