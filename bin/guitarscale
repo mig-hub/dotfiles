@@ -1,53 +1,53 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env nu
 
-scales = {
-  major:                  "1-2-34-5-6-7",
-  minor:                  "@-@@-@-@@-@-",
-  ionian:                 "@-@-@@-@-@-@",
-  dorian:                 "@-@@-@-@-@@-",
-  phrygian:               "@@-@-@-@@-@-",
-  lydian:                 "@-@-@-@@-@-@",
-  mixolydian:             "@-@-@@-@-@@-",
-  aeolian:                "@-@@-@-@@-@-",
-  locrian:                "@@-@-@@-@-@-",
-  penta:                  "@--@-@-@--@-",
-  pentamajor:             "@-@-@--@-@--",
-  pentaminor:             "@--@-@-@--@-",
-  pentadorian:            "@-@--@-@--@-",
-  blues:                  "@--@-@@@--@-",
-  double_harmonic:        "@@--@@-@@--@",
+use std repeat
+
+# Print guitar scales in the terminal for specific tunings.
+# But it is naive and assumes the strings are all tuned with the same interval.
+#
+# Available scales:
+#   major, minor, ionian, dorian, phrygian, lydian, mixolydian, aeolian, locrian,
+#   penta, pentamajor, pentaminor, pentadorian, blues, double_harmonic
+def main [
+  --grid: string = "penta" # Essentially the scale
+  --length: int = 3 # How many scales per line
+  --strings: int = 4
+  --offset: int = 7 # Essentially the tuning (7th fret means tuned in 5th)
+] {
+
+  let scales = {
+    major:                  "1-2-34-5-6-7",
+    minor:                  "@-@@-@-@@-@-",
+    ionian:                 "@-@-@@-@-@-@",
+    dorian:                 "@-@@-@-@-@@-",
+    phrygian:               "@@-@-@-@@-@-",
+    lydian:                 "@-@-@-@@-@-@",
+    mixolydian:             "@-@-@@-@-@@-",
+    aeolian:                "@-@@-@-@@-@-",
+    locrian:                "@@-@-@@-@-@-",
+    penta:                  "@--@-@-@--@-",
+    pentamajor:             "@-@-@--@-@--",
+    pentaminor:             "@--@-@-@--@-",
+    pentadorian:            "@-@--@-@--@-",
+    blues:                  "@--@-@@@--@-",
+    double_harmonic:        "@@--@@-@@--@",
+  }
+
+  let grid = ($scales | get $grid)
+  let grid_line = ($grid | repeat $length | str join)
+
+  (($strings - 1)..0 | each {|n|
+    let len = $grid_line | str length
+    let char_offset = ($n * $offset) mod $len
+    let rotated = if $char_offset == 0 {
+      $grid_line
+    } else {
+      ($grid_line | str substring $char_offset..) + ($grid_line | str substring 0..($char_offset - 1))
+    }
+    let line = $rotated | split chars | str join ' '
+    print $line
+  })
+
+  null
 }
-
-defaults = {
-  grid: :penta,
-  length: 3,
-  strings: 4,
-  offset: 7, # basically tuning (7th fret means tuned in 5th)
-}
-
-o = defaults.merge(
-  Hash[
-    ARGV.map do |a| 
-      k,v = a.split('=')
-      if v=='true'
-        v = true
-      elsif v=='false'
-        v = false
-      elsif v=~/^\d+$/
-        v = v.to_i
-      end
-      [k.to_sym,v]
-    end
-  ]
-)
-
-grid = (scales[o[:grid].to_sym] || o[:grid]) * o[:length]
-
-top_to_bottom = (0...o[:strings]).inject([]) do |strings,n|
-  char_offset = (n * o[:offset]) % 12
-  string = grid.slice(char_offset..-1)+grid.slice(0...char_offset)
-  strings + [string.gsub(/./, '\0 ')]
-end
-
-puts top_to_bottom.reverse.join("\n")
 
