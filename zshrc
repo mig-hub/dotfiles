@@ -296,6 +296,16 @@ flasher () {
   done
 }
 
+# Shortcut for yazi so that it can change director on quit
+# Use uppercase Q to quit without changing directory
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
+
 # aliases
 alias ls='ls -1AF --color'
 alias ll='ls -lhAF --color'
