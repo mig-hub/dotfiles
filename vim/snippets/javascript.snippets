@@ -45,34 +45,43 @@ snippet san-desk-single
 		S.document().schemaType( '${2}' ).documentId( '${2}' )
 	),
 snippet page-load
-	/** @type {import('./$types').PageLoad} */
-	export function load({ url }) {
+	import { getHomePage } from "$lib/repo";
+	import { error } from '@sveltejs/kit';
+
+	export async function load({ params, url }) {
+
+		let page = await getHomePage();
+
+		if ( !page ) {
+			return error( 404, 'Page Not Found' );
+		}
+
 		return {
-			q: url.searchParams.get( 'q' ),
+			path: url.pathname,
+			params,
+			page,
 		};
+
 	}
 snippet layout-load
-	/** @type {import('./$types').LayoutLoad} */
-	export function load({ url }) {
-		return {
-			q: url.searchParams.get( 'q' ),
-		};
-	}
-snippet page-load-sanity
-	import { getPage } from "\$lib/sanity";
-	/** @type {import('./$types').PageLoad} */
-	export async function load() {
-		return {
-			page: await getPage( 'home' ),
-		};
-	}
-snippet layout-load-sanity
-	import { getPage } from "\$lib/sanity";
-	/** @type {import('./$types').LayoutLoad} */
-	export async function load() {
-		return {
-			page: await getPage( 'home' ),
-		};
-	}
+	import { states } from '$lib/states.svelte.js';
+	import { getLayout } from '$lib/repo';
 
+	export async function load({ url }) {
+
+		if ( url.hostname !== 'www.example.org' ) {
+			states.isStaging = false;
+		} else {
+			states.isStaging = true;
+		}
+
+		const layout = await getLayout();
+		states.layout = layout;
+
+		return {
+			pathname: url.pathname,
+			layout,
+			holding: false,//url.hostname === 'www.example.org' || url.searchParams.get('holding') === 'yes',
+		};
+	};
 

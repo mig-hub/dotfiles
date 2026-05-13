@@ -3,12 +3,17 @@ snippet $lib
 	import ${1} from "\$lib/${2}";${0}
 snippet component
 	import ${1} from "\$lib/components/${1}.svelte";${0}
-snippet page-data
-	/** @type {import('./$types').PageData} */
-	export let data;
-snippet layout-data
-	/** @type {import('./$types').LayoutData} */
-	export let data;
+snippet props
+	let {
+		${0}
+	} = $props();
+snippet page-props
+	let { data } = $props();
+snippet layout-props
+	let {
+		data,
+		children,
+	} = $props();
 snippet style
 	<style lang='scss' >
 
@@ -59,8 +64,8 @@ snippet onmount
 	onMount( () => {
 		${0}
 	});
-snippet stores
-	import { ${0} } from "\$lib/stores";
+snippet states
+	import { states } from "\$lib/states.svelte.js";
 snippet import-md
 	import SvelteMarkdown from 'svelte-markdown';
 snippet import-markdown
@@ -75,15 +80,3 @@ snippet markdown
 		source={ ${0} }
 		options={{ gfm: true, breaks: true, mangle: false }}
 	/>
-snippet forward
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
-	const onClick = (e) => dispatch('click', e);
-snippet emit
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
-	const onClick = (e) => dispatch('click', e);
-snippet dispatch
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
-	const onClick = (e) => dispatch('click', e);
