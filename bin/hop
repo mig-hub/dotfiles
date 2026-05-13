@@ -57,6 +57,7 @@ init-sveltekit() {
     template states.svelte.js > src/lib/states.svelte.js
     mkdir -p src/lib/components
     template utils.js > src/lib/utils.js
+    template robots.txt > static/robots.txt
   fi
 }
 
