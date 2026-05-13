@@ -1,0 +1,29 @@
+#!/usr/bin/env nu
+
+def main [
+  --file-path (-f): string = "~/.calendar/calendar.yml"
+  --before (-b): int = 0
+  --after (-a): int = 2
+] {
+
+  let file = try {
+    $file_path | path expand | open
+  } catch {
+    print -e $"We cannot find file ($file_path)"
+    exit 1
+  }
+
+  let data = $file |
+    insert datetime { $"($in.date) ($in.time? | default 12:00)" | into datetime } |
+    sort-by datetime
+
+  let start_date = date now | $in - ($before | into duration --unit day)
+  let end_date = date now | $in + ($after | into duration --unit day)
+
+  $data |
+    where datetime >= $start_date |
+    where datetime <= $end_date |
+    select date time? title datetime |
+    print
+
+}
