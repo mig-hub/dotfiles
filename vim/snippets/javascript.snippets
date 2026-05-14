@@ -45,7 +45,7 @@ snippet san-desk-single
 		S.document().schemaType( '${2}' ).documentId( '${2}' )
 	),
 snippet page-load
-	import { getHomePage } from "$lib/repo";
+	import { getHomePage } from "\$lib/repo";
 	import { error } from '@sveltejs/kit';
 
 	export async function load({ params, url }) {
@@ -64,7 +64,7 @@ snippet page-load
 
 	}
 snippet layout-load
-	import { states } from '$lib/states.svelte.js';
+	import { states } from '\$lib/states.svelte.js';
 	import { getLayout } from '$lib/repo';
 
 	export async function load({ url }) {
