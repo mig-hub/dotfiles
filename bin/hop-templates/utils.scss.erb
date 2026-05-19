@@ -116,16 +116,8 @@ $vendors: ('-webkit-','-moz-','-ms-','-o-','');
 }
 
 @mixin optional-at-root($sel) {
-  @at-root {
-    @if not (&) {
-      #{$sel} {
-        @content;
-      }
-    } @else {
-      selector.append(&, $sel) {
-        @content;
-      }
-    }
+  @at-root #{if(sass(not &): $sel; else: selector.append(&, $sel))} {
+    @content;
   }
 }
 
