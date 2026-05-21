@@ -26,6 +26,10 @@ template() {
   erb -T 2 -P "${here}/hop-templates/${1}.erb" "${@:2}"
 }
 
+init-sanity() {
+  npm create sanity@latest
+}
+
 init-sveltekit() {
   # $1 is directory name
   if [ -z "$1" ]; then
