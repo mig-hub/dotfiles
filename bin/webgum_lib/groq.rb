@@ -17,6 +17,7 @@ class Webgum < Thor
     desc "schema SCHEMA_NAME", "List all GROQ fields in the specified schema"
     def schema(schema_name)
       s = get_schema(schema_name)
+      return if s['type'] != 'document' and s['type'] != 'object'
       puts "const #{s['name']}Fields = `"
       puts "  ...,"
       s['fields'].each do |f|
@@ -28,7 +29,9 @@ class Webgum < Thor
             puts "    _type == '#{ to_item['type'] }' => @{ ${#{ to_item['type'] }Fields} },"
           end
           puts "  },"
-        elsif f['type'] == 'array'
+        elsif f['type'] == 'array' or f['type'] =~ /Array$/
+          array_type = get_schema(f['type'])
+          f['of'] = array_type['of'] if array_type and array_type['of']
           puts "  \"#{f['name']}\": #{f['name']}[]{"
           f['of'].each do |of_item|
             if of_item['type'] == 'reference'

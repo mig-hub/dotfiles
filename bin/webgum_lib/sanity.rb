@@ -63,7 +63,7 @@ class Webgum < Thor
       puts "  title: \"#{ label }\","
       puts "  name: '#{ s['name'] }',"
       puts "  type: '#{ s['type'] || 'document' }',"
-      fields(s)
+      fields(s) if s['fields'].is_a?(Array)
       schema_defaults(s)
       preview(s)
       puts "}"
