@@ -29,9 +29,11 @@ class Webgum < Thor
             puts "    _type == '#{ to_item['type'] }' => @{ ${#{ to_item['type'] }Fields} },"
           end
           puts "  },"
-        elsif f['type'] == 'array' or f['type'] =~ /Array$/
-          array_type = get_schema(f['type'])
-          f['of'] = array_type['of'] if array_type and array_type['of']
+        elsif f['type'] == 'array' or f['type'] =~ /.+Array$/
+          if f['type'] =~ /.+Array$/
+            array_type = get_schema(f['type'])
+            f['of'] = array_type['of'] if array_type and array_type['of']
+          end
           puts "  \"#{f['name']}\": #{f['name']}[]{"
           f['of'].each do |of_item|
             if of_item['type'] == 'reference'
@@ -41,7 +43,12 @@ class Webgum < Thor
               end
               puts "    },"
             else
-              puts "    _type == '#{ of_item['type'] }' => @{ ${#{ of_item['type'] }Fields} },"
+              is_basic_type = of_item['type'] == 'string' or of_item['type'] == 'text' or of_item['type'] == 'number'
+              if is_basic_type
+                puts "    _type == '#{ of_item['type'] }' => @{ ... },"
+              else
+                puts "    _type == '#{ of_item['type'] }' => @{ ${#{ of_item['type'] }Fields} },"
+              end
             end
           end
           puts "  },"
