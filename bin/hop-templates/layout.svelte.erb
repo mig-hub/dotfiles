@@ -26,14 +26,16 @@
     states.breakpoint = getBreakpoint();
   };
 
-  import { onNavigate } from '$app/navigation';
+  import { onNavigate, disableScrollHandling } from '$app/navigation';
 
   onNavigate((navigation) => {
     if (!document.startViewTransition || navigation.type === 'goto') return;
+    disableScrollHandling();
     return new Promise((resolve) => {
       document.startViewTransition(async () => {
         resolve();
         await navigation.complete;
+        window.scrollTo({ top: 0, behavior: 'instant' });
       });
     });
   });
