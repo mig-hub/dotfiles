@@ -30,12 +30,13 @@
 
   onNavigate((navigation) => {
     if (!document.startViewTransition || navigation.type === 'goto') return;
-    disableScrollHandling();
+    let prevScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
     return new Promise((resolve) => {
       document.startViewTransition(async () => {
         resolve();
         await navigation.complete;
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        document.documentElement.style.scrollBehavior = prevScrollBehavior;
       });
     });
   });
