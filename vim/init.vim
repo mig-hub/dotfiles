@@ -41,6 +41,13 @@ Plug 'lee-jon/vim-io'
 Plug 'Shougo/context_filetype.vim'
 call plug#end()
 
+" lua << EOF
+" require("nvim-treesitter.configs").setup({
+"   ensure_installed = { "astro", "typescript", "tsx", "css", "html" },
+"   highlight = { enable = true },
+" })
+" EOF
+
 " ============
 " Color Scheme
 " ============
@@ -425,6 +432,7 @@ augroup Misc
   autocmd BufNewFile *.url silent! 0r ~/.dotfiles/skeletons/default.url
   " autocmd BufNewFile *.svelte silent! 0r ~/.dotfiles/skeletons/default.svelte
   autocmd BufWritePre *.svelte call sveltekit#ImportAllComponents()
+  autocmd BufWritePre *.astro call astro#ImportAllComponents()
   " Hide matching parens in insert mode
   autocmd InsertEnter * NoMatchParen
   autocmd VimEnter,InsertLeave * DoMatchParen

@@ -1,0 +1,27 @@
+extends scss
+snippet component
+	import ${1} from "../components/${1}.astro";${0}
+snippet props
+	let {
+		${0}
+	} = Astro.props;
+snippet #if
+	{#if ${1}}
+		${0}
+	{/if}
+snippet :else
+	{:else${1}}
+		${0}
+snippet each
+	{ ${1}.map(( ${2} ) => (
+		${0}
+	))}
+snippet slot
+	<slot${1}/>
+snippet meta-description
+	<meta name="description" content={ ${1} } />
+snippet if-meta-description
+	{ ${1}?.length && (
+		<meta name="description" content={ ${1/?//g} } />
+	))}${0}
+
