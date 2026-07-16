@@ -156,6 +156,7 @@ class Webgum < Thor
               isNot:
                 - video
           - name: imagePortrait
+            label: Image alternative for mobile
             type: image
             hiddenIf:
               field: fileType
@@ -163,6 +164,7 @@ class Webgum < Thor
                 - image
             description: Optional
           - name: videoPortrait
+            label: Video alternative for mobile
             type: file
             hiddenIf:
               field: fileType
