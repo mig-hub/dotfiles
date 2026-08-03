@@ -1,8 +1,8 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import { dirname, resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
-import path from "path";
-const pathSrc = path.resolve(__dirname, "./src");
+const pathSrc = resolve(import.meta.dirname, "./src");
 
 export default defineConfig({
   css: {
