@@ -24,6 +24,7 @@ set notermguicolors
 " Primary highlighting groups
 
 highlight Normal ctermfg=7
+highlight Title ctermfg=4
 highlight Comment ctermfg=8
 highlight Constant ctermfg=4
 highlight Statement ctermfg=3
