@@ -15,7 +15,11 @@ class Webgum < Thor
       end
       config['schemas'].each do |s|
         stdout_to("./schemaTypes/#{s['name']}.ts") do
-          schema(s['name'])
+          if s['type'] == 'document' or s['type'] == 'object'
+            schema(s['name'])
+          elsif s['type'] == 'array'
+            array_schema(s['name'])
+          end
         end
       end
       stdout_to('./schemaTypes/utils.ts') do
@@ -42,6 +46,19 @@ class Webgum < Thor
       puts
       puts_portable_text_preview
       puts
+    end
+
+    desc "array_schema SCHEMA_NAME", "Print a array schema definition"
+    def array_schema schema_name
+      s = get_schema(schema_name)
+      label = s.fetch( 'label', label_for( s['name'] ) )
+      puts "export default {"
+      puts "  title: \"#{ label }\","
+      puts "  name: '#{ s['name'] }',"
+      puts "  type: 'array',"
+      print "  of: "
+      puts javascript_object(s['of'], 1) + ","
+      puts "}"
     end
 
     desc "schema SCHEMA_NAME", "Print a schema definition"
