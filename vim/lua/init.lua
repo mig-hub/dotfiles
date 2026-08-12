@@ -11,5 +11,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 require('setuporgmode')
 
-require("CopilotChat").setup()
+require("CopilotChat").setup({
+  model = "claude-haiku-4.5",
+})
 
