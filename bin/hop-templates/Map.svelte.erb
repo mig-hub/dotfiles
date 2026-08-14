@@ -24,9 +24,9 @@
       container,
       style: 'mapbox://styles/mapbox/light-v10',
       center: {lon, lat},
+      scrollZoom: { ctrl: true },
       zoom,
     });
-    map.scrollZoom.disable();
     map.addControl( new mapbox.NavigationControl() );
     map.on('click', (e) => {
       console.log( e.lngLat.wrap() );
