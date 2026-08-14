@@ -152,6 +152,9 @@ class Webgum < Thor
         if f['options'].key?('disableNew') && f['options']['disableNew'] == true
           puts "        disableNew: true,"
         end
+        if f['options'].key?('disableActions')
+          puts "        disableActions: [#{ f['options']['disableActions'].map{|v| "'#{ v }'"}.join(', ') }],"
+        end
         opts_list( s, f )
         opts_slug_source( s, f )
         puts "      },"
