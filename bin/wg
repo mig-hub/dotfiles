@@ -1,0 +1,14 @@
+#!/usr/bin/env nu
+
+# Start to re-implement webgum in nushell
+
+const srcdir = path self wg.d
+
+source ( $srcdir | path join utils.nu )
+source ( $srcdir | path join main.nu )
+source ( $srcdir | path join sanity.nu )
+
+def main [] {
+  config
+}
+
