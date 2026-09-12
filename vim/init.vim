@@ -92,6 +92,7 @@ set linebreak
 set breakindent
 set showmatch
 set number
+set relativenumber
 set mouse=a
 set nofoldenable
 set timeoutlen=1000 ttimeoutlen=0
