@@ -26,3 +26,11 @@ snippet drawer
 			visibility: visible;
 		}
 	}
+snippet columns
+	grid-template-columns: repeat( ${1:12}, minmax(0,1fr) );
+snippet repeat
+	repeat( ${1:12}, minmax(0,1fr) )
+snippet gap
+	gap: var(--gutter);
+snippet --
+	var(--${1:page-margin})
