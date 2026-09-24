@@ -423,6 +423,8 @@ export CLICOLOR=1
 export LSCOLORS="exfxbxdxcxegedabagacad"
 export LS_COLORS="di=34:ex=32:ln=35:or=31"
 
+export FZF_DEFAULT_OPTS='--color=16'
+
 try-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 try-source ~/.fzf.zsh
 try-source ~/.cargo/env
