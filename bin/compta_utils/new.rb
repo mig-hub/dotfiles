@@ -19,6 +19,7 @@ module Compta
   ]
 
   def default_doc type
+    # Not book entry
     potential_id = next_doc_id type
     {
       id: potential_id,
@@ -38,6 +39,7 @@ module Compta
   end
 
   def new_doc type
+    # Not book entry
     doc = default_doc type
 
     print "ID ( or '#{ doc[:id] }' ) : "
@@ -210,6 +212,57 @@ module Compta
     $compta_return
   end
 
+  def book_entry_manual
+    date_string = date_to_string Time.now
+    doc = {
+      id: "#{ date_string }--",
+      payment_date: date_string,
+      invoice_number: "",
+      client_name: "",
+      transaction_reference: "",
+      amount: "",
+      payment_method: PAYMENT_METHODS[0],
+    }
+
+    ls_clients
+    print "Client ID ( pick a digit or blank for new client ) : "
+    client_index_str = STDIN.gets.chomp
+    if client_index_str == ''
+      print "Client name : "
+      doc[:client_name] = STDIN.gets.chomp
+    elsif client_index_str =~ /^\d+$/
+      client = $compta_config[:clients][client_index_str.to_i]
+      if client.nil?
+        puts "Unknown client: digit out of range.".red
+      else
+        doc[:client_name] = client[:client_name]
+      end
+    else
+      puts "Unknown client: digit or blank for new client expected.".red
+    end
+
+    print "Title ( e.g. 'Website for Company.com' ) : "
+    doc[:transaction_reference] = STDIN.gets.chomp
+
+    print "Amount ( e.g. 140, 12.5K, 2h, 3:45 ) : "
+    doc[:amount] = string_to_price( STDIN.gets.chomp )
+
+    # Ask for invoice_id until it is of the form `\d\d\d\d-\d\d-\d\d\d`
+    loop do
+      print "Invoice number in the form 'YYYY-MM-001' ( e.g. 2024-01-001 ) : "
+      invoice_number = STDIN.gets.chomp
+      if invoice_number =~ /^\d\d\d\d-\d\d-\d\d\d$/
+        doc[:invoice_number] = invoice_number
+        doc[:id] = "#{ doc[:payment_date] }--#{ doc[:invoice_number] }"
+        break
+      else
+        puts "Error: Malformed invoice number `#{ invoice_number }`, it should be of the form `yyyy-mm-xxx` where `xxx` is a 3-digit incremental number.".red
+      end
+    end
+
+    return doc
+  end
+
   def book_entry_for invoice
     date_string = date_to_string Time.now
     {
@@ -223,16 +276,20 @@ module Compta
     }
   end
 
-  def new_book_entry invoice_number, invoice_year=Time.now.year
+  def new_book_entry invoice_number=nil, invoice_year=Time.now.year
+    doc = nil
+    invoice = nil
 
-    invoice = load_doc :invoice, invoice_number, invoice_year
-
-    if invoice.nil?
-      puts "Cannot find invoice number #{ invoice_number } in year #{ invoice_year }.".red
-      return $compta_return
+    if invoice_number.nil?
+      doc = book_entry_manual
+    else
+      invoice = load_doc :invoice, invoice_number, invoice_year
+      if invoice.nil?
+        puts "Cannot find invoice number #{ invoice_number } in year #{ invoice_year }.".red
+        return $compta_return
+      end
+      doc = book_entry_for invoice
     end
-
-    doc = book_entry_for invoice
 
     print "Payment Date ( or '#{ doc[:payment_date] }' ) : "
     date = STDIN.gets.chomp
@@ -263,9 +320,11 @@ module Compta
 
     if confirm "Would you like to save this new book entry ?".yellow
       save_doc :book_entry, doc
-      if confirm "Would you like to mark the invoice as 'fully paid' ?".yellow
-        invoice[:status] = STATUS_OPTIONS_INVOICE.last
-        save_doc :invoice, invoice
+      if invoice
+        if confirm "Would you like to mark the invoice as 'fully paid' ?".yellow
+          invoice[:status] = STATUS_OPTIONS_INVOICE.last
+          save_doc :invoice, invoice
+        end
       end
     end
 
