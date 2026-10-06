@@ -48,7 +48,6 @@ init-sveltekit() {
     npm install -D sass
     npm install -D smoothscroll-polyfill
     git commit -am "Add base dependencies"
-    template svelte.config.js > svelte.config.js
     template vite.config.js > vite.config.js
     mkdir -p src/styles
     template utils.scss > src/styles/utils.scss

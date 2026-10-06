@@ -2,7 +2,7 @@
 
   import { browser } from '$app/environment'
   import { onMount, getContext } from 'svelte';
-  import { mapbox } from '$lib/mapbox.js';
+  import { mapbox } from '#lib/mapbox.js';
 
   const { getMap } = getContext( 'maps' );
   const map = getMap();
