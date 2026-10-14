@@ -316,6 +316,7 @@ alias now='date +"%H:%M"'
 alias week='date +%V'
 alias src='source ~/.zshrc'
 alias psg='ps aux | grep'
+alias ns='nslookup -type=ns'
 alias rsync-synchronize="rsync -avzu --delete --progress -h" # src dst
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ifconfig | awk '\''$1=="inet" && $5=="broadcast" {print $2}'\'''
