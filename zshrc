@@ -326,8 +326,8 @@ alias gsm='git submodule'
 alias gp='git push'
 alias gl='git pull'
 for r in nas heroku github web origin admin staging; do
-  alias "gp${r:0:1}"="git push ${r}"
-  alias "gl${r:0:1}"="git pull ${r}"
+  # alias "gp${r:0:1}"="git push ${r}"
+  # alias "gl${r:0:1}"="git pull ${r}"
   alias "gp${r:0:1}m"="git push ${r} main"
   alias "gl${r:0:1}m"="git pull ${r} main"
 done
